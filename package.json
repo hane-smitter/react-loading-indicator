@@ -1,0 +1,17 @@
+{
+  "name": "react_spinners",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "zacky",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/react": "^18.0.20",
+    "react": "^18.2.0",
+    "typescript": "^4.8.3"
+  }
+}
