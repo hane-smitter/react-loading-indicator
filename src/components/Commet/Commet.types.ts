@@ -1,8 +1,8 @@
-import { MouseEventHandler } from "react";
+import React from "react";
 export interface CommetProps {
-//   text?: string,
-  // primary?:boolean,
+  color?: [string, string];
+  size?: "small" | "medium" | "large";
+  style?: React.CSSProperties;
   // disabled?: boolean,
-  // size?: "small" | "medium" | "large",
   // onClick?: MouseEventHandler<HTMLButtonElement>
 }
