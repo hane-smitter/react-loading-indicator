@@ -14,40 +14,33 @@ const Commet = (props: CommetProps) => {
 
   // Sizes
   const size: string = props?.size || "";
-  let correlation: number = 1;
+  let fontSize: string = "";
   switch (size) {
     case "small":
-      correlation = 0.9;
+      fontSize = "12px";
       break;
     case "medium":
-      correlation = 1.2;
+      fontSize = "16px";
       break;
     case "large":
-      correlation = 1.5;
+      fontSize = "20px";
       break;
   }
 
-  // if (props?.style?.height) {
-  //   props?.style?.height = `calc(${correlation} * ${props?.style?.height})`;
-  // }
-  // if (props?.style?.width) {
-  //   props?.style?.width = `calc(${correlation} * ${props?.style?.width})`;
-  // }
-
   return (
-    <div
-      className="loader"
-      style={{
-        ...(correlation &&
-          ({ "--correlation": correlation } as React.CSSProperties)),
-        ...props?.style,
-      }}
-    >
-      <div className="ring ring1" style={{ ...ring1Color }}>
-        <div className="ringball"></div>
-      </div>
-      <div className="ring ring2" style={{ ...ring2Color }}>
-        <div className="ringball"></div>
+    <div className="bounding" style={{ ...(fontSize && { fontSize }) }}>
+      <div
+        className="loader"
+        style={{
+          ...props?.style,
+        }}
+      >
+        <div className="ring ring1" style={{ ...ring1Color }}>
+          <div className="ringball"></div>
+        </div>
+        <div className="ring ring2" style={{ ...ring2Color }}>
+          <div className="ringball"></div>
+        </div>
       </div>
     </div>
   );

@@ -1,68 +1,76 @@
-.loader {
-    --correlation: 1;
-    width: calc(var(--correlation) * 100px);
-    height: calc(var(--correlation) * 100px); //20em
-    font-size: calc(var(--correlation) * 10px);
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.bounding {
+    font-size: 16px;
 
-    .ring {
-        position: absolute;
-        border-radius: 50%;
-        border-style: solid;
-        animation: animate 3s linear infinite;
+    .loader {
+        width: 5em;
+        height: 5em;
+        font-size: 0.8em;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        // background-color: slateblue;
 
-        &.ring1 {
-            --deg: -45deg;
-            width: 100%;
-            height: 100%;
-            color: gold;
-            border-color: currentColor transparent transparent currentColor;
-            border-width: 0.2em 0.2em 0em 0em;
-            animation-direction: normal;
-        }
-
-        &.ring2 {
-            --deg: -135deg;
-            width: 70%;
-            height: 70%;
-            color: lime;
-            border-color: currentColor currentColor transparent transparent;
-            border-width: 0.2em 0em 0em 0.2em;
-            animation-direction: reverse;
-        }
-
-        .ringball {
-            --scale: calc(var(--correlation) * 5px);
+        .ring {
+            --border-width: 0.3em;
             position: absolute;
-            width: 50%;
-            height: 2px;
-            top: 50%;
-            left: 50%;
-            background-color: transparent;
-            transform: rotate(var(--deg)) translateY(-50%);
-            transform-origin: left top;
-        }
-
-        .ringball::before {
-            content: "";
-            position: absolute;
-            top: 50%;
-            left: calc(100% - var(--scale));
-            transform: translateY(-50%);
-            width: calc(2 * var(--scale));
-            height: calc(2 * var(--scale));
-            background-color: currentColor;
             border-radius: 50%;
-            // box-shadow: 0 0 2em, 0 0 4em, 0 0 6em, 0 0 8em, 0 0 10em, 0 0 0 0.5em rgba(255, 255, 0, 0.1);
+            border-style: solid;
+            box-sizing: border-box;
+            animation: animate 2s linear infinite;
+
+            &.ring1 {
+                --deg: -45deg;
+                width: 100%;
+                height: 100%;
+                color: gold;
+                border-color: currentColor transparent transparent currentColor;
+                border-width: var(--border-width) var(--border-width) 0em 0em;
+                animation-direction: normal;
+            }
+
+            &.ring2 {
+                --deg: -135deg;
+                width: 70%;
+                height: 70%;
+                color: lime;
+                border-color: currentColor currentColor transparent transparent;
+                border-width: var(--border-width) 0em 0em var(--border-width);
+                animation-direction: reverse;
+            }
+
+            .ringball {
+                --scale: 0.33em;
+                position: absolute;
+                width: 50%;
+                height: 2px;
+                top: 50%;
+                left: 50%;
+                background-color: transparent;
+                transform: rotate(var(--deg)) translateY(-50%);
+                transform-origin: left center;
+                filter: blur(0.43px);
+            }
+
+            .ringball::before {
+                content: "";
+                position: absolute;
+                top: 50%;
+                // Adding border-width dimension to left which is set to zero; So that ball is appended in the middle of path
+                left: calc((100% - var(--scale)) + var(--border-width));
+                transform: translateY(-50%);
+                width: calc(2 * var(--scale));
+                height: calc(2 * var(--scale));
+                background-color: currentColor;
+                border-radius: 50%;
+                // box-shadow: 0 0 2em, 0 0 4em, 0 0 6em, 0 0 8em, 0 0 10em, 0 0 0 0.5em rgba(255, 255, 0, 0.1);
+            }
         }
     }
-}
 
-@keyframes animate {
-    to {
-        transform: rotate(1turn);
+    @keyframes animate {
+        to {
+            transform: rotate(1turn);
+        }
     }
 }

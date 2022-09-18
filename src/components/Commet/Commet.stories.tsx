@@ -13,7 +13,7 @@ export const Primary = Template.bind({});
 
 export const Secondary = Template.bind({});
 Secondary.args = {
-  color: ["rebeccapurple", "slateblue"],
+  color: ["rebeccapurple", "bisque"],
 };
 
 export const Small = Template.bind({});
