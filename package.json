@@ -3,8 +3,8 @@
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/react-loading-indicator"
   },
-  "version": "0.1.0",
-  "description": "A simple template for a custom React component library",
+  "version": "0.0.1",
+  "description": "A collection of loading indicators for your application",
   "scripts": {
     "build": "rollup -c",
     "test": "jest",
@@ -21,7 +21,7 @@
     "@mdx-js/react": "^2.1.2",
     "@rollup/plugin-commonjs": "^22.0.2",
     "@rollup/plugin-node-resolve": "^14.1.0",
-    "@rollup/plugin-typescript": "^8.3.0",
+    "@rollup/plugin-typescript": "8.3.0",
     "@storybook/addon-actions": "^6.5.12",
     "@storybook/addon-essentials": "^6.5.12",
     "@storybook/addon-interactions": "^6.5.12",

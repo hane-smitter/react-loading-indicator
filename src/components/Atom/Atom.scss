@@ -1,0 +1,107 @@
+.atom-bounding-box {
+  font-size: 16px;
+  display: inline-block;
+  box-sizing: border-box;
+
+  .atom-loader {
+    // create stacking context + relative positioning
+    position: relative;
+    z-index: 1;
+
+    // ratio 3:1
+    width: 6em;
+    height: 2em;
+    font-size: 1em;
+    color: lime;
+    letter-spacing: 0.8px;
+
+    .atom-text {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      // font-weight: 500;
+      width: 80%;
+      text-transform: uppercase;
+      text-align: center;
+      font-size: 0.7em;
+      // filter: invert(3%);
+
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+
+      z-index: -2;
+
+      // background-color: blue;
+    }
+
+    .orbit-holder {
+      color: currentColor;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      animation: animate var(--animate-duration) linear infinite;
+
+      &.orbit-holder-1 {
+        --animate-duration: 2.5s;
+      }
+      &.orbit-holder-2 {
+        --animate-duration: 1.5s;
+      }
+      &.orbit-holder-3 {
+        --animate-duration: 2.5s;
+      }
+
+      .orbit {
+        border-color: currentColor;
+        color: currentColor;
+        border-style: solid;
+        border-width: 0.3em;
+        border-radius: 50%;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        // animation: animate var(--animate-duration) linear infinite;
+
+        .electron {
+          position: absolute;
+          top: 100%;
+          height: 0.8em;
+          width: 0.8em;
+          background-color: currentColor;
+          border-radius: 50%;
+          box-shadow: 0 0 2em, 0 0 4em, 0 0 6em, 0 0 7em, 0 0 8em, 0 0 0 0.5em rgba(255, 255, 0, 0.01);
+        }
+
+        &.orbit1 {
+          position: absolute;
+          transform: rotate(45deg);
+
+          // animation: animate 2s linear infinite;
+        }
+
+        &.orbit2 {
+          position: absolute;
+          transform: rotate(0deg);
+          // animation: animate 3s linear infinite;
+
+          // display: none;
+        }
+
+        &.orbit3 {
+          position: absolute;
+          transform: rotate(135deg);
+          // animation: animate 3s linear infinite;
+          // display: none;
+        }
+      }
+    }
+  }
+}
+
+@keyframes animate {
+  to {
+    transform: rotate(1turn);
+  }
+}

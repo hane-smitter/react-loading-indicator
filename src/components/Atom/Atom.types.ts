@@ -1,6 +1,6 @@
 import React from "react";
-export interface CommetProps {
-  color?: [string, string];
+export interface AtomProps {
+  color?: string|string[];
   size?: "small" | "medium" | "large";
   style?: React.CSSProperties;
   text?: string | boolean;

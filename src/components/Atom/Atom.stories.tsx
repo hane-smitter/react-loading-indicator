@@ -1,20 +1,20 @@
 import React from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
-import { Commet } from "./Commet";
+import { Atom } from "./Atom";
 
 export default {
-  title: "rli/Commet",
-  component: Commet,
-} as ComponentMeta<typeof Commet>;
+  title: "rli/Atom",
+  component: Atom,
+} as ComponentMeta<typeof Atom>;
 
-const Template: ComponentStory<typeof Commet> = (args) => <Commet {...args} />;
+const Template: ComponentStory<typeof Atom> = (args) => <Atom {...args} />;
 
 export const Primary = Template.bind({});
 
 export const Secondary = Template.bind({});
 Secondary.args = {
-  color: ["rebeccapurple", "bisque"],
-  text: true,
+  color: "#b7ac9a",
+  text: true
 };
 
 export const Small = Template.bind({});
@@ -25,7 +25,6 @@ Small.args = {
 export const Medium = Template.bind({});
 Medium.args = {
   size: "medium",
-  textColor: "#ff0000"
 };
 
 export const Large = Template.bind({});

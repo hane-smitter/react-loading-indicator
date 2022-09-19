@@ -1,29 +1,51 @@
-.bounding {
+.commet-bounding-box {
     font-size: 16px;
+    display: inline-block;
+    box-sizing: border-box;
 
-    .loader {
-        width: 5em;
-        height: 5em;
+    .commet-loader {
+        width: 6em;
+        height: 6em;
         font-size: 0.8em;
+        color: lime;
         position: relative;
         display: flex;
         align-items: center;
         justify-content: center;
         // background-color: slateblue;
 
+        .commet-text {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            // font-weight: 500;
+            width: 80%;
+            text-transform: uppercase;
+            text-align: center;
+            font-size: 0.7em;
+            color: white;
+            // filter: invert(1);
+
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+
+            z-index: -2;
+        }
+
         .ring {
             --border-width: 0.3em;
             position: absolute;
             border-radius: 50%;
             border-style: solid;
-            box-sizing: border-box;
             animation: animate 2s linear infinite;
 
             &.ring1 {
                 --deg: -45deg;
                 width: 100%;
                 height: 100%;
-                color: gold;
+                color: currentColor;
                 border-color: currentColor transparent transparent currentColor;
                 border-width: var(--border-width) var(--border-width) 0em 0em;
                 animation-direction: normal;
@@ -33,7 +55,7 @@
                 --deg: -135deg;
                 width: 70%;
                 height: 70%;
-                color: lime;
+                color: currentColor;
                 border-color: currentColor currentColor transparent transparent;
                 border-width: var(--border-width) 0em 0em var(--border-width);
                 animation-direction: reverse;
