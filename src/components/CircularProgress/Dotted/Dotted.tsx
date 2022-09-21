@@ -27,14 +27,18 @@ const Dotted = (props: DottedProps) => {
       break;
   }
   // Setting size by specifying font-size in style attr
-  // Deleting font-size style propert since `bounding-box` class in JSX, is
+  // Deleting font-size style propert since `dot-bounding-box` class in JSX, is
   // the parent to set the fontsize which can be set with the `fontSize` variable.
   if (props?.style?.fontSize) {
     fontSize = props.style.fontSize;
     delete props?.style?.fontSize;
   }
+
   return (
-    <div className="dot-bounding-box" style={{ ...(fontSize && { fontSize }) }}>
+    <div
+      className="react-loading-indicator-normalize dot-bounding-box"
+      style={{ ...(fontSize && { fontSize }) }}
+    >
       <div
         className="fading-dot-loader"
         style={{ ...allDotsColor, ...props?.style }}
@@ -54,7 +58,12 @@ const Dotted = (props: DottedProps) => {
 
         <div
           className="fading-dot-text"
-          style={{ ...(props?.textColor && { color: props?.textColor }) }}
+          style={{
+            ...(props?.textColor && {
+              color: props?.textColor,
+              mixBlendMode: "unset",
+            }),
+          }}
         >
           {props?.text
             ? typeof props?.text === "string" && props?.text.length

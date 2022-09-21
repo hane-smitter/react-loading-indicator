@@ -9,7 +9,7 @@
     position: relative;
     z-index: 0;
     display: inline-block;
-    color: lime;
+    color: limegreen;
 
     .bubbledot-text {
       white-space: nowrap;
@@ -21,6 +21,7 @@
       font-size: 0.6em;
       letter-spacing: 0.5px;
       font-family: sans-serif;
+      mix-blend-mode: difference;
 
       position: absolute;
       top: 50%;

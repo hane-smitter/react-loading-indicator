@@ -5,7 +5,7 @@
   .disc-loader {
     width: 5em;
     height: 5em;
-    color: rgb(11, 143, 114);
+    color: limegreen;
     display: inline-block;
     position: relative;
 
@@ -33,6 +33,7 @@
       font-size: 0.6em;
       font-family: sans-serif;
       letter-spacing: 0.5px;
+      mix-blend-mode: difference;
       // filter: invert(3%);
 
       position: absolute;

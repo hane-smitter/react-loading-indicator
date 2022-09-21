@@ -1,76 +1,97 @@
-.sk-cube-grid {
-  width: 40px;
-  height: 40px;
-  margin: 100px auto;
+.mosaic-bounding-box {
+  box-sizing: border-box;
+  font-size: 16px;
+
+  .mosaic-loader {
+    width: 5em;
+    height: 5em;
+    // background-color: yellow;
+    color: limegreen;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-areas:
+      "a b c"
+      "d e f"
+      "g h i";
+
+    //create stacking context
+    position: relative;
+    z-index: 0;
+
+    .mosaic-cube-text {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      // font-weight: 500;
+      width: 80%;
+      text-transform: uppercase;
+      text-align: center;
+      font-size: 0.6em;
+      letter-spacing: 0.5px;
+      font-family: sans-serif;
+      mix-blend-mode: difference;
+      // filter: invert(1);
+
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+
+      z-index: -2;
+    }
+
+    .mosaic-cube {
+      background-color: currentColor;
+      animation: mosaic-animate 1.3s infinite ease-in-out;
+    }
+    .mosaic-cube1 {
+      animation-delay: 0.2s;
+      grid-area: a;
+    }
+    .mosaic-cube2 {
+      animation-delay: 0.3s;
+      grid-area: b;
+    }
+    .mosaic-cube3 {
+      grid-area: c;
+      animation-delay: 0.4s;
+    }
+    .mosaic-cube4 {
+      grid-area: d;
+      animation-delay: 0.1s;
+    }
+    .mosaic-cube5 {
+      grid-area: e;
+      animation-delay: 0.2s;
+    }
+    .mosaic-cube6 {
+      grid-area: f;
+      animation-delay: 0.3s;
+    }
+    .mosaic-cube7 {
+      grid-area: g;
+      animation-delay: 0s;
+    }
+    .mosaic-cube8 {
+      grid-area: h;
+      animation-delay: 0.1s;
+    }
+    .mosaic-cube9 {
+      grid-area: i;
+      animation-delay: 0.2s;
+    }
+  }
 }
 
-.sk-cube-grid .sk-cube {
-  width: 33%;
-  height: 33%;
-  background-color: #333;
-  float: left;
-  -webkit-animation: sk-cubeGridScaleDelay 1.3s infinite ease-in-out;
-  animation: sk-cubeGridScaleDelay 1.3s infinite ease-in-out;
-}
-.sk-cube-grid .sk-cube1 {
-  -webkit-animation-delay: 0.2s;
-  animation-delay: 0.2s;
-}
-.sk-cube-grid .sk-cube2 {
-  -webkit-animation-delay: 0.3s;
-  animation-delay: 0.3s;
-}
-.sk-cube-grid .sk-cube3 {
-  -webkit-animation-delay: 0.4s;
-  animation-delay: 0.4s;
-}
-.sk-cube-grid .sk-cube4 {
-  -webkit-animation-delay: 0.1s;
-  animation-delay: 0.1s;
-}
-.sk-cube-grid .sk-cube5 {
-  -webkit-animation-delay: 0.2s;
-  animation-delay: 0.2s;
-}
-.sk-cube-grid .sk-cube6 {
-  -webkit-animation-delay: 0.3s;
-  animation-delay: 0.3s;
-}
-.sk-cube-grid .sk-cube7 {
-  -webkit-animation-delay: 0s;
-  animation-delay: 0s;
-}
-.sk-cube-grid .sk-cube8 {
-  -webkit-animation-delay: 0.1s;
-  animation-delay: 0.1s;
-}
-.sk-cube-grid .sk-cube9 {
-  -webkit-animation-delay: 0.2s;
-  animation-delay: 0.2s;
-}
-
-@-webkit-keyframes sk-cubeGridScaleDelay {
+@keyframes mosaic-animate {
   0%,
   70%,
   100% {
-    -webkit-transform: scale3D(1, 1, 1);
     transform: scale3D(1, 1, 1);
+    // transform: scale(1, 1);
   }
   35% {
-    -webkit-transform: scale3D(0, 0, 1);
     transform: scale3D(0, 0, 1);
-  }
-}
-
-@keyframes sk-cubeGridScaleDelay {
-  0%,
-  70%,
-  100% {
-    -webkit-transform: scale3D(1, 1, 1);
-    transform: scale3D(1, 1, 1);
-  }
-  35% {
-    -webkit-transform: scale3D(0, 0, 1);
-    transform: scale3D(0, 0, 1);
+    // transform: scale(0, 0);
   }
 }

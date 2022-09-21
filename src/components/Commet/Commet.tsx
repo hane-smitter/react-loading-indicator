@@ -57,7 +57,15 @@ const Commet = (props: CommetProps) => {
           ...props?.style,
         }}
       >
-        <span className="commet-text" style={{ ...(props?.textColor && {color: props?.textColor}) }}>
+        <span
+          className="commet-text"
+          style={{
+            ...(props?.textColor && {
+              color: props?.textColor,
+              mixBlendMode: "unset",
+            }),
+          }}
+        >
           {props?.text
             ? typeof props?.text === "string" && props?.text.length
               ? props?.text

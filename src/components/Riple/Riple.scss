@@ -1,46 +1,84 @@
-.lds-ripple {
+.ripple-bounding-box {
+  box-sizing: border-box;
+  font-size: 16px;
   display: inline-block;
-  position: relative;
-  width: 80px;
-  height: 80px;
+
+  .ripple-loader {
+    display: inline-block;
+    width: 5em;
+    height: 5em;
+    color: limegreen;
+    // background-color: gray;
+
+    // Create stacking context
+    position: relative;
+    z-index: 0;
+
+    .ripple-text {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      // font-weight: 500;
+      width: 80%;
+      text-transform: uppercase;
+      text-align: center;
+      font-size: 0.6em;
+      letter-spacing: 0.5px;
+      font-family: sans-serif;
+      mix-blend-mode: difference;
+      // filter: invert(1);
+
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+
+      z-index: -2;
+    }
+
+    .ripple {
+      --border-width: 0.25em;
+      position: absolute;
+      border-width: var(--border-width);
+      border-style: solid;
+      border-color: currentColor;
+      opacity: 1;
+      border-radius: 50%;
+      animation: rippling 1s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+    }
+    .ripple:nth-child(2) {
+      animation-delay: -0.5s;
+    }
+  }
 }
-.lds-ripple div {
-  position: absolute;
-  border: 4px solid #fff;
-  opacity: 1;
-  border-radius: 50%;
-  animation: lds-ripple 1s cubic-bezier(0, 0.2, 0.8, 1) infinite;
-}
-.lds-ripple div:nth-child(2) {
-  animation-delay: -0.5s;
-}
-@keyframes lds-ripple {
+
+@keyframes rippling {
   0% {
-    top: 36px;
-    left: 36px;
-    width: 0;
-    height: 0;
+    top: calc(50% - var(--border-width));
+    left: calc(50% - var(--border-width));
+    right: calc(50% - var(--border-width));
+    bottom: calc(50% - var(--border-width));
     opacity: 0;
   }
   4.9% {
-    top: 36px;
-    left: 36px;
-    width: 0;
-    height: 0;
+    top: calc(50% - var(--border-width));
+    left: calc(50% - var(--border-width));
+    right: calc(50% - var(--border-width));
+    bottom: calc(50% - var(--border-width));
     opacity: 0;
   }
   5% {
-    top: 36px;
-    left: 36px;
-    width: 0;
-    height: 0;
+    top: calc(50% - var(--border-width));
+    left: calc(50% - var(--border-width));
+    right: calc(50% - var(--border-width));
+    bottom: calc(50% - var(--border-width));
     opacity: 1;
   }
   100% {
-    top: 0px;
-    left: 0px;
-    width: 72px;
-    height: 72px;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
     opacity: 0;
   }
 }

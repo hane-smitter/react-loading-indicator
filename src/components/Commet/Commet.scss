@@ -7,7 +7,7 @@
         width: 6em;
         height: 6em;
         font-size: 0.8em;
-        color: lime;
+        color: limegreen;
         position: relative;
         display: flex;
         align-items: center;
@@ -22,8 +22,10 @@
             width: 80%;
             text-transform: uppercase;
             text-align: center;
-            font-size: 0.7em;
-            color: white;
+            font-size: 0.6em;
+            letter-spacing: 0.5px;
+            font-family: sans-serif;
+            mix-blend-mode: difference;
             // filter: invert(1);
 
             position: absolute;

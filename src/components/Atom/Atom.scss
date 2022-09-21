@@ -9,10 +9,10 @@
     z-index: 1;
 
     // ratio 3:1
-    width: 6em;
-    height: 2em;
+    width: 5em;
+    height: 1.7em;
     font-size: 1em;
-    color: lime;
+    color: limegreen;
     letter-spacing: 0.8px;
 
     .atom-text {
@@ -23,7 +23,10 @@
       width: 80%;
       text-transform: uppercase;
       text-align: center;
-      font-size: 0.7em;
+      font-size: 0.6em;
+      letter-spacing: 0.5px;
+      font-family: sans-serif;
+      mix-blend-mode: difference;
       // filter: invert(3%);
 
       position: absolute;
@@ -47,7 +50,7 @@
         --animate-duration: 2.5s;
       }
       &.orbit-holder-2 {
-        --animate-duration: 1.5s;
+        --animate-duration: 1.3s;
       }
       &.orbit-holder-3 {
         --animate-duration: 2.5s;
@@ -57,12 +60,16 @@
         border-color: currentColor;
         color: currentColor;
         border-style: solid;
-        border-width: 0.3em;
+        border-width: 0.2em;
         border-radius: 50%;
         position: absolute;
         width: 100%;
         height: 100%;
         // animation: animate var(--animate-duration) linear infinite;
+
+        &:has(.electron) {
+          border-width: 0.3em;
+        }
 
         .electron {
           position: absolute;

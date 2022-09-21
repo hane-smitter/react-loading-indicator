@@ -3,7 +3,7 @@ import { ComponentStory, ComponentMeta } from "@storybook/react";
 import { Mosaic } from "./Mosaic";
 
 export default {
-  title: "rli/Atom",
+  title: "rli/Mosaic",
   component: Mosaic,
 } as ComponentMeta<typeof Mosaic>;
 

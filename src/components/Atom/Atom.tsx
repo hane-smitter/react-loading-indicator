@@ -52,7 +52,10 @@ const Atom = (props: AtomProps) => {
   }
 
   return (
-    <div className="atom-bounding-box" style={{ ...(fontSize && { fontSize }) }}>
+    <div
+      className="atom-bounding-box"
+      style={{ ...(fontSize && { fontSize }) }}
+    >
       <div
         className="atom-loader"
         style={{
@@ -72,7 +75,15 @@ const Atom = (props: AtomProps) => {
           <div className="orbit orbit3"></div>
         </div>
 
-        <span className="atom-text" style={{ ...(props?.textColor && {color: props?.textColor}) }}>
+        <span
+          className="atom-text"
+          style={{
+            ...(props?.textColor && {
+              color: props?.textColor,
+              mixBlendMode: "unset",
+            }),
+          }}
+        >
           {props?.text
             ? typeof props?.text === "string" && props?.text.length
               ? props?.text
