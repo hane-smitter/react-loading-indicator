@@ -5,8 +5,17 @@ import "./Disc.scss";
 const Disc = (props: DiscProps) => {
   /* Color SETTING */
   let ringColor: { color?: string } = {};
+  let ringColorArr: string[] = [];
+
   if (props?.color && typeof props?.color === "string") {
     ringColor = { color: props?.color };
+  } else if (props?.color?.length && props?.color instanceof Array) {
+    ringColorArr = props?.color;
+  }
+  if (ringColorArr.length > 0) {
+    // NOT supporting Individual ring coloring
+    const [allRings] = ringColorArr;
+    ringColor = { color: allRings };
   }
 
   /* Size SETTINGS */

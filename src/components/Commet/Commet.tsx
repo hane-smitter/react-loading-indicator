@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React from "react";
 import { CommetProps } from "./Commet.types";
 import "./Commet.scss";
 
@@ -7,21 +7,22 @@ const Commet = (props: CommetProps) => {
   // If Color property is a string, that is the color of all rings
   // If color property is an array, that is color for each rings
   let allRingsColor: { color?: string } = {};
-  let ringColors: string[] = [];
+  let ringColorsArr: string[] = [];
   let ring1Color: { color?: string } = {};
   let ring2Color: { color?: string } = {};
 
   if (props?.color && typeof props?.color === "string") {
     allRingsColor = { color: props?.color };
   } else if (props?.color?.length && props?.color instanceof Array) {
-    ringColors = props?.color;
+    ringColorsArr = props?.color;
   }
-  if (ringColors.length > 0) {
+  if (ringColorsArr.length > 0) {
+    const [ring1, ring2] = ringColorsArr;
     ring1Color = {
-      ...(ringColors[0] && { color: ringColors[0] }),
+      ...(ring1 && { color: ring1 }),
     };
     ring2Color = {
-      ...(ringColors[1] && { color: ringColors[1] }),
+      ...(ring2 && { color: ring2 }),
     };
   }
 

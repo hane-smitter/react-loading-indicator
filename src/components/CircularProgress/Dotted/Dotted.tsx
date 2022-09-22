@@ -7,9 +7,17 @@ const Dotted = (props: DottedProps) => {
   // If Color property is a string, that is the color of all rings
   // If color property is an array, that is color for each rings
   let allDotsColor: { color?: string } = {};
+  let DotsColorArr: string[] = [];
 
   if (props?.color && typeof props?.color === "string") {
     allDotsColor = { color: props?.color };
+  } else if (props?.color?.length && props?.color instanceof Array) {
+    DotsColorArr = props?.color;
+  }
+  if (DotsColorArr.length > 0) {
+    // NOT supporting Individual dot coloring
+    const [allDots] = DotsColorArr;
+    allDotsColor = { color: allDots };
   }
 
   /* Size SETTINGS */

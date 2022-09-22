@@ -7,9 +7,17 @@ const Seek = (props: AtomProps) => {
   // If Color property is a string, that is the color of all rings
   // If color property is an array, that is color for each rings
   let allSeekBouncesColor: { color?: string } = {};
+  let allSeekBouncesColorArr: string[] = [];
 
   if (props?.color && typeof props?.color === "string") {
     allSeekBouncesColor = { color: props?.color };
+  } else if (props?.color?.length && props?.color instanceof Array) {
+    allSeekBouncesColorArr = props?.color;
+  }
+  if (allSeekBouncesColorArr.length > 0) {
+    // NOT supporting Individual riples coloring
+    const [allSeekBounces] = allSeekBouncesColorArr;
+    allSeekBouncesColor = { color: allSeekBounces };
   }
 
   /* Size SETTINGS */
@@ -39,7 +47,10 @@ const Seek = (props: AtomProps) => {
       className="seek-bounding-box"
       style={{ ...(fontSize && { fontSize }) }}
     >
-      <div className="seek-loader" style={{ ...allSeekBouncesColor, ...props?.style }}>
+      <div
+        className="seek-loader"
+        style={{ ...allSeekBouncesColor, ...props?.style }}
+      >
         <div className="seek-bounce seek-bounce1"></div>
         <div className="seek-bounce seek-bounce2"></div>
         <div className="seek-bounce seek-bounce3"></div>

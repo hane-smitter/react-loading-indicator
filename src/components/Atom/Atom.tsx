@@ -7,7 +7,7 @@ const Atom = (props: AtomProps) => {
   // If Color property is a string, that is the color of all rings
   // If color property is an array, that is color for each rings
   let allRingsColor: { color?: string } = {};
-  let orbitColors: string[] = [];
+  let orbitColorsArr: string[] = [];
   let orbit1Color: { color?: string } = {};
   let orbit2Color: { color?: string } = {};
   let orbit3Color: { color?: string } = {};
@@ -15,17 +15,18 @@ const Atom = (props: AtomProps) => {
   if (props?.color && typeof props?.color === "string") {
     allRingsColor = { color: props?.color };
   } else if (props?.color?.length && props?.color instanceof Array) {
-    orbitColors = props?.color;
+    orbitColorsArr = props?.color;
   }
-  if (orbitColors.length > 0) {
+  if (orbitColorsArr.length > 0) {
+    const [orbit1, orbit2, orbit3] = orbitColorsArr;
     orbit1Color = {
-      ...(orbitColors[0] && { color: orbitColors[0] }),
+      ...(orbit1 && { color: orbit1 }),
     };
     orbit2Color = {
-      ...(orbitColors[1] && { color: orbitColors[1] }),
+      ...(orbit2 && { color: orbit2 }),
     };
     orbit3Color = {
-      ...(orbitColors[2] && { color: orbitColors[2] }),
+      ...(orbit3 && { color: orbit3 }),
     };
   }
 

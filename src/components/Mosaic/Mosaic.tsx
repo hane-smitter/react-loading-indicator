@@ -7,9 +7,17 @@ const Mosaic = (props: MosaicProps) => {
   // If Color property is a string, that is the color of all rings
   // If color property is an array, that is color for each rings
   let allTesseraeColor: { color?: string } = {};
+  let allTesseraeColorArr: string[] = [];
 
   if (props?.color && typeof props?.color === "string") {
     allTesseraeColor = { color: props?.color };
+  } else if (props?.color?.length && props?.color instanceof Array) {
+    allTesseraeColorArr = props?.color;
+  }
+  if (allTesseraeColorArr.length > 0) {
+    // NOT supporting Individual tesse coloring
+    const [allTesserae] = allTesseraeColorArr;
+    allTesseraeColor = { color: allTesserae };
   }
 
   /* Size SETTINGS */

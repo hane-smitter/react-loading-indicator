@@ -7,9 +7,17 @@ const Riple = (props: RipleProps) => {
   // If Color property is a string, that is the color of all rings
   // If color property is an array, that is color for each rings
   let allRiplesColor: { color?: string } = {};
+  let allRiplesColorArr: string[] = [];
 
   if (props?.color && typeof props?.color === "string") {
     allRiplesColor = { color: props?.color };
+  } else if (props?.color?.length && props?.color instanceof Array) {
+    allRiplesColorArr = props?.color;
+  }
+  if (allRiplesColorArr.length > 0) {
+    // NOT supporting Individual riples coloring
+    const [allRiples] = allRiplesColorArr;
+    allRiplesColor = { color: allRiples };
   }
 
   /* Size SETTINGS */

@@ -46,29 +46,35 @@
       height: 100%;
       animation: animate var(--animate-duration) linear infinite;
 
+      &:has(.electron) {
+        animation-direction: reverse;
+      }
+
       &.orbit-holder-1 {
-        --animate-duration: 2.5s;
+        --animate-duration: 2s;
       }
       &.orbit-holder-2 {
-        --animate-duration: 1.3s;
+        --animate-duration: 2.5s;
       }
       &.orbit-holder-3 {
-        --animate-duration: 2.5s;
+        --animate-duration: 2s;
       }
 
       .orbit {
+        --orbit-width-without-electron: 0.2em;
+        --orbit-width-with-electron: 0.3em;
         border-color: currentColor;
         color: currentColor;
         border-style: solid;
-        border-width: 0.2em;
+        border-width: var(--orbit-width-without-electron);
         border-radius: 50%;
         position: absolute;
         width: 100%;
         height: 100%;
-        // animation: animate var(--animate-duration) linear infinite;
 
-        &:has(.electron) {
-          border-width: 0.3em;
+        &:has(> .electron) {
+          border-width: var(--orbit-width-with-electron);
+          width: calc(100% - calc(2 * (var(--orbit-width-with-electron) - var(--orbit-width-without-electron))));
         }
 
         .electron {
@@ -83,24 +89,17 @@
 
         &.orbit1 {
           position: absolute;
-          transform: rotate(45deg);
-
-          // animation: animate 2s linear infinite;
+          transform: rotate(-45deg);
         }
 
         &.orbit2 {
           position: absolute;
           transform: rotate(0deg);
-          // animation: animate 3s linear infinite;
-
-          // display: none;
         }
 
         &.orbit3 {
           position: absolute;
-          transform: rotate(135deg);
-          // animation: animate 3s linear infinite;
-          // display: none;
+          transform: rotate(-135deg);
         }
       }
     }

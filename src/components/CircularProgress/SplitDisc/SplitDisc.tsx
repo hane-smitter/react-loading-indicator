@@ -17,13 +17,12 @@ const SplitDisc = (props: SplitDiscProps) => {
     ringColors = props?.color;
   }
   if (ringColors.length > 0) {
+    const [ring1, ring2] = ringColors;
     ring1Color = {
-      ...(ringColors[0] &&
-        ({ "--ring1-color": ringColors[0] } as React.CSSProperties)),
+      ...(ring1 && ({ "--ring1-color": ring1 } as React.CSSProperties)),
     };
     ring2Color = {
-      ...(ringColors[1] &&
-        ({ "--ring2-color": ringColors[1] } as React.CSSProperties)),
+      ...(ring2 && ({ "--ring2-color": ring2 } as React.CSSProperties)),
     };
   }
 
