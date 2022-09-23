@@ -3,6 +3,9 @@ import { CommetProps } from "./Commet.types";
 import "./Commet.scss";
 
 const Commet = (props: CommetProps) => {
+  // Styles
+  let styles: React.CSSProperties = props?.style || {};
+
   // color SETTINGS
   // If Color property is a string, that is the color of all rings
   // If color property is an array, that is color for each rings
@@ -41,25 +44,28 @@ const Commet = (props: CommetProps) => {
       break;
   }
   // Setting size by specifying font-size in style attr
-  if (props?.style?.fontSize) {
-    fontSize = props.style.fontSize;
-    delete props?.style?.fontSize;
-  }
+  // and modifying styles to exclude fontSize
+	if (props?.style?.fontSize) {
+		const { fontSize: extractedFontSize, ...extractedStyles } = props?.style;
+
+    styles = extractedStyles;
+		fontSize = extractedFontSize;
+	}
 
   return (
-    <div
-      className="commet-bounding-box"
+    <span
+      className="d-i-b commet-bounding-box"
       style={{ ...(fontSize && { fontSize }) }}
     >
-      <div
-        className="commet-loader"
+      <span
+        className="d-i-b commet-loader"
         style={{
           ...allRingsColor,
-          ...props?.style,
+          ...styles,
         }}
       >
         <span
-          className="commet-text"
+          className="d-i-b commet-text"
           style={{
             ...(props?.textColor && {
               color: props?.textColor,
@@ -74,14 +80,14 @@ const Commet = (props: CommetProps) => {
             : null}
         </span>
 
-        <div className="ring ring1" style={{ ...ring1Color }}>
-          <div className="ringball"></div>
-        </div>
-        <div className="ring ring2" style={{ ...ring2Color }}>
-          <div className="ringball"></div>
-        </div>
-      </div>
-    </div>
+        <span className="d-i-b ring ring1" style={{ ...ring1Color }}>
+          <span className="d-i-b ringball"></span>
+        </span>
+        <span className="d-i-b ring ring2" style={{ ...ring2Color }}>
+          <span className="d-i-b ringball"></span>
+        </span>
+      </span>
+    </span>
   );
 };
 

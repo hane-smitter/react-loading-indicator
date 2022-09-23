@@ -3,6 +3,9 @@ import { RipleProps } from "./Riple.types";
 import "./Riple.scss";
 
 const Riple = (props: RipleProps) => {
+  // Styles
+  let styles: React.CSSProperties = props?.style || {};
+
   /* Color SETTINGS */
   // If Color property is a string, that is the color of all rings
   // If color property is an array, that is color for each rings
@@ -35,27 +38,28 @@ const Riple = (props: RipleProps) => {
       break;
   }
   // Setting size by specifying font-size in style attr
-  // Deleting font-size style propert since `dot-bounding-box` class in JSX, is
-  // the parent to set the fontsize which can be set with the `fontSize` variable.
-  if (props?.style?.fontSize) {
-    fontSize = props.style.fontSize;
-    delete props?.style?.fontSize;
-  }
+  // and modifying styles to exclude fontSize
+	if (props?.style?.fontSize) {
+		const { fontSize: extractedFontSize, ...extractedStyles } = props?.style;
+
+    styles = extractedStyles;
+		fontSize = extractedFontSize;
+	}
 
   return (
-    <div
-      className="react-loading-indicator-normalize ripple-bounding-box"
+    <span
+      className="d-i-b react-loading-indicator-normalize ripple-bounding-box"
       style={{ ...(fontSize && { fontSize }) }}
     >
-      <div
-        className="ripple-loader"
-        style={{ ...allRiplesColor, ...props?.style }}
+      <span
+        className="d-i-b ripple-loader"
+        style={{ ...allRiplesColor, ...styles }}
       >
-        <div className="ripple"></div>
-        <div className="ripple"></div>
+        <span className="d-i-b ripple"></span>
+        <span className="d-i-b ripple"></span>
 
-        <div
-          className="ripple-text"
+        <span
+          className="d-i-b ripple-text"
           style={{
             ...(props?.textColor && {
               color: props?.textColor,
@@ -68,9 +72,9 @@ const Riple = (props: RipleProps) => {
               ? props?.text
               : "loading"
             : null}
-        </div>
-      </div>
-    </div>
+        </span>
+      </span>
+    </span>
   );
 };
 

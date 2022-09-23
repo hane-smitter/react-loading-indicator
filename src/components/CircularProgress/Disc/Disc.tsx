@@ -3,6 +3,9 @@ import { DiscProps } from "./Disc.types";
 import "./Disc.scss";
 
 const Disc = (props: DiscProps) => {
+  // Styles
+  let styles: React.CSSProperties = props?.style || {};
+
   /* Color SETTING */
   let ringColor: { color?: string } = {};
   let ringColorArr: string[] = [];
@@ -33,21 +36,23 @@ const Disc = (props: DiscProps) => {
       break;
   }
   // Setting size by specifying font-size in style attr
-  // Deleting font-size style propert since `bounding-box` class in JSX, is
-  // the parent to set the fontsize which can be set with the `fontSize` variable.
-  if (props?.style?.fontSize) {
-    fontSize = props.style.fontSize;
-    delete props?.style?.fontSize;
-  }
+  // and modifying styles to exclude fontSize
+	if (props?.style?.fontSize) {
+		const { fontSize: extractedFontSize, ...extractedStyles } = props?.style;
+
+    styles = extractedStyles;
+		fontSize = extractedFontSize;
+	}
+
   return (
-    <div
-      className="disc-bounding-box"
+    <span
+      className="d-i-b disc-bounding-box"
       style={{ ...(fontSize && { fontSize }) }}
     >
-      <div className="disc-loader" style={{ ...ringColor }}>
-        <div className="disc-ring"></div>
-        <div
-          className="disc-text"
+      <span className="d-i-b disc-loader" style={{ ...ringColor, ...styles }}>
+        <span className="d-i-b disc-ring"></span>
+        <span
+          className="d-i-b disc-text"
           style={{
             ...(props?.textColor && {
               color: props?.textColor,
@@ -60,9 +65,9 @@ const Disc = (props: DiscProps) => {
               ? props?.text
               : "loading"
             : null}
-        </div>
-      </div>
-    </div>
+        </span>
+      </span>
+    </span>
   );
 };
 

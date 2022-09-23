@@ -2,7 +2,10 @@ import React from "react";
 import { BubbleDottedProps } from "./BubbleDotted.types";
 import "./BubbleDotted.scss";
 
-const BubbleDotted = (props: BubbleDottedProps) => {
+let BubbleDotted = (props: BubbleDottedProps) => {
+  // Styles
+  let styles: React.CSSProperties = props?.style || {};
+
   /* Color SETTINGS */
   // If Color property is a string, that is the color of all rings
   // If color property is an array, that is color for each rings
@@ -35,36 +38,38 @@ const BubbleDotted = (props: BubbleDottedProps) => {
       break;
   }
   // Setting size by specifying font-size in style attr
-  // Deleting font-size style propert since `bounding-box` class in JSX, is
-  // the parent to set the fontsize which can be set with the `fontSize` variable.
-  if (props?.style?.fontSize) {
-    fontSize = props.style.fontSize;
-    delete props?.style?.fontSize;
-  }
+  // and modifying styles to exclude fontSize
+	if (props?.style?.fontSize) {
+		const { fontSize: extractedFontSize, ...extractedStyles } = props?.style;
+
+    styles = extractedStyles;
+		fontSize = extractedFontSize;
+	}
+
   return (
-    <div
-      className="bubbledot-bounding-box"
+    <span
+      className="d-i-b bubbledot-bounding-box"
       style={{ ...(fontSize && { fontSize }) }}
     >
-      <div
-        className="bubbledot-loader"
-        style={{ ...allDotsColor, ...props?.style }}
+      <span
+        className="d-i-b bubbledot-loader"
+        style={{ ...allDotsColor, ...styles }}
       >
-        <div className="bubbledot1 dot-child"></div>
-        <div className="bubbledot2 dot-child"></div>
-        <div className="bubbledot3 dot-child"></div>
-        <div className="bubbledot4 dot-child"></div>
-        <div className="bubbledot5 dot-child"></div>
-        <div className="bubbledot6 dot-child"></div>
-        <div className="bubbledot7 dot-child"></div>
-        <div className="bubbledot8 dot-child"></div>
-        <div className="bubbledot9 dot-child"></div>
-        <div className="bubbledot10 dot-child"></div>
-        <div className="bubbledot11 dot-child"></div>
-        <div className="bubbledot12 dot-child"></div>
+        <span className="d-i-b bubbledot1 dot-child"></span>
+        <span className="d-i-b bubbledot2 dot-child"></span>
+        <span className="d-i-b bubbledot3 dot-child"></span>
+        <span className="d-i-b bubbledot4 dot-child"></span>
+        <span className="d-i-b bubbledot5 dot-child"></span>
+        <span className="d-i-b bubbledot6 dot-child"></span>
+        <span className="d-i-b bubbledot7 dot-child"></span>
+        <span className="d-i-b bubbledot8 dot-child"></span>
+        <span className="d-i-b bubbledot9 dot-child"></span>
+        <span className="d-i-b bubbledot10 dot-child"></span>
+        <span className="d-i-b bubbledot11 dot-child"></span>
+        <span className="d-i-b bubbledot12 dot-child"></span>
 
-        <div
-          className="bubbledot-text"
+        <span
+          className="d-i-b bubbledot-text"
           style={{
             ...(props?.textColor && {
               color: props?.textColor,
@@ -77,9 +82,9 @@ const BubbleDotted = (props: BubbleDottedProps) => {
               ? props?.text
               : "loading"
             : null}
-        </div>
-      </div>
-    </div>
+        </span>
+      </span>
+    </span>
   );
 };
 

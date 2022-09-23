@@ -3,11 +3,15 @@ import { DottedProps } from "./Dotted.types";
 import "./Dotted.scss";
 
 const Dotted = (props: DottedProps) => {
+  // Styles
+  let styles: React.CSSProperties = props?.style || {};
+
   /* Color SETTINGS */
   // If Color property is a string, that is the color of all rings
   // If color property is an array, that is color for each rings
   let allDotsColor: { color?: string } = {};
   let DotsColorArr: string[] = [];
+  
 
   if (props?.color && typeof props?.color === "string") {
     allDotsColor = { color: props?.color };
@@ -35,37 +39,38 @@ const Dotted = (props: DottedProps) => {
       break;
   }
   // Setting size by specifying font-size in style attr
-  // Deleting font-size style propert since `dot-bounding-box` class in JSX, is
-  // the parent to set the fontsize which can be set with the `fontSize` variable.
-  if (props?.style?.fontSize) {
-    fontSize = props.style.fontSize;
-    delete props?.style?.fontSize;
-  }
+  // and modifying styles to exclude fontSize
+	if (props?.style?.fontSize) {
+		const { fontSize: extractedFontSize, ...extractedStyles } = props?.style;
+
+    styles = extractedStyles;
+		fontSize = extractedFontSize;
+	}
 
   return (
-    <div
-      className="react-loading-indicator-normalize dot-bounding-box"
+    <span
+      className="d-i-b react-loading-indicator-normalize dot-bounding-box"
       style={{ ...(fontSize && { fontSize }) }}
     >
-      <div
-        className="fading-dot-loader"
-        style={{ ...allDotsColor, ...props?.style }}
+      <span
+        className="d-i-b fading-dot-loader"
+        style={{ ...allDotsColor, ...styles }}
       >
-        <div className="fading-dot1 fading-dot"></div>
-        <div className="fading-dot2 fading-dot"></div>
-        <div className="fading-dot3 fading-dot"></div>
-        <div className="fading-dot4 fading-dot"></div>
-        <div className="fading-dot5 fading-dot"></div>
-        <div className="fading-dot6 fading-dot"></div>
-        <div className="fading-dot7 fading-dot"></div>
-        <div className="fading-dot8 fading-dot"></div>
-        <div className="fading-dot9 fading-dot"></div>
-        <div className="fading-dot10 fading-dot"></div>
-        <div className="fading-dot11 fading-dot"></div>
-        <div className="fading-dot12 fading-dot"></div>
+        <span className="d-i-b fading-dot1 fading-dot"></span>
+        <span className="d-i-b fading-dot2 fading-dot"></span>
+        <span className="d-i-b fading-dot3 fading-dot"></span>
+        <span className="d-i-b fading-dot4 fading-dot"></span>
+        <span className="d-i-b fading-dot5 fading-dot"></span>
+        <span className="d-i-b fading-dot6 fading-dot"></span>
+        <span className="d-i-b fading-dot7 fading-dot"></span>
+        <span className="d-i-b fading-dot8 fading-dot"></span>
+        <span className="d-i-b fading-dot9 fading-dot"></span>
+        <span className="d-i-b fading-dot10 fading-dot"></span>
+        <span className="d-i-b fading-dot11 fading-dot"></span>
+        <span className="d-i-b fading-dot12 fading-dot"></span>
 
-        <div
-          className="fading-dot-text"
+        <span
+          className="d-i-b fading-dot-text"
           style={{
             ...(props?.textColor && {
               color: props?.textColor,
@@ -78,9 +83,9 @@ const Dotted = (props: DottedProps) => {
               ? props?.text
               : "loading"
             : null}
-        </div>
-      </div>
-    </div>
+        </span>
+      </span>
+    </span>
   );
 };
 

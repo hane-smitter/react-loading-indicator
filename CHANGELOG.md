@@ -5,3 +5,8 @@
 - Add `CHANGELOG.md`.
 - Add `react` and `react-dom` to both peerDependencies and devDependencies.
 - Update `@rollup/plugin-typescript` to version `8.3.3`.
+
+# 0.0.4
+
+- Replace `div` tags with span style them with `display: inline-block;` class(`d-i-b`).
+- Add `styles` variable to hold values of `style` prop.
