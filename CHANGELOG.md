@@ -14,3 +14,7 @@
 # 0.0.5
 
 - Fix default export not being export from src/index.ts.
+
+# 0.0.6
+
+- Modify peer deps to react version **>=16.8.0**

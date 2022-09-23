@@ -1,6 +1,8 @@
 # @hane-smitter/react-loading-indicator
 
-A super _light-weight library_ providing a _collection of easy to use loading indicators_ for your React projects. Waiting for a response has to be fun🥳.
+A _light-weight library_ providing a _collection of easy to use loading indicators_ for your React projects. Waiting for a response has to be fun🥳.
+
+Compatible with **react version >=16.8.0**.
 
 ## Installation
 
