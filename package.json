@@ -3,7 +3,7 @@
 	"publishConfig": {
 		"registry": "https://npm.pkg.github.com/react-loading-indicator"
 	},
-	"version": "0.0.4",
+	"version": "0.0.5",
 	"description": "A collection of loading indicators for your application",
 	"scripts": {
 		"prebuild": "rm -rf dist",

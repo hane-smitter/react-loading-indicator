@@ -10,3 +10,7 @@
 
 - Replace `div` tags with span style them with `display: inline-block;` class(`d-i-b`).
 - Add `styles` variable to hold values of `style` prop.
+
+# 0.0.5
+
+- Fix default export not being export from src/index.ts.
