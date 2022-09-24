@@ -13,8 +13,16 @@
 
 # 0.0.5
 
-- Fix default export not being export from src/index.ts.
+- Fix default export not being exported from src/index.ts.
 
 # 0.0.6
 
 - Modify peer deps to react version **>=16.8.0**
+
+# 0.0.7
+
+- Add style fixes to `Atom` Component.
+- Update README.md.
+- Renamed package from `@hane-smitter/react-loading-indicator` to `react-loading-indicators`.
+- Removed `publishConfig` property from `package.json`.
+- Added `loaders` keyword to `package.json`.

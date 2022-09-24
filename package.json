@@ -1,9 +1,6 @@
 {
-	"name": "@hane-smitter/react-loading-indicator",
-	"publishConfig": {
-		"registry": "https://npm.pkg.github.com/react-loading-indicator"
-	},
-	"version": "0.0.6",
+	"name": "react-loading-indicators",
+	"version": "0.0.7",
 	"description": "A collection of loading indicators for your application",
 	"scripts": {
 		"prebuild": "rm -rf dist",
@@ -75,7 +72,8 @@
 		"loading",
 		"spinners",
 		"typescript",
-		"css loading"
+		"css loading",
+		"loaders"
 	],
 	"author": {
 		"name": "zacky",

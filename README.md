@@ -1,19 +1,19 @@
-# @hane-smitter/react-loading-indicator
+# react-loading-indicators
 
 A _light-weight library_ providing a _collection of easy to use loading indicators_ for your React projects. Waiting for a response has to be fun🥳.
 
-Compatible with **react version >=16.8.0**.
+Built with Typescript. Compatible with **react version >=16.8.0**.
 
 ## Installation
 
 ```
-npm i @hane-smitter/react-loading-indicator
+npm i react-loading-indicators
 ```
 
 or
 
 ```
-yarn add @hane-smitter/react-loading-indicator
+yarn add react-loading-indicators
 ```
 
 ## Components
@@ -34,7 +34,7 @@ yarn add @hane-smitter/react-loading-indicator
 
 ```jsx
 import React from "react";
-import { Atom } from "@hane-smitter/react-loading-indicator";
+import { Atom } from "react-loading-indicators";
 
 const Component = () => <Atom />;
 
@@ -45,10 +45,10 @@ export default Component;
 
 ```jsx
 import React from "react";
-import Spinner from "@hane-smitter/react-loading-indicator";
+import Loader from "react-loading-indicators";
 
 const Component = ({ variant, color, size }) => (
-  <Spinner variant={variant} color={color} size={size} />
+	<Loader variant={variant} color={color} size={size} />
 );
 
 export default Component;
@@ -58,15 +58,23 @@ export default Component;
 
 Each of these components will accept the following _optional props_.
 
-|   Name    |       DataType        | Default Value |
-| :-------: | :-------------------: | :-----------: |
-|   size    |       `string`        |    medium     |
-|   color   |  `string` or `array`  |   limegreen   |
-|   style   |       `object`        |    `null`     |
-|   text    | `string` or `boolean` |  `undefined`  |
-| textColor |       `string`        |  `undefined`  |
+|   Name    |       DataType        | Default Value |       Possible Values       |
+| :-------: | :-------------------: | :-----------: | :-------------------------: |
+|   size    |       `string`        |    medium     |    small, medium, large     |
+|   color   |  `string` or `array`  |   limegreen   |      CSS color values       |
+|   style   |       `object`        |    `null`     |         CSS styles          |
+|   text    | `string` or `boolean` |    `false`    | Boolean value or any string |
+| textColor |       `string`        |  `undefined`  |      CSS color values       |
 
-The `CircularProgress` component has an additional `variant` prop. Choose between variations of loader you want:
+#### What do these props do?
+
+- `size` - Sets the size of the loader.
+- `color` - Sets the color of the loader.
+- `style` - Applies CSS styles to the loader
+- `text` - Displays message in the loader.
+- `textColor` - Sets the color of text message in the loader.
+
+The `CircularProgress` component has an additional `variant` prop(_also optional_). Choose between variations of a circular loader that you want:
 
 |  Name   | DataType | Default Value |                 values                  |
 | :-----: | :------: | :-----------: | :-------------------------------------: |
@@ -74,7 +82,7 @@ The `CircularProgress` component has an additional `variant` prop. Choose betwee
 
 ### How to resize
 
-You can resize loader to suit your needs with the `size` prop that accepts predefined strings.<br>
+You can resize loader to fit into your needs with the `size` prop that accepts predefined strings.<br>
 You can customize the size further to your preferences by setting `fontSize` in the style prop of the loader. The style prop allows you to add your own css.
 
 ```jsx
