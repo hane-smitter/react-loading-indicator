@@ -12,11 +12,13 @@
         height: 6em;
         font-size: 0.8em;
         color: limegreen;
-        position: relative;
         display: flex;
         align-items: center;
         justify-content: center;
-        // background-color: slateblue;
+
+        // Create stacking context
+        position: relative;
+        z-index: 0;
 
         .commet-text {
             white-space: nowrap;

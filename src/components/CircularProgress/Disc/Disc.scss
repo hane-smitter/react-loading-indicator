@@ -11,7 +11,10 @@
     height: 5em;
     color: limegreen;
     display: inline-block;
+
+    // create stacking context
     position: relative;
+    z-index: 0;
 
     .disc-ring {
       width: 100%;

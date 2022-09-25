@@ -10,10 +10,12 @@
   .fading-dot-loader {
     width: 5em;
     height: 5em;
-    position: relative;
-    z-index: 0;
     color: limegreen;
     display: inline-block;
+    
+    // Create stacking context
+    position: relative;
+    z-index: 0;
 
     .fading-dot-text {
       white-space: nowrap;

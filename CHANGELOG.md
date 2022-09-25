@@ -26,3 +26,7 @@
 - Renamed package from `@hane-smitter/react-loading-indicator` to `react-loading-indicators`.
 - Removed `publishConfig` property from `package.json`.
 - Added `loaders` keyword to `package.json`.
+
+# 0.0.8
+
+- Fix Stacking Context issues in `Commet` and `Circular Progress`(Disc variant) components.
