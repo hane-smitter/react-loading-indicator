@@ -4,6 +4,8 @@ A _light-weight library_ providing a _collection of easy to use loading indicato
 
 Built with Typescript. Compatible with **react version >=16.8.0**.
 
+View [DEMO](https://react-loading-indicators.netlify.app/) to have a glimpse.
+
 ## Installation
 
 ```

@@ -30,3 +30,8 @@
 # 0.0.8
 
 - Fix Stacking Context issues in `Commet` and `Circular Progress`(Disc variant) components.
+
+# 0.0.9
+
+- Fix `split-disc` component width.
+- Add `homepage` property to `package.json`.
