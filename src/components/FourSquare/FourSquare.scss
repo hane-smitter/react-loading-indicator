@@ -8,21 +8,21 @@
     font-size: 16px;
 
     .foursquare-loader {
-        height: 100px;
-        width: 100px;
+        height: 6.25em;
+        width: 6.25em;
         &.small{
-            height:30px;
-            width:30px;
+            height:1.875em;
+            width:1.875em;
             animation: expandsmall 1s linear infinite;
         }
         &.medium{
-            height:50px;
-            width:50px;
+            height:3.125em;
+            width:3.125em;
             animation: expandmedium 1s linear infinite;
         }
         &.large{
-            height: 100px;
-            width: 100px;
+            height: 6.25em;
+            width: 6.25em;
             animation: expandlarge 1s linear infinite;
         }
         position: relative;
@@ -35,21 +35,21 @@
 
         span{
             position:absolute;
-            width:50px;
-            height:50px;
+            width: 3.125em;;
+            height: 3.125em;
             animation: square 1s both infinite;
 
             &.small{
-                height:15px;
-                width:15px;
+                height:0.9375em;
+                width:0.9375em;
             }
             &.medium{
-                height:25px;
-                width:25px;
+                height:1.5625em;
+                width:1.5625em;
             }
             &.large{
-                height: 50px;
-                width: 50px;
+                height: 3.125em;
+                width: 3.125em;
             }
             &:nth-child(1) {
                 top: 0;
@@ -92,82 +92,82 @@
 
 @keyframes expandlarge {
     0% {
-        width: 100px;
-        height: 100px;
+        width: 6.25em;
+        height: 6.25em;
     }
 
     10% {
-        width: 100px;
-        height: 100px;
+        width: 6.25em;
+        height: 6.25em;
     }
 
     50% {
-        width: 150px;
-        height: 150px;
+        width: 9.375em;
+        height: 9.375em;
     }
 
     90% {
-        width: 100px;
-        height: 100px;
+        width: 6.25em;
+        height: 6.25em;
     }
 
     100% {
-        width: 100px;
-        height: 100px;
+        width: 6.25em;
+        height: 6.25em;
     }
 }
 
 @keyframes expandmedium {
     0% {
-        width: 50px;
-        height: 50px;
+        width: 3.125em;
+        height: 3.125em;
     }
 
     10% {
-        width: 50px;
-        height: 50px;
+        width: 3.125em;
+        height: 3.125em;
     }
 
     50% {
-        width: 80px;
-        height: 80px;
+        width: 5em;
+        height: 5em;
     }
 
     90% {
-        width: 50px;
-        height: 50px;
+        width: 3.125em;
+        height: 3.125em;
     }
 
     100% {
-        width: 50px;
-        height: 50px;
+        width: 3.125em;
+        height: 3.125em;
     }
 }
 
 @keyframes expandsmall {
     0% {
-        width: 30px;
-        height: 30px;
+        width: 1.875em;
+        height: 1.875em;
     }
 
     10% {
-        width: 30px;
-        height: 30px;
+        width: 1.875em;
+        height: 1.875em;
     }
 
     50% {
-        width: 50px;
-        height: 50px;
+        width: 3.125em;
+        height: 3.125em;
     }
 
     90% {
-        width: 30px;
-        height: 30px;
+        width: 1.875em;
+        height: 1.875em;
     }
 
     100% {
-        width: 30px;
-        height: 30px;
+        width: 1.875em;
+        height: 1.875em;
     }
 }
 

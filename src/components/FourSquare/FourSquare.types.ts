@@ -1,5 +1,5 @@
 import React from "react";
 export interface FourSquareProps {
-	colors?: string[4];
+	colors?: string | string[];
 	size?: "small" | "medium" | "large";
 }

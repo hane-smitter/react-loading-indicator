@@ -6,10 +6,14 @@ export const FourSquare: React.FC<FourSquareProps> = (props) => {
 
     let colors;
 
+    console.log(typeof props.colors);
     if (props?.colors && props?.colors?.length === 4) {
         colors = props.colors;
-    } else {
-        colors = ["red", "blue", "green", "yellow"];
+    } else if(props.colors && typeof props.colors === "string") {
+        colors = new Array(4).fill(props.colors);
+        
+    } else{
+        colors = new Array(4).fill("limegreen");
     }
     const size: string = props?.size || "";
     
