@@ -1,8 +1,8 @@
 import React from "react";
-import { AtomProps } from "./Seek.types";
+import { SeekProps } from "./Seek.types";
 import "./Seek.scss";
 
-const Seek = (props: AtomProps) => {
+const Seek = (props: SeekProps) => {
 	// Styles
 	let styles: React.CSSProperties = props?.style || {};
 

@@ -1,8 +1,3 @@
-import React from "react";
-export interface DiscProps {
-	color?: string | string[];
-	size?: "small" | "medium" | "large";
-	style?: React.CSSProperties;
-	text?: string | boolean;
-	textColor?: string;
-}
+import { CommonProps } from "../../common.types";
+
+export interface DiscProps extends CommonProps {}

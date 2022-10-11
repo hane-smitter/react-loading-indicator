@@ -4,12 +4,12 @@ A _light-weight library_ providing a _collection of easy to use loading indicato
 
 Built with Typescript. Compatible with **react version >=16.8.0**.
 
-View [DEMO](https://react-loading-indicators.netlify.app/) to have a glimpse.
+View [DEMO](https://react-loading-indicators.netlify.app/).
 
 ## Installation
 
 ```
-npm i react-loading-indicators
+npm install react-loading-indicators
 ```
 
 or
@@ -21,12 +21,13 @@ yarn add react-loading-indicators
 ## Components
 
 ```jsx
-<Atom>
-<Commet>
-<CircularProgress> // Default import
-<Mosaic>
-<Riple>
-<Seek>
+<Atom />
+<Commet />
+<CircularProgress /> // Default import
+<FourSquare />
+<Mosaic />
+<Riple />
+<Seek />
 
 ```
 
@@ -76,7 +77,7 @@ Each of these components will accept the following _optional props_.
 - `text` - Displays message in the loader.
 - `textColor` - Sets the color of text message in the loader.
 
-The `CircularProgress` component has an additional `variant` prop(_also optional_). Choose between variations of a circular loader that you want:
+The `CircularProgress` component has a `variant` prop(_also optional_). Choose between variations of a circular loader that you want:
 
 |  Name   | DataType | Default Value |                 values                  |
 | :-----: | :------: | :-----------: | :-------------------------------------: |

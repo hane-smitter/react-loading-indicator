@@ -1,9 +1,8 @@
-import React from "react";
-export interface CircularProgressProps {
-	color?: string | string[];
-	size?: "small" | "medium" | "large";
-	style?: React.CSSProperties;
-	text?: string | boolean;
-	textColor?: string;
+import { CommonProps } from "../common.types";
+
+export interface CircularProgressProps extends CommonProps {
+	/**
+	 * variant of circular loader. Defaults to `disc`.
+	 */
 	variant?: "dotted" | "bubble-dotted" | "disc" | "split-disc";
 }
