@@ -8,168 +8,103 @@
     font-size: 16px;
 
     .foursquare-loader {
-        height: 100px;
-        width: 100px;
-        &.small{
-            height:30px;
-            width:30px;
-            animation: expandsmall 1s linear infinite;
-        }
-        &.medium{
-            height:50px;
-            width:50px;
-            animation: expandmedium 1s linear infinite;
-        }
-        &.large{
-            height: 100px;
-            width: 100px;
-            animation: expandlarge 1s linear infinite;
-        }
+        --dimension-unit: 5;
+
+        height: calc(var(--dimension-unit) * 1em);
+        width: calc(var(--dimension-unit) * 1em);
+        color: limegreen;
         position: relative;
-        font-size: 0.8em;
-        animation: expandlarge 1s linear infinite;
-        transform: rotate(45deg);
-        
+        font-size: 1em;
 
-        
+        .squares-container {
+            height: inherit;
+            width: inherit;
+            color: currentColor;
+            position: relative;
+            animation: expand 1s cubic-bezier(0.05, 0.28, 0.79, 0.98) infinite;
+            transform: rotate(45deg);
+        }
 
-        span{
-            position:absolute;
-            width:50px;
-            height:50px;
+        .foursquare-text {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            // font-weight: 500;
+            width: 80%;
+            text-transform: uppercase;
+            text-align: center;
+            font-size: 0.6em;
+            letter-spacing: 0.5px;
+            font-family: sans-serif;
+            mix-blend-mode: difference;
+            // filter: invert(3%);
+
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-30%, -50%);
+
+            z-index: -2;
+        }
+
+        .square {
+            position: absolute;
+            width: calc(var(--dimension-unit) / 2 * 1em);
+            height: calc(var(--dimension-unit) / 2 * 1em);
+            border-radius: 3px;
+            background-color: currentColor;
             animation: square 1s both infinite;
 
-            &.small{
-                height:15px;
-                width:15px;
-            }
-            &.medium{
-                height:25px;
-                width:25px;
-            }
-            &.large{
-                height: 50px;
-                width: 50px;
-            }
-            &:nth-child(1) {
+            &.square1 {
                 top: 0;
                 left: 0;
-                background-color: red;
-                
-            }
-    
-            &:nth-child(2) {
-                
-                top: 0;
-                right: 0;
-                background-color: blue;
-                
-            }
-    
-            &:nth-child(3) {
-               
-                bottom: 0;
-                left: 0;
-                background-color: yellow;
-                
-            }
-    
-            &:nth-child(4) {
-                
-                bottom: 0;
-                right: 0;
-                background-color: purple;
-                
             }
 
+            &.square2 {
+                top: 0;
+                right: 0;
+            }
+
+            &.square3 {
+                bottom: 0;
+                left: 0;
+            }
+
+            &.square4 {
+                bottom: 0;
+                right: 0;
+            }
         }
-
     }
-    
 }
 
-
-
-@keyframes expandlarge {
+@keyframes expand {
     0% {
-        width: 100px;
-        height: 100px;
+        width: calc(var(--dimension-unit) * 1em);
+        height: calc(var(--dimension-unit) * 1em);
     }
 
     10% {
-        width: 100px;
-        height: 100px;
+        width: calc(var(--dimension-unit) * 1em);
+        height: calc(var(--dimension-unit) * 1em);
     }
 
     50% {
-        width: 150px;
-        height: 150px;
+        width: calc(var(--dimension-unit) * 1em + 2em);
+        height: calc(var(--dimension-unit) * 1em + 2em);
     }
 
     90% {
-        width: 100px;
-        height: 100px;
+        width: calc(var(--dimension-unit) * 1em);
+        height: calc(var(--dimension-unit) * 1em);
     }
 
     100% {
-        width: 100px;
-        height: 100px;
+        width: calc(var(--dimension-unit) * 1em);
+        height: calc(var(--dimension-unit) * 1em);
     }
 }
 
-@keyframes expandmedium {
-    0% {
-        width: 50px;
-        height: 50px;
-    }
-
-    10% {
-        width: 50px;
-        height: 50px;
-    }
-
-    50% {
-        width: 80px;
-        height: 80px;
-    }
-
-    90% {
-        width: 50px;
-        height: 50px;
-    }
-
-    100% {
-        width: 50px;
-        height: 50px;
-    }
-}
-
-@keyframes expandsmall {
-    0% {
-        width: 30px;
-        height: 30px;
-    }
-
-    10% {
-        width: 30px;
-        height: 30px;
-    }
-
-    50% {
-        width: 50px;
-        height: 50px;
-    }
-
-    90% {
-        width: 30px;
-        height: 30px;
-    }
-
-    100% {
-        width: 30px;
-        height: 30px;
-    }
-}
 
 @keyframes square {
     0% {
@@ -183,7 +118,6 @@
     50% {
         transform: rotate(90deg);
     }
-   
 
     90% {
         transform: rotate(90deg);
@@ -192,5 +126,4 @@
     100% {
         transform: rotate(90deg);
     }
-
 }
