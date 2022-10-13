@@ -1,0 +1,34 @@
+# Create a new GitHub release when tags are pushed to the repository
+name: "Create Tagged Release"
+
+on:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  tagged-release:
+    name: "Create Tagged Release"
+    runs-on: "ubuntu-latest"
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          ref: stem
+      - name: Setup Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: "14.x"
+      - name: Install dependencies 📥
+        run: npm ci
+      - name: Build & Test package 🔧
+        run: npm run build && npm run test
+
+      - uses: "marvinpinto/action-automatic-releases@latest"
+        with:
+          repo_token: "${{ secrets.TAG_RELEASE_GITHUB_TOKEN }}"
+          prerelease: false
+          files: |
+            LICENSE
+            *.md
