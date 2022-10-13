@@ -58,39 +58,39 @@ const Atom = (props: AtomProps) => {
 
 	return (
 		<span
-			className=" d-i-b atom-bounding-box"
+			className="rli-d-i-b atom-bounding-box"
 			style={{ ...(fontSize && { fontSize }) }}
 		>
 			<span
-				className="d-i-b atom-loader"
+				className="rli-d-i-b atom-loader"
 				style={{
 					...allRingsColor,
 					...styles
 				}}
 			>
 				<span
-					className="d-i-b orbit-holder orbit-holder-1"
+					className="rli-d-i-b orbit-holder orbit-holder-1"
 					style={{ ...orbit1Color }}
 				>
-					<span className="d-i-b orbit orbit1"></span>
+					<span className="rli-d-i-b orbit orbit1"></span>
 				</span>
 				<span
-					className="d-i-b orbit-holder orbit-holder-2"
+					className="rli-d-i-b orbit-holder orbit-holder-2"
 					style={{ ...orbit2Color }}
 				>
-					<span className="d-i-b orbit orbit2">
-						<span className="d-i-b electron"></span>
+					<span className="rli-d-i-b orbit orbit2">
+						<span className="rli-d-i-b electron"></span>
 					</span>
 				</span>
 				<span
-					className="d-i-b orbit-holder orbit-holder-3"
+					className="rli-d-i-b orbit-holder orbit-holder-3"
 					style={{ ...orbit3Color }}
 				>
-					<span className="d-i-b orbit orbit3"></span>
+					<span className="rli-d-i-b orbit orbit3"></span>
 				</span>
 
 				<span
-					className="d-i-b atom-text"
+					className="rli-d-i-b atom-text"
 					style={{
 						...(props?.textColor && {
 							color: props?.textColor,

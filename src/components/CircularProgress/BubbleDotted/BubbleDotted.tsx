@@ -48,28 +48,28 @@ let BubbleDotted = (props: BubbleDottedProps) => {
 
   return (
     <span
-      className="d-i-b bubbledot-bounding-box"
+      className="rli-d-i-b bubbledot-bounding-box"
       style={{ ...(fontSize && { fontSize }) }}
     >
       <span
-        className="d-i-b bubbledot-loader"
+        className="rli-d-i-b bubbledot-loader"
         style={{ ...allDotsColor, ...styles }}
       >
-        <span className="d-i-b bubbledot1 dot-child"></span>
-        <span className="d-i-b bubbledot2 dot-child"></span>
-        <span className="d-i-b bubbledot3 dot-child"></span>
-        <span className="d-i-b bubbledot4 dot-child"></span>
-        <span className="d-i-b bubbledot5 dot-child"></span>
-        <span className="d-i-b bubbledot6 dot-child"></span>
-        <span className="d-i-b bubbledot7 dot-child"></span>
-        <span className="d-i-b bubbledot8 dot-child"></span>
-        <span className="d-i-b bubbledot9 dot-child"></span>
-        <span className="d-i-b bubbledot10 dot-child"></span>
-        <span className="d-i-b bubbledot11 dot-child"></span>
-        <span className="d-i-b bubbledot12 dot-child"></span>
+        <span className="rli-d-i-b bubbledot1 dot-child"></span>
+        <span className="rli-d-i-b bubbledot2 dot-child"></span>
+        <span className="rli-d-i-b bubbledot3 dot-child"></span>
+        <span className="rli-d-i-b bubbledot4 dot-child"></span>
+        <span className="rli-d-i-b bubbledot5 dot-child"></span>
+        <span className="rli-d-i-b bubbledot6 dot-child"></span>
+        <span className="rli-d-i-b bubbledot7 dot-child"></span>
+        <span className="rli-d-i-b bubbledot8 dot-child"></span>
+        <span className="rli-d-i-b bubbledot9 dot-child"></span>
+        <span className="rli-d-i-b bubbledot10 dot-child"></span>
+        <span className="rli-d-i-b bubbledot11 dot-child"></span>
+        <span className="rli-d-i-b bubbledot12 dot-child"></span>
 
         <span
-          className="d-i-b bubbledot-text"
+          className="rli-d-i-b bubbledot-text"
           style={{
             ...(props?.textColor && {
               color: props?.textColor,

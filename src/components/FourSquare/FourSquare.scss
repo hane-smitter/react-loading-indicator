@@ -1,11 +1,8 @@
-.d-i-b {
-    display: inline-block;
-}
-
 .foursquare-bounding-box {
     box-sizing: border-box;
     display: inline-block;
-    font-size: 16px;
+    font-size: 15px;
+    overflow: visible;
 
     .foursquare-loader {
         --dimension-unit: 5;
@@ -13,8 +10,10 @@
         height: calc(var(--dimension-unit) * 1em);
         width: calc(var(--dimension-unit) * 1em);
         color: limegreen;
-        position: relative;
         font-size: 1em;
+        // Create stacking context and relative positioning
+        position: relative;
+        z-index: 0;
 
         .squares-container {
             height: inherit;
@@ -23,6 +22,9 @@
             position: relative;
             animation: expand 1s cubic-bezier(0.05, 0.28, 0.79, 0.98) infinite;
             transform: rotate(45deg);
+            position: absolute;
+            top: 0;
+            left: 0;
         }
 
         .foursquare-text {

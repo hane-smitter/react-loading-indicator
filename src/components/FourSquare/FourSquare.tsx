@@ -62,11 +62,11 @@ export const FourSquare = (props: FourSquareProps) => {
 
 	return (
 		<span
-			className="d-i-b foursquare-bounding-box"
+			className="rli-d-i-b foursquare-bounding-box"
 			style={{ ...(fontSize && { fontSize }) }}
 		>
-			<span className={`d-i-b foursquare-loader`} style={{ ...allBoxesColor }}>
-				<span className="d-i-b squares-container">
+			<span className={`rli-d-i-b foursquare-loader`} style={{ ...allBoxesColor }}>
+				<span className="rli-d-i-b squares-container">
 					<span
 						className={`square square1`}
 						style={{ ...fourSquareBox1Color }}
@@ -86,7 +86,7 @@ export const FourSquare = (props: FourSquareProps) => {
 				</span>
 
 				<span
-					className="d-i-b foursquare-text"
+					className="rli-d-i-b foursquare-text"
 					style={{
 						...(props?.textColor && {
 							color: props?.textColor,

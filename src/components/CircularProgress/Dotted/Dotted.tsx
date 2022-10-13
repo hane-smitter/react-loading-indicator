@@ -49,28 +49,28 @@ const Dotted = (props: DottedProps) => {
 
   return (
     <span
-      className="d-i-b react-loading-indicator-normalize dot-bounding-box"
+      className="rli-d-i-b react-loading-indicator-normalize dot-bounding-box"
       style={{ ...(fontSize && { fontSize }) }}
     >
       <span
-        className="d-i-b fading-dot-loader"
+        className="rli-d-i-b fading-dot-loader"
         style={{ ...allDotsColor, ...styles }}
       >
-        <span className="d-i-b fading-dot1 fading-dot"></span>
-        <span className="d-i-b fading-dot2 fading-dot"></span>
-        <span className="d-i-b fading-dot3 fading-dot"></span>
-        <span className="d-i-b fading-dot4 fading-dot"></span>
-        <span className="d-i-b fading-dot5 fading-dot"></span>
-        <span className="d-i-b fading-dot6 fading-dot"></span>
-        <span className="d-i-b fading-dot7 fading-dot"></span>
-        <span className="d-i-b fading-dot8 fading-dot"></span>
-        <span className="d-i-b fading-dot9 fading-dot"></span>
-        <span className="d-i-b fading-dot10 fading-dot"></span>
-        <span className="d-i-b fading-dot11 fading-dot"></span>
-        <span className="d-i-b fading-dot12 fading-dot"></span>
+        <span className="rli-d-i-b fading-dot1 fading-dot"></span>
+        <span className="rli-d-i-b fading-dot2 fading-dot"></span>
+        <span className="rli-d-i-b fading-dot3 fading-dot"></span>
+        <span className="rli-d-i-b fading-dot4 fading-dot"></span>
+        <span className="rli-d-i-b fading-dot5 fading-dot"></span>
+        <span className="rli-d-i-b fading-dot6 fading-dot"></span>
+        <span className="rli-d-i-b fading-dot7 fading-dot"></span>
+        <span className="rli-d-i-b fading-dot8 fading-dot"></span>
+        <span className="rli-d-i-b fading-dot9 fading-dot"></span>
+        <span className="rli-d-i-b fading-dot10 fading-dot"></span>
+        <span className="rli-d-i-b fading-dot11 fading-dot"></span>
+        <span className="rli-d-i-b fading-dot12 fading-dot"></span>
 
         <span
-          className="d-i-b fading-dot-text"
+          className="rli-d-i-b fading-dot-text"
           style={{
             ...(props?.textColor && {
               color: props?.textColor,

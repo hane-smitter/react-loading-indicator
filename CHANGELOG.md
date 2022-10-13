@@ -35,3 +35,15 @@
 
 - Fix `split-disc` component width.
 - Add `homepage` property to `package.json`.
+
+# 0.0.10
+
+- Common props for all components.
+- New `FourSquare` loading indicator as a contribution.
+- Refactor `FourSquare` loader.
+
+# 0.0.11
+
+- Configure global styles for storybook
+- Fix text display on `FourSquare` loader
+- Remove duplicated `d-i-b` css class and add `rli-d-i-b` as a global style.

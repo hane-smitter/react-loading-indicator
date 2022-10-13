@@ -54,18 +54,18 @@ const Commet = (props: CommetProps) => {
 
   return (
     <span
-      className="d-i-b commet-bounding-box"
+      className="rli-d-i-b commet-bounding-box"
       style={{ ...(fontSize && { fontSize }) }}
     >
       <span
-        className="d-i-b commet-loader"
+        className="rli-d-i-b commet-loader"
         style={{
           ...allRingsColor,
           ...styles,
         }}
       >
         <span
-          className="d-i-b commet-text"
+          className="rli-d-i-b commet-text"
           style={{
             ...(props?.textColor && {
               color: props?.textColor,
@@ -80,11 +80,11 @@ const Commet = (props: CommetProps) => {
             : null}
         </span>
 
-        <span className="d-i-b ring ring1" style={{ ...ring1Color }}>
-          <span className="d-i-b ringball"></span>
+        <span className="rli-d-i-b ring ring1" style={{ ...ring1Color }}>
+          <span className="rli-d-i-b ringball"></span>
         </span>
-        <span className="d-i-b ring ring2" style={{ ...ring2Color }}>
-          <span className="d-i-b ringball"></span>
+        <span className="rli-d-i-b ring ring2" style={{ ...ring2Color }}>
+          <span className="rli-d-i-b ringball"></span>
         </span>
       </span>
     </span>

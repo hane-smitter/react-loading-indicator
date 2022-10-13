@@ -54,11 +54,11 @@ const SplitDisc = (props: SplitDiscProps) => {
 
 	return (
 		<span
-			className="d-i-b split-disc-bounding-box"
+			className="rli-d-i-b split-disc-bounding-box"
 			style={{ ...(fontSize && { fontSize }) }}
 		>
 			<span
-				className="d-i-b split-disc-loader"
+				className="rli-d-i-b split-disc-loader"
 				style={{
 					...allRingsColor,
 					...ring1Color,
@@ -66,9 +66,9 @@ const SplitDisc = (props: SplitDiscProps) => {
 					...styles
 				}}
 			>
-				<span className="d-i-b split-disc-ring"></span>
+				<span className="rli-d-i-b split-disc-ring"></span>
 				<span
-					className="d-i-b split-disc-text"
+					className="rli-d-i-b split-disc-text"
 					style={{
 						...(props?.textColor && {
 							color: props?.textColor,

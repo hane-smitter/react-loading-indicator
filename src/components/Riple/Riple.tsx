@@ -48,18 +48,18 @@ const Riple = (props: RipleProps) => {
 
   return (
     <span
-      className="d-i-b react-loading-indicator-normalize ripple-bounding-box"
+      className="rli-d-i-b react-loading-indicator-normalize ripple-bounding-box"
       style={{ ...(fontSize && { fontSize }) }}
     >
       <span
-        className="d-i-b ripple-loader"
+        className="rli-d-i-b ripple-loader"
         style={{ ...allRiplesColor, ...styles }}
       >
-        <span className="d-i-b ripple"></span>
-        <span className="d-i-b ripple"></span>
+        <span className="rli-d-i-b ripple"></span>
+        <span className="rli-d-i-b ripple"></span>
 
         <span
-          className="d-i-b ripple-text"
+          className="rli-d-i-b ripple-text"
           style={{
             ...(props?.textColor && {
               color: props?.textColor,

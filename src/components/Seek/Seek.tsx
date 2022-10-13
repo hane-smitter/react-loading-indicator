@@ -48,19 +48,19 @@ const Seek = (props: SeekProps) => {
 
 	return (
 		<span
-			className="d-i-b seek-bounding-box"
+			className="rli-d-i-b seek-bounding-box"
 			style={{ ...(fontSize && { fontSize }) }}
 		>
 			<span
-				className="d-i-b seek-loader"
+				className="rli-d-i-b seek-loader"
 				style={{ ...allSeekBouncesColor, ...styles }}
 			>
-				<span className="d-i-b seek-bounce seek-bounce1"></span>
-				<span className="d-i-b seek-bounce seek-bounce2"></span>
-				<span className="d-i-b seek-bounce seek-bounce3"></span>
+				<span className="rli-d-i-b seek-bounce seek-bounce1"></span>
+				<span className="rli-d-i-b seek-bounce seek-bounce2"></span>
+				<span className="rli-d-i-b seek-bounce seek-bounce3"></span>
 
 				<span
-					className="d-i-b seek-text"
+					className="rli-d-i-b seek-text"
 					style={{
 						...(props?.textColor && {
 							color: props?.textColor,

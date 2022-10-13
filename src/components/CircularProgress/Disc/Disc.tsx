@@ -46,13 +46,13 @@ const Disc = (props: DiscProps) => {
 
   return (
     <span
-      className="d-i-b disc-bounding-box"
+      className="rli-d-i-b disc-bounding-box"
       style={{ ...(fontSize && { fontSize }) }}
     >
-      <span className="d-i-b disc-loader" style={{ ...ringColor, ...styles }}>
-        <span className="d-i-b disc-ring"></span>
+      <span className="rli-d-i-b disc-loader" style={{ ...ringColor, ...styles }}>
+        <span className="rli-d-i-b disc-ring"></span>
         <span
-          className="d-i-b disc-text"
+          className="rli-d-i-b disc-text"
           style={{
             ...(props?.textColor && {
               color: props?.textColor,

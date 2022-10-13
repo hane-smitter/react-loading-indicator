@@ -51,25 +51,25 @@ const Mosaic = (props: MosaicProps) => {
 
   return (
     <span
-      className="d-i-b react-loading-indicator-normalize mosaic-bounding-box"
+      className="rli-d-i-b react-loading-indicator-normalize mosaic-bounding-box"
       style={{ ...(fontSize && { fontSize }) }}
     >
       <span
-        className="d-i-b mosaic-loader"
+        className="rli-d-i-b mosaic-loader"
         style={{ ...allTesseraeColor, ...styles }}
       >
-        <span className="d-i-b mosaic-cube mosaic-cube1"></span>
-        <span className="d-i-b mosaic-cube mosaic-cube2"></span>
-        <span className="d-i-b mosaic-cube mosaic-cube3"></span>
-        <span className="d-i-b mosaic-cube mosaic-cube4"></span>
-        <span className="d-i-b mosaic-cube mosaic-cube5"></span>
-        <span className="d-i-b mosaic-cube mosaic-cube6"></span>
-        <span className="d-i-b mosaic-cube mosaic-cube7"></span>
-        <span className="d-i-b mosaic-cube mosaic-cube8"></span>
-        <span className="d-i-b mosaic-cube mosaic-cube9"></span>
+        <span className="rli-d-i-b mosaic-cube mosaic-cube1"></span>
+        <span className="rli-d-i-b mosaic-cube mosaic-cube2"></span>
+        <span className="rli-d-i-b mosaic-cube mosaic-cube3"></span>
+        <span className="rli-d-i-b mosaic-cube mosaic-cube4"></span>
+        <span className="rli-d-i-b mosaic-cube mosaic-cube5"></span>
+        <span className="rli-d-i-b mosaic-cube mosaic-cube6"></span>
+        <span className="rli-d-i-b mosaic-cube mosaic-cube7"></span>
+        <span className="rli-d-i-b mosaic-cube mosaic-cube8"></span>
+        <span className="rli-d-i-b mosaic-cube mosaic-cube9"></span>
 
         <span
-          className="d-i-b mosaic-cube-text"
+          className="rli-d-i-b mosaic-cube-text"
           style={{
             ...(props?.textColor && {
               color: props?.textColor,
