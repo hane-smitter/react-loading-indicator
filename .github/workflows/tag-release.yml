@@ -24,6 +24,8 @@ jobs:
         run: npm ci
       - name: Build & Test package 🔧
         run: npm run build && npm run test
+      - name: Check if current version already exists
+        run: npm run checkVersion
 
       - uses: "marvinpinto/action-automatic-releases@latest"
         with:
