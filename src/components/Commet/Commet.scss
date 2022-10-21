@@ -43,7 +43,7 @@
             position: absolute;
             border-radius: 50%;
             border-style: solid;
-            animation: animate 2s linear infinite;
+            animation: spinCommet 2s linear infinite;
 
             &.ring1 {
                 --deg: -45deg;
@@ -94,7 +94,7 @@
         }
     }
 
-    @keyframes animate {
+    @keyframes spinCommet {
         to {
             transform: rotate(1turn);
         }
