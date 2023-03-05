@@ -48,11 +48,11 @@ const Atom = (props: AtomProps) => {
 			break;
 	}
 	// Setting size by specifying font-size in style attr
-  // and modifying styles to exclude fontSize
+	// and modifying styles to exclude fontSize
 	if (props?.style?.fontSize) {
 		const { fontSize: extractedFontSize, ...extractedStyles } = props?.style;
 
-    styles = extractedStyles;
+		styles = extractedStyles;
 		fontSize = extractedFontSize;
 	}
 
