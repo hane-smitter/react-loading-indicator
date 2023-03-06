@@ -86,5 +86,8 @@
 		"type": "git",
 		"url": "https://github.com/hane-smitter/react-loading-indicator"
 	},
-	"homepage": "https://react-loading-indicators.netlify.app/"
+	"homepage": "https://react-loading-indicators.netlify.app/",
+	"dependencies": {
+		"colortranslator": "^1.10.2"
+	}
 }
