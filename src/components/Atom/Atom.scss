@@ -1,3 +1,6 @@
+@import "../../scss/mixins";
+@import "../../scss/variables";
+
 .atom-bounding-box {
   font-size: 16px;
   display: inline-block;
@@ -12,22 +15,13 @@
     width: 5em;
     height: 1.7em;
     font-size: 1em;
-    color: limegreen;
+    color: $defaultColor;
     letter-spacing: 0.8px;
 
     .atom-text {
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      // font-weight: 500;
-      width: 80%;
-      text-transform: uppercase;
-      text-align: center;
-      font-size: 0.6em;
-      letter-spacing: 0.5px;
-      font-family: sans-serif;
+      @extend %text-typography;
+
       mix-blend-mode: difference;
-      // filter: invert(3%);
 
       position: absolute;
       top: 50%;
@@ -35,8 +29,6 @@
       transform: translate(-50%, -50%);
 
       z-index: -2;
-
-      // background-color: blue;
     }
 
     .orbit-holder {

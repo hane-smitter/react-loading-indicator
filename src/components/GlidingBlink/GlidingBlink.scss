@@ -1,0 +1,126 @@
+@import "../../scss/mixins";
+// @import "../../scss/variables";
+$blurAmount: 10px;
+
+// Calculate opacity in the scale 0-1
+@function calcOpacity($shapeNum, $progress) {
+  $progress: abs($progress - ($shapeNum - 1) * 8);
+
+  @if ($progress > 50) {
+    $progress: 100 - $progress;
+  }
+
+  $opacity: ($progress * 2) / 100;
+
+  @return $opacity;
+}
+
+// Blinken
+@function blinkOpacity($shapeNum, $progress) {
+  $opacity: calcOpacity($shapeNum, $progress);
+
+  @if ($opacity == 0.96) {
+    @return 0;
+  } @else if ($opacity == 0.88) {
+    @return 1;
+  } @else {
+    @return $opacity;
+  }
+}
+
+// Adds css variables for the size of shape/boxes/bar
+@function barWidth() {
+  @return var(--bar-width);
+}
+
+// Adds css variables representing color
+@function colBase($shapeNumber) {
+  $cssVar: var(--color-base);
+
+  @if ($shapeNumber) {
+    $cssVar: var(--shape#{$shapeNumber}-color-base, var(--color-base));
+  }
+
+  @return $cssVar;
+}
+
+//  Invert a range of a scale
+@function invertScale($value, $min: 0, $max: 1) {
+  @return $max - $value + $min;
+}
+
+@mixin shapes($progress) {
+  box-shadow: calc(barWidth() * 1.2) 0 invertScale(calcOpacity(1, $progress)) * $blurAmount
+      rgba(colBase(1), blinkOpacity(1, $progress)),
+    calc(barWidth() * 2.4) 0 invertScale(calcOpacity(2, $progress)) * $blurAmount
+      rgba(colBase(2), blinkOpacity(2, $progress)),
+    calc(barWidth() * 3.6) 0 invertScale(calcOpacity(3, $progress)) * $blurAmount
+      rgba(colBase(3), blinkOpacity(3, $progress)),
+    calc(barWidth() * 4.8) 0 invertScale(calcOpacity(4, $progress)) * $blurAmount
+      rgba(colBase(4), blinkOpacity(4, $progress)),
+    calc(barWidth() * 6) 0 invertScale(calcOpacity(5, $progress)) * $blurAmount
+      rgba(colBase(5), blinkOpacity(5, $progress)),
+    calc(barWidth() * 7.2) 0 invertScale(calcOpacity(6, $progress)) * $blurAmount
+      rgba(colBase(6), blinkOpacity(6, $progress));
+}
+
+.glidingblink-bounding-box {
+  font-size: 16px;
+
+  .glidingblink-loader {
+    --bar-width: 2.5em;
+    --color-base: 50, 205, 50;
+
+    // create stacking context
+    isolation: isolate;
+
+    width: 18.75em;
+    height: 4em;
+    position: relative;
+    color: rgb(var(--color-base));
+
+    .gliding-blink-text {
+      @extend %text-typography;
+
+      position: absolute;
+      top: 105%;
+      left: 50%;
+      transform: translateX(-50%);
+      color: currentColor;
+      font-size: 0.7em;
+      font-weight: 600;
+    }
+
+    &:after {
+      content: "";
+
+      position: absolute;
+      top: 50%;
+      left: calc(var(--bar-width) * -1);
+      display: block;
+      width: var(--bar-width);
+      height: calc(var(--bar-width) / 0.8);
+
+      border-radius: 4px;
+      background-color: transparent;
+
+      transform: skewX(-20deg) translateY(-50%);
+
+      @include shapes(58);
+
+      animation: glideAnim 2.4s linear infinite;
+    }
+  }
+}
+
+@keyframes glideAnim {
+  $progress: 0%;
+
+  @while $progress <= 100% {
+    #{$progress} {
+      @include shapes($progress / 1%);
+    }
+
+    $progress: $progress + 4%;
+  }
+}
