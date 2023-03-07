@@ -2,3 +2,4 @@
 *.bak
 dist
 .npmrc
+css/
