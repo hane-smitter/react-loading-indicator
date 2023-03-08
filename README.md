@@ -61,13 +61,13 @@ export default Component;
 
 Each of these components will accept the following _optional props_.
 
-|   Name    |       DataType        | Default Value |       Possible Values       |
-| :-------: | :-------------------: | :-----------: | :-------------------------: |
-|   size    |       `string`        |    medium     |    small, medium, large     |
-|   color   |  `string` or `array`  |   limegreen   |      CSS color values       |
-|   style   |       `object`        |    `null`     |         CSS styles          |
-|   text    | `string` or `boolean` |    `false`    | Boolean value or any string |
-| textColor |       `string`        |  `undefined`  |      CSS color values       |
+|   Name    |       DataType        | Default Value |               Possible Values                |
+| :-------: | :-------------------: | :-----------: | :------------------------------------------: |
+|   size    |       `string`        |    medium     |             small, medium, large             |
+|   color   |  `string` or `array`  |   limegreen   |               CSS color values               |
+|   style   |       `object`        |    `null`     | CSS styles(<small>in Reactjs format</small>) |
+|   text    | `string` or `boolean` |    `false`    |         Boolean value or any string          |
+| textColor |       `string`        |  `undefined`  |               CSS color values               |
 
 #### What do these props do?
 
@@ -85,8 +85,8 @@ The `CircularProgress` component has a `variant` prop(_also optional_). Choose b
 
 ### How to resize
 
-You can resize loader to fit into your needs with the `size` prop that accepts predefined strings.<br>
-You can customize the size further to your preferences by setting `fontSize` in the style prop of the loader. The style prop allows you to add your own css.
+You can resize loader to fit into your needs with the `size` prop that accepts predefined string input.<br>
+You can _further customize_ size to your own preferences by setting `fontSize` in the style prop of the loader. The style prop is an object that allows you to add your own css. Including `fontSize` in the style object will _evenly_ alter size of the loader.
 
 ```jsx
 const Component = () => <Commet style={{ fontSize: "10px" }} />;
