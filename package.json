@@ -58,9 +58,9 @@
 	"main": "dist/cjs/index.js",
 	"module": "dist/esm/index.js",
 	"files": [
-		"dist",
-		"src"
+		"dist"
 	],
+	"sideEffects": "false",
 	"types": "dist/index.d.ts",
 	"peerDependencies": {
 		"react": ">=16.8.0",

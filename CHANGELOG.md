@@ -44,6 +44,12 @@
 
 # 0.0.11
 
-- Configure global styles for storybook
-- Fix text display on `FourSquare` loader
+- Configure global styles for storybook.
+- Fix text display on `FourSquare` loader.
 - Remove duplicated `d-i-b` css class and add `rli-d-i-b` as a global style.
+
+# --next-version-
+- Add new indicator `GlidingBlink`.
+- Add sass mixins in separate file.
+- Create sass variables containing defaults.
+- Make package tree-shakeable.

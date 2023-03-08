@@ -16,12 +16,12 @@ export default [
 			{
 				file: packageJson.main,
 				format: "cjs",
-				sourcemap: true
+				sourcemap: false
 			},
 			{
 				file: packageJson.module,
 				format: "esm",
-				sourcemap: true
+				sourcemap: false
 			}
 		],
 		plugins: [
@@ -37,6 +37,6 @@ export default [
 		input: "dist/esm/types/index.d.ts",
 		output: [{ file: "dist/index.d.ts", format: "esm" }],
 		plugins: [dts()],
-		external: [/\.(css|less|s[ac]ss)$/]
+		external: [/\.(css|less|s[ac]ss)$/] // Packages that should not be in our bundle
 	}
 ];
