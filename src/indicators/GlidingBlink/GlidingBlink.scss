@@ -1,5 +1,5 @@
-@import "../../scss/mixins";
-// @import "../../scss/variables";
+@import "../../scss_globals/mixins";
+// @import "../../scss_globals/variables";
 $blurAmount: 10px;
 
 // Calculate opacity in the scale 0-1
@@ -10,7 +10,7 @@ $blurAmount: 10px;
     $progress: 100 - $progress;
   }
 
-  $opacity: ($progress * 2) / 100;
+  $opacity: calc(($progress * 2) / 100);
 
   @return $opacity;
 }
@@ -118,7 +118,7 @@ $blurAmount: 10px;
 
   @while $progress <= 100% {
     #{$progress} {
-      @include shapes($progress / 1%);
+      @include shapes(calc($progress / 1%));
     }
 
     $progress: $progress + 4%;
