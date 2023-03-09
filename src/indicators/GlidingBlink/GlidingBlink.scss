@@ -1,5 +1,3 @@
-@import "../../scss_globals/mixins";
-// @import "../../scss_globals/variables";
 $blurAmount: 10px;
 
 // Calculate opacity in the scale 0-1
@@ -80,8 +78,6 @@ $blurAmount: 10px;
     color: rgb(var(--color-base));
 
     .gliding-blink-text {
-      @extend %text-typography;
-
       position: absolute;
       top: 105%;
       left: 50%;

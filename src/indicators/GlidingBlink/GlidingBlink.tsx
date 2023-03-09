@@ -52,7 +52,7 @@ const GlidingBlink = (props: GlidingBlinkProps) => {
 				}
 			>
 				<span
-					className="rli-d-i-b gliding-blink-text"
+					className="rli-d-i-b rli-text-format gliding-blink-text"
 					style={{
 						...(props?.textColor && {
 							color: props?.textColor,

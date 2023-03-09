@@ -1,10 +1,22 @@
 import React from "react";
 import { AtomProps } from "./Atom.types";
 import "./Atom.scss";
+import useFontsizeMapper from "../../hooks/useFontsizeMapper";
 
 const Atom = (props: AtomProps) => {
 	// Styles
-	let styles: React.CSSProperties = props?.style || {};
+	let styles: React.CSSProperties = Object(props?.style);
+	/* Size SETTINGS */
+	let fontSize: string | number = useFontsizeMapper(props?.size);
+	// Setting size by specifying font-size in style attr
+	// and modifying styles to exclude fontSize
+	// Setting fontsize in style prop will overirde the `size` prop
+	if (props?.style?.fontSize) {
+		const { fontSize: cssFontSize, ...css } = props?.style;
+
+		styles = css;
+		fontSize = cssFontSize;
+	}
 
 	/* Color SETTINGS */
 	// If Color property is a string, that is the color of all rings
@@ -33,76 +45,16 @@ const Atom = (props: AtomProps) => {
 		};
 	}
 
-	/* Size SETTINGS */
-	const size: string = props?.size || "";
-	let fontSize: string | number = "";
-	switch (size) {
-		case "small":
-			fontSize = "12px";
-			break;
-		case "medium":
-			fontSize = "16px";
-			break;
-		case "large":
-			fontSize = "20px";
-			break;
-	}
-	// Setting size by specifying font-size in style attr
-	// and modifying styles to exclude fontSize
-	if (props?.style?.fontSize) {
-		const { fontSize: extractedFontSize, ...extractedStyles } = props?.style;
-
-		styles = extractedStyles;
-		fontSize = extractedFontSize;
-	}
-
 	return (
-		<span
-			className="rli-d-i-b atom-bounding-box"
-			style={{ ...(fontSize && { fontSize }) }}
-		>
-			<span
-				className="rli-d-i-b atom-loader"
-				style={{
-					...allRingsColor,
-					...styles
-				}}
-			>
-				<span
-					className="rli-d-i-b orbit-holder orbit-holder-1"
-					style={{ ...orbit1Color }}
-				>
-					<span className="rli-d-i-b orbit orbit1"></span>
-				</span>
-				<span
-					className="rli-d-i-b orbit-holder orbit-holder-2"
-					style={{ ...orbit2Color }}
-				>
-					<span className="rli-d-i-b orbit orbit2">
-						<span className="rli-d-i-b electron"></span>
+		<span className="rli-d-i-b atom-bounding-box">
+			<span className="rli-d-i-b spinner atom-loader">
+				<span className="rli-d-i-b inner">
+					<span className="disc nucleus-holder">
+						<span className="nucleus"></span>
 					</span>
-				</span>
-				<span
-					className="rli-d-i-b orbit-holder orbit-holder-3"
-					style={{ ...orbit3Color }}
-				>
-					<span className="rli-d-i-b orbit orbit3"></span>
-				</span>
-
-				<span
-					className="rli-d-i-b atom-text"
-					style={{
-						...(props?.textColor && {
-							color: props?.textColor,
-							mixBlendMode: "unset"
-						})
-					}}
-				>
-					{props?.text
-						? typeof props?.text === "string" && props?.text.length
-							? props?.text
-							: "loading"
-						: null}
+					<span className="disc"></span>
+					<span className="disc"></span>
+					<span className="disc"></span>
 				</span>
 			</span>
 		</span>

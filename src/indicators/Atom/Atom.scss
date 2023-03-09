@@ -1,98 +1,73 @@
-@import "../../scss_globals/mixins";
-@import "../../scss_globals/variables";
+@import "../../scss/variables";
+
+$spinAtomDuation: 6s;
+$pathAnimationDuation: 10s;
 
 .atom-bounding-box {
   font-size: 16px;
-  display: inline-block;
-  box-sizing: border-box;
 
   .atom-loader {
+    --box-width: 4em;
+    --box-height: 4em;
+
     // create stacking context + relative positioning
     position: relative;
     z-index: 1;
 
-    // ratio 3:1
-    width: 5em;
-    height: 1.7em;
-    font-size: 1em;
+    width: var(--box-width);
+    height: var(--box-height);
+    transform: perspective(20em) rotateX(-24deg) rotateY(20deg) rotateZ(30deg);
+    transform-style: preserve-3d;
     color: $defaultColor;
-    letter-spacing: 0.8px;
 
-    .atom-text {
-      @extend %text-typography;
-
-      mix-blend-mode: difference;
-
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-
-      z-index: -2;
-    }
-
-    .orbit-holder {
-      color: currentColor;
-      position: absolute;
-      top: 0;
-      left: 0;
+    & .inner {
       width: 100%;
       height: 100%;
-      animation: spinAtom var(--spinAtom-duration) linear infinite;
+      -webkit-transform-style: preserve-3d;
+      transform-style: preserve-3d;
+      animation: spinAtom $spinAtomDuation linear infinite;
+      display: inline-block;
+      transform-origin: center center;
+      position: relative;
 
-      &:has(.electron) {
-        animation-direction: reverse;
-      }
-
-      &.orbit-holder-1 {
-        --spinAtom-duration: 2s;
-      }
-      &.orbit-holder-2 {
-        --spinAtom-duration: 2.5s;
-      }
-      &.orbit-holder-3 {
-        --spinAtom-duration: 2s;
-      }
-
-      .orbit {
-        --orbit-width-without-electron: 0.2em;
-        --orbit-width-with-electron: 0.3em;
-        border-color: currentColor;
-        color: currentColor;
-        border-style: solid;
-        border-width: var(--orbit-width-without-electron);
-        border-radius: 50%;
+      & .disc {
         position: absolute;
-        top: 0;
-        left: 0;
         width: 100%;
-        height: 100%;
+        height: 98%;
+        border-radius: 50%;
+        border: 0.3em solid currentColor;
+        display: inline-block;
+      }
 
-        &:has(> .electron) {
-          border-width: var(--orbit-width-with-electron);
-          width: calc(100% - calc(2 * (var(--orbit-width-with-electron) - var(--orbit-width-without-electron))));
-        }
+      & .disc:nth-of-type(1) {
+        animation: rotate $pathAnimationDuation linear infinite;
+      }
+      & .disc:nth-of-type(2) {
+        animation: rotateDisc2 $pathAnimationDuation linear infinite;
+      }
+      & .disc:nth-of-type(3) {
+        animation: rotateDisc3 $pathAnimationDuation linear infinite;
+      }
+      & .disc:nth-of-type(4) {
+        animation: rotateDisc4 $pathAnimationDuation linear infinite;
+      }
 
-        .electron {
+      & .disc.nucleus-holder {
+        width: var(--box-width);
+        height: var(--box-height);
+        border: 0.3em solid transparent;
+
+        & .nucleus {
           position: absolute;
-          top: 100%;
-          height: 0.8em;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
           width: 0.8em;
-          background-color: currentColor;
+          height: 0.8em;
+          display: inline-block;
           border-radius: 50%;
+          background-color: currentColor;
           box-shadow: 0 0 2.5em, 0 0 4.5em, 0 0 6.5em, 0 0 7.5em, 0 0 8.5em, 0 0 0 0.5em rgba(0, 0, 0, 0.01);
-        }
-
-        &.orbit1 {
-          transform: rotate(-45deg);
-        }
-
-        &.orbit2 {
-          transform: rotate(0deg);
-        }
-
-        &.orbit3 {
-          transform: rotate(-135deg);
         }
       }
     }
@@ -100,7 +75,35 @@
 }
 
 @keyframes spinAtom {
+  0% {
+    transform: rotateX(360deg) rotateY(0deg);
+  }
+  100% {
+    transform: rotateX(0deg) rotateY(360deg);
+  }
+}
+
+@keyframes rotateDisc2 {
+  from {
+    transform: rotateX(90deg) rotateZ(0deg);
+  }
   to {
-    transform: rotate(1turn);
+    transform: rotateX(90deg) rotateZ(360deg);
+  }
+}
+@keyframes rotateDisc3 {
+  from {
+    transform: rotateY(90deg) rotateZ(0deg);
+  }
+  to {
+    transform: rotateY(90deg) rotateZ(360deg);
+  }
+}
+@keyframes rotateDisc4 {
+  from {
+    transform: rotateX(90deg) rotateY(40deg);
+  }
+  to {
+    transform: rotateX(90deg) rotateY(400deg);
   }
 }
