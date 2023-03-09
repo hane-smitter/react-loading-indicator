@@ -1,4 +1,4 @@
-import "!style-loader!css-loader!sass-loader!./scss-loader.scss";
+import "!style-loader!css-loader!sass-loader!../src/scss/global.scss";
 
 export const parameters = {
 	actions: { argTypesRegex: "^on[A-Z].*" },

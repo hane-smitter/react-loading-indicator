@@ -2,4 +2,5 @@
 *.bak
 dist
 .npmrc
-css/
+**/*/css
+/storybook-static
