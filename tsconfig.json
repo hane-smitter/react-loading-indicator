@@ -12,7 +12,7 @@
     "module": "ESNext",
     "declaration": true,
     "declarationDir": "types",
-    "sourceMap": true,
+    "sourceMap": false,
     "removeComments": true,
     // "outDir": "dist",
     "moduleResolution": "node",
