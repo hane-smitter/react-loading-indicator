@@ -3,39 +3,33 @@ import { ColorTranslator } from "colortranslator";
 
 import { GlidingBlinkProps } from "./GlidingBlink.types";
 import "./GlidingBlink.scss";
+import useFontsizeMapper from "../../hooks/useFontsizeMapper";
 
-const DEFAULT_COLOR = "50, 205, 50"; // limegreen
+const DEFAULT_COLOR = new ColorTranslator("rgb(50, 205, 50)"); // limegreen
 
 const GlidingBlink = (props: GlidingBlinkProps) => {
 	// Styles
-	let styles: React.CSSProperties = props?.style || {};
+	let styles: React.CSSProperties = Object(props?.style);
 
 	/* Color SETTINGS */
 	// If Color property is a string, that is the color of all anime
 	// If color property is an array, that is color for each anime
 	let glidingBlinkColor: string | string[] = props?.color ?? "";
+	const glidingBlinkColorStyles: React.CSSProperties =
+		glidingBlinkColor instanceof Array
+			? { ...genStyleFromColorArr(glidingBlinkColor) }
+			: { ...genStyleFromColorStr(glidingBlinkColor) };
 
 	/* Size SETTINGS */
-	const size: string = props?.size || "";
-	let fontSize: string | number = "";
-	switch (size) {
-		case "small":
-			fontSize = "12px";
-			break;
-		case "medium":
-			fontSize = "16px";
-			break;
-		case "large":
-			fontSize = "20px";
-			break;
-	}
+	let fontSize: string | number = useFontsizeMapper(props?.size);
+
 	// Setting size by specifying font-size in style attr
 	// and modifying styles to exclude fontSize
 	if (props?.style?.fontSize) {
-		const { fontSize: extractedFontSize, ...extractedStyles } = props?.style;
+		const { fontSize: cssFontSize, ...css } = props?.style;
 
-		styles = extractedStyles;
-		fontSize = extractedFontSize;
+		styles = css;
+		fontSize = cssFontSize;
 	}
 
 	return (
@@ -45,11 +39,7 @@ const GlidingBlink = (props: GlidingBlinkProps) => {
 		>
 			<span
 				className="rli-d-i-b glidingblink-loader"
-				style={
-					glidingBlinkColor instanceof Array
-						? { ...genStyleFromColorArr(glidingBlinkColor) }
-						: { ...genStyleFromColorStr(glidingBlinkColor) }
-				}
+				style={{ ...glidingBlinkColorStyles, ...styles }}
 			>
 				<span
 					className="rli-d-i-b rli-text-format gliding-blink-text"
@@ -82,7 +72,12 @@ function genStyleFromColorStr(
 		const color: ColorTranslator = new ColorTranslator(colorStr);
 		objStyle["--color-base"] = `${color.R}, ${color.G}, ${color.B}`;
 	} catch (error) {
-		objStyle["--color-base"] = DEFAULT_COLOR;
+		console.warn(
+			`Possibly an invalid color( ${colorStr} ) passed to GlidingBlink loader!`
+		);
+		objStyle[
+			"--color-base"
+		] = `${DEFAULT_COLOR.R}, ${DEFAULT_COLOR.G}, ${DEFAULT_COLOR.B}`;
 	}
 
 	return objStyle;
@@ -100,7 +95,12 @@ function genStyleFromColorArr(colorArr: string[]): React.CSSProperties {
 				"--color-base"
 			] = `${firstColor.R}, ${firstColor.G}, ${firstColor.B}`;
 		} catch (error) {
-			objStyles[`--color-base`] = DEFAULT_COLOR;
+			console.warn(
+				`Possibly an invalid color( ${colorArr[0]} ) passed to GlidingBlink loader!`
+			);
+			objStyles[
+				`--color-base`
+			] = `${DEFAULT_COLOR.R}, ${DEFAULT_COLOR.G}, ${DEFAULT_COLOR.B}`;
 		}
 
 		let arrLength: number = colorArr.length;
@@ -114,7 +114,12 @@ function genStyleFromColorArr(colorArr: string[]): React.CSSProperties {
 					`--${currentItem}-color-base`
 				] = `${color.R}, ${color.G}, ${color.B}`;
 			} catch (error) {
-				objStyles[`--${currentItem}-color-base`] = DEFAULT_COLOR;
+				console.warn(
+					`Possibly an invalid color( ${colorArr[i]} ) in GlidingBlink loader!`
+				);
+				objStyles[
+					`--${currentItem}-color-base`
+				] = `${DEFAULT_COLOR.R}, ${DEFAULT_COLOR.G}, ${DEFAULT_COLOR.B}`;
 			}
 		}
 	}

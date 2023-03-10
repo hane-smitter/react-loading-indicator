@@ -77,14 +77,14 @@ $glideAnimDuration: 2s;
   font-size: defaults.$fontSizer;
 
   .glidingblink-loader {
-    --bar-width: 2.5em;
+    --bar-width: 2em;
     --color-base: #{$defaultColorRedChannel}, #{$defaultColorGreenChannel}, #{$defaultColorBlueChannel};
 
     // create stacking context
     isolation: isolate;
 
-    width: 18.75em;
-    height: 4em;
+    width: 15.75em;
+    height: 3em;
     position: relative;
     color: rgb(var(--color-base));
 
