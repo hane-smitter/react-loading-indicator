@@ -1,76 +1,127 @@
-@import "../../scss/variables";
+@use "sass:color";
+@use "../../scss/variables" as defaults;
 
-$spinAtomDuation: 6s;
-$pathAnimationDuation: 10s;
+$defaultColorRedChannel: color.red(defaults.$defaultColor);
+$defaultColorGreenChannel: color.green(defaults.$defaultColor);
+$defaultColorBlueChannel: color.blue(defaults.$defaultColor);
+$spinAtomDuration: 2.5s;
+$spinAtomPathDuration: 8s;
+$colorInversionDegree: 255; // 0 - 255
 
 .atom-bounding-box {
-  font-size: 16px;
+  --color-r: #{$defaultColorRedChannel};
+  --color-g: #{$defaultColorGreenChannel};
+  --color-b: #{$defaultColorBlueChannel};
+
+  font-size: defaults.$fontSizer;
+  position: relative;
+  color: rgb(var(--color-r), var(--color-g), var(--color-b));
+
+  // Create stacking context
+  isolation: isolate;
 
   .atom-loader {
-    --box-width: 4em;
-    --box-height: 4em;
+    $box-width: 4em;
+    $box-height: 4em;
 
     // create stacking context + relative positioning
     position: relative;
     z-index: 1;
 
-    width: var(--box-width);
-    height: var(--box-height);
-    transform: perspective(20em) rotateX(-24deg) rotateY(20deg) rotateZ(30deg);
+    width: $box-width;
+    height: $box-height;
+    transform: perspective(500px) rotateX(-24deg) rotateY(20deg) rotateZ(30deg);
     transform-style: preserve-3d;
-    color: $defaultColor;
+    // color: $defaultColor;
 
     & .inner {
       width: 100%;
       height: 100%;
       -webkit-transform-style: preserve-3d;
       transform-style: preserve-3d;
-      animation: spinAtom $spinAtomDuation linear infinite;
+      animation: spinAtom $spinAtomDuration linear infinite;
       display: inline-block;
       transform-origin: center center;
       position: relative;
+
+      & .disc:nth-of-type(1) {
+        --disc-color: var(--disc3-color);
+        animation: rotate $spinAtomPathDuration linear infinite;
+      }
+      & .disc:nth-of-type(2) {
+        --disc-color: var(--disc2-color);
+        animation: rotateDisc2 $spinAtomPathDuration linear infinite;
+      }
+      & .disc:nth-of-type(3) {
+        --disc-color: var(--disc1-color);
+        animation: rotateDisc3 $spinAtomPathDuration linear infinite;
+      }
 
       & .disc {
         position: absolute;
         width: 100%;
         height: 98%;
         border-radius: 50%;
-        border: 0.3em solid currentColor;
+        border: 0.3em solid var(--disc-color, currentColor);
         display: inline-block;
       }
 
-      & .disc:nth-of-type(1) {
-        animation: rotate $pathAnimationDuation linear infinite;
-      }
-      & .disc:nth-of-type(2) {
-        animation: rotateDisc2 $pathAnimationDuation linear infinite;
-      }
-      & .disc:nth-of-type(3) {
-        animation: rotateDisc3 $pathAnimationDuation linear infinite;
-      }
-      & .disc:nth-of-type(4) {
-        animation: rotateDisc4 $pathAnimationDuation linear infinite;
-      }
-
       & .disc.nucleus-holder {
-        width: var(--box-width);
-        height: var(--box-height);
+        width: $box-width;
+        height: $box-height;
         border: 0.3em solid transparent;
 
         & .nucleus {
+          $nucleus-dimension: 0.8em;
+          --color-invert-r: calc(#{$colorInversionDegree} - var(--color-r));
+          --color-invert-g: calc(#{$colorInversionDegree} - var(--color-g));
+          --color-invert-b: calc(#{$colorInversionDegree} - var(--color-b));
+
           position: absolute;
           top: 50%;
           left: 50%;
           transform: translate(-50%, -50%);
-          width: 0.8em;
-          height: 0.8em;
+          width: $nucleus-dimension;
+          height: $nucleus-dimension;
           display: inline-block;
           border-radius: 50%;
           background-color: currentColor;
-          box-shadow: 0 0 2.5em, 0 0 4.5em, 0 0 6.5em, 0 0 7.5em, 0 0 8.5em, 0 0 0 0.5em rgba(0, 0, 0, 0.01);
+          // box-shadow: inset 0 0 calc($nucleus-dimension / 6) #fff,
+          //   inset calc($nucleus-dimension / 6) 0 calc($nucleus-dimension / 3.75) #f0f,
+          //   inset calc($nucleus-dimension / 6 * -1) 0 calc($nucleus-dimension / 3.75) #0ff,
+          //   inset calc($nucleus-dimension / 6) 0 $nucleus-dimension #f0f,
+          //   inset calc($nucleus-dimension / 6 * -1) 0 $nucleus-dimension #0ff, 0 0 calc($nucleus-dimension / 6) #fff,
+          //   calc($nucleus-dimension / 30 * -1) 0 calc($nucleus-dimension / 3.75) #f0f,
+          //   calc($nucleus-dimension / 30) 0 calc($nucleus-dimension / 3.75) #0ff;
+          box-shadow: inset 0 0 calc($nucleus-dimension / 6) rgba(var(--color-r), var(--color-g), var(--color-b), 0.16),
+            inset calc($nucleus-dimension / 6) 0 calc($nucleus-dimension / 3.75)
+              rgb(var(--color-invert-r), var(--color-invert-g), var(--color-invert-b), 1),
+            inset calc($nucleus-dimension / 6 * -1) 0 calc($nucleus-dimension / 3.75)
+              rgb(var(--color-invert-g), var(--color-invert-r), var(--color-invert-b), 1),
+            inset calc($nucleus-dimension / 6) 0 $nucleus-dimension
+              rgb(var(--color-invert-r), var(--color-invert-g), var(--color-invert-b), 1),
+            inset calc($nucleus-dimension / 6 * -1) 0 $nucleus-dimension
+              rgb(var(--color-invert-g), var(--color-invert-r), var(--color-invert-b), 1),
+            0 0 calc($nucleus-dimension / 6) rgba(var(--color-r), var(--color-g), var(--color-b), 0.16),
+            calc($nucleus-dimension / 30 * -1) 0 calc($nucleus-dimension / 1.35)
+              rgb(var(--color-invert-r), var(--color-invert-g), var(--color-invert-b), 0.44),
+            calc($nucleus-dimension / 30) 0 calc($nucleus-dimension / 1.35)
+              rgb(var(--color-invert-g), var(--color-invert-r), var(--color-invert-b), 0.44);
         }
       }
     }
+  }
+
+  .atom-text {
+    color: currentColor;
+    mix-blend-mode: difference;
+
+    position: absolute;
+    top: 105%;
+    left: 50%;
+    transform: translateX(-50%);
+
+    z-index: -2;
   }
 }
 
@@ -97,13 +148,5 @@ $pathAnimationDuation: 10s;
   }
   to {
     transform: rotateY(90deg) rotateZ(360deg);
-  }
-}
-@keyframes rotateDisc4 {
-  from {
-    transform: rotateX(90deg) rotateY(40deg);
-  }
-  to {
-    transform: rotateX(90deg) rotateY(400deg);
   }
 }
