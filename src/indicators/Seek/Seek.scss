@@ -1,5 +1,7 @@
+@use "../../scss/variables" as defaults;
+
 .seek-bounding-box {
-  font-size: 16px;
+  font-size: defaults.$fontSizer;
   display: inline-block;
   box-sizing: border-box;
 
@@ -7,7 +9,7 @@
     width: 5em;
     height: 1.5em;
     text-align: center;
-    color: limegreen;
+    color: defaults.$defaultColor;
     position: relative;
     z-index: 0;
 

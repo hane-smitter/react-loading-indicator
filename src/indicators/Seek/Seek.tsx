@@ -60,7 +60,7 @@ const Seek = (props: SeekProps) => {
 				<span className="rli-d-i-b seek-bounce seek-bounce3"></span>
 
 				<span
-					className="rli-d-i-b seek-text"
+					className="rli-d-i-b rli-text-format seek-text"
 					style={{
 						...(props?.textColor && {
 							color: props?.textColor,

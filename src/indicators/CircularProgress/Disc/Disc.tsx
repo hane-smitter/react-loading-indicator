@@ -52,7 +52,7 @@ const Disc = (props: DiscProps) => {
       <span className="rli-d-i-b disc-loader" style={{ ...ringColor, ...styles }}>
         <span className="rli-d-i-b disc-ring"></span>
         <span
-          className="rli-d-i-b disc-text"
+          className="rli-d-i-b rli-text-format disc-text"
           style={{
             ...(props?.textColor && {
               color: props?.textColor,

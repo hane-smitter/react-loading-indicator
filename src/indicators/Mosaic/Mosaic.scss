@@ -1,12 +1,14 @@
+@use "../../scss/variables" as defaults;
+
 .mosaic-bounding-box {
   box-sizing: border-box;
-  font-size: 16px;
+  font-size: defaults.$fontSizer;
 
   .mosaic-loader {
     width: 5em;
     height: 5em;
     // background-color: yellow;
-    color: limegreen;
+    color: defaults.$defaultColor;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-areas:
@@ -19,16 +21,6 @@
     z-index: 0;
 
     .mosaic-cube-text {
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      // font-weight: 500;
-      width: 80%;
-      text-transform: uppercase;
-      text-align: center;
-      font-size: 0.6em;
-      letter-spacing: 0.5px;
-      font-family: sans-serif;
       mix-blend-mode: difference;
       // filter: invert(1);
 

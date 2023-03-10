@@ -1,28 +1,21 @@
+@use "../../../scss/variables" as defaults;
+
 .dot-bounding-box {
-  font-size: 16px;
+  font-size: defaults.$fontSizer;
   box-sizing: border-box;
   display: inline-block;
 
   .fading-dot-loader {
     width: 5em;
     height: 5em;
-    color: limegreen;
+    color: defaults.$defaultColor;
     display: inline-block;
-    
+
     // Create stacking context
     position: relative;
     z-index: 0;
 
     .fading-dot-text {
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      width: 80%;
-      text-transform: uppercase;
-      text-align: center;
-      font-size: 0.6em;
-      letter-spacing: 0.5px;
-      font-family: sans-serif;
       mix-blend-mode: difference;
 
       position: absolute;

@@ -1,13 +1,15 @@
+@use "../../scss/variables" as defaults;
+
 .ripple-bounding-box {
   box-sizing: border-box;
-  font-size: 16px;
+  font-size: defaults.$fontSizer;
   display: inline-block;
 
   .ripple-loader {
     display: inline-block;
     width: 5em;
     height: 5em;
-    color: limegreen;
+    color: defaults.$defaultColor;
     // background-color: gray;
 
     // Create stacking context
@@ -15,16 +17,6 @@
     z-index: 0;
 
     .ripple-text {
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      // font-weight: 500;
-      width: 80%;
-      text-transform: uppercase;
-      text-align: center;
-      font-size: 0.6em;
-      letter-spacing: 0.5px;
-      font-family: sans-serif;
       mix-blend-mode: difference;
       // filter: invert(1);
 

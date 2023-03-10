@@ -68,7 +68,7 @@ const SplitDisc = (props: SplitDiscProps) => {
 			>
 				<span className="rli-d-i-b split-disc-ring"></span>
 				<span
-					className="rli-d-i-b split-disc-text"
+					className="rli-d-i-b rli-text-format split-disc-text"
 					style={{
 						...(props?.textColor && {
 							color: props?.textColor,

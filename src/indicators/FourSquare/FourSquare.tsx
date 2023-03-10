@@ -86,7 +86,7 @@ export const FourSquare = (props: FourSquareProps) => {
 				</span>
 
 				<span
-					className="rli-d-i-b foursquare-text"
+					className="rli-d-i-b rli-text-format foursquare-text"
 					style={{
 						...(props?.textColor && {
 							color: props?.textColor,

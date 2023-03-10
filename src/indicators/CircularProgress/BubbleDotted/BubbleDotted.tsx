@@ -69,7 +69,7 @@ let BubbleDotted = (props: BubbleDottedProps) => {
         <span className="rli-d-i-b bubbledot12 dot-child"></span>
 
         <span
-          className="rli-d-i-b bubbledot-text"
+          className="rli-d-i-b rli-text-format bubbledot-text"
           style={{
             ...(props?.textColor && {
               color: props?.textColor,

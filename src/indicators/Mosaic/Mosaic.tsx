@@ -69,7 +69,7 @@ const Mosaic = (props: MosaicProps) => {
         <span className="rli-d-i-b mosaic-cube mosaic-cube9"></span>
 
         <span
-          className="rli-d-i-b mosaic-cube-text"
+          className="rli-d-i-b rli-text-format mosaic-cube-text"
           style={{
             ...(props?.textColor && {
               color: props?.textColor,

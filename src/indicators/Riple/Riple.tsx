@@ -59,7 +59,7 @@ const Riple = (props: RipleProps) => {
         <span className="rli-d-i-b ripple"></span>
 
         <span
-          className="rli-d-i-b ripple-text"
+          className="rli-d-i-b rli-text-format ripple-text"
           style={{
             ...(props?.textColor && {
               color: props?.textColor,

@@ -1,15 +1,17 @@
+@use "../../scss/variables" as defaults;
+
 .foursquare-bounding-box {
     box-sizing: border-box;
     display: inline-block;
-    font-size: 15px;
+    font-size: defaults.$fontSizer;
     overflow: visible;
 
     .foursquare-loader {
-        --dimension-unit: 5;
+        --dimension-unit: 4;
 
         height: calc(var(--dimension-unit) * 1em);
         width: calc(var(--dimension-unit) * 1em);
-        color: limegreen;
+        color: defaults.$defaultColor;
         font-size: 1em;
         // Create stacking context and relative positioning
         position: relative;
@@ -28,16 +30,6 @@
         }
 
         .foursquare-text {
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            // font-weight: 500;
-            width: 80%;
-            text-transform: uppercase;
-            text-align: center;
-            font-size: 0.6em;
-            letter-spacing: 0.5px;
-            font-family: sans-serif;
             mix-blend-mode: difference;
             // filter: invert(3%);
 
@@ -106,7 +98,6 @@
         height: calc(var(--dimension-unit) * 1em);
     }
 }
-
 
 @keyframes square {
     0% {

@@ -1,4 +1,11 @@
+@use "sass:color";
+@use "../../scss/variables" as defaults;
+
+$defaultColorRedChannel: color.red(defaults.$defaultColor);
+$defaultColorGreenChannel: color.green(defaults.$defaultColor);
+$defaultColorBlueChannel: color.blue(defaults.$defaultColor);
 $blurAmount: 10px;
+$glideAnimDuration: 2s;
 
 // Calculate opacity in the scale 0-1
 @function calcOpacity($shapeNum, $progress) {
@@ -16,6 +23,10 @@ $blurAmount: 10px;
 // Blinken
 @function blinkOpacity($shapeNum, $progress) {
   $opacity: calcOpacity($shapeNum, $progress);
+
+  @if ($opacity == 0) {
+    @return 0.135;
+  }
 
   @if ($opacity == 0.96) {
     @return 0;
@@ -63,11 +74,11 @@ $blurAmount: 10px;
 }
 
 .glidingblink-bounding-box {
-  font-size: 16px;
+  font-size: defaults.$fontSizer;
 
   .glidingblink-loader {
     --bar-width: 2.5em;
-    --color-base: 50, 205, 50;
+    --color-base: #{$defaultColorRedChannel}, #{$defaultColorGreenChannel}, #{$defaultColorBlueChannel};
 
     // create stacking context
     isolation: isolate;
@@ -104,7 +115,7 @@ $blurAmount: 10px;
 
       @include shapes(58);
 
-      animation: glideAnim 2.4s linear infinite;
+      animation: glideAnim $glideAnimDuration linear infinite;
     }
   }
 }

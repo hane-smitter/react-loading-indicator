@@ -1,5 +1,9 @@
+@use "../../scss/variables" as defaults;
+
+$spinCommetDuration: 1.8s;
+
 .commet-bounding-box {
-    font-size: 16px;
+    font-size: defaults.$fontSizer;
     display: inline-block;
     box-sizing: border-box;
 
@@ -7,7 +11,7 @@
         width: 6em;
         height: 6em;
         font-size: 0.8em;
-        color: limegreen;
+        color: defaults.$defaultColor;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -43,7 +47,7 @@
             position: absolute;
             border-radius: 50%;
             border-style: solid;
-            animation: spinCommet 2s linear infinite;
+            animation: spinCommet $spinCommetDuration linear infinite;
 
             &.ring1 {
                 --deg: -45deg;

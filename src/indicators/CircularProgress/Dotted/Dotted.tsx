@@ -70,7 +70,7 @@ const Dotted = (props: DottedProps) => {
         <span className="rli-d-i-b fading-dot12 fading-dot"></span>
 
         <span
-          className="rli-d-i-b fading-dot-text"
+          className="rli-d-i-b rli-text-format fading-dot-text"
           style={{
             ...(props?.textColor && {
               color: props?.textColor,
