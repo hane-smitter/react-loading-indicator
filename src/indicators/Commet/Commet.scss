@@ -1,6 +1,29 @@
 @use "../../scss/variables" as defaults;
 
 $spinCommetDuration: 1.8s;
+$bolus-size: 0.5em;
+$commet-path-width: 0.2em;
+
+@function stripUnit($value) {
+    @if type-of($value) == "number" and not unitless($value) {
+        @return $value / ($value * 0 + 1);
+    }
+
+    @return $number;
+}
+
+@function diffRatio($borderWidth, $bolusSize) {
+    $borderWidth: stripUnit($borderWidth);
+    $bolusSize: stripUnit($bolusSize);
+
+    $value: calc(abs($borderWidth - $bolusSize));
+
+    @return $value;
+}
+
+@mixin glow {
+    box-shadow: 0 0 0.3em 0.03em var(--bg-color), 0 0 1.4em 0.16em var(--bg-color);
+}
 
 .commet-bounding-box {
     font-size: defaults.$fontSizer;
@@ -8,9 +31,8 @@ $spinCommetDuration: 1.8s;
     box-sizing: border-box;
 
     .commet-loader {
-        width: 6em;
-        height: 6em;
-        font-size: 0.8em;
+        width: 4em;
+        height: 4em;
         color: defaults.$defaultColor;
         display: flex;
         align-items: center;
@@ -21,19 +43,7 @@ $spinCommetDuration: 1.8s;
         z-index: 0;
 
         .commet-text {
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            // font-weight: 500;
-            width: 80%;
-            text-transform: uppercase;
-            text-align: center;
-            font-size: 0.6em;
-            letter-spacing: 0.5px;
-            font-family: sans-serif;
             mix-blend-mode: difference;
-            // filter: invert(1);
-
             position: absolute;
             top: 50%;
             left: 50%;
@@ -42,65 +52,93 @@ $spinCommetDuration: 1.8s;
             z-index: -2;
         }
 
-        .ring {
-            --border-width: 0.3em;
+        .ring-wrapper {
             position: absolute;
-            border-radius: 50%;
-            border-style: solid;
-            animation: spinCommet $spinCommetDuration linear infinite;
+            width: var(--ring-dimensions);
+            height: var(--ring-dimensions);
+            animation: spinCommet $spinCommetDuration cubic-bezier(0.08, 0.03, 0.91, 0.93) infinite;
+
+            & > .ringball-holder {
+                position: absolute;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                left: 0;
+                background-color: transparent;
+            }
+
+            & .ring {
+                border-radius: 50%;
+                border-style: solid;
+                position: absolute;
+                // width: 100%;
+                // height: 100%;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+            }
 
             &.ring1 {
-                --deg: -45deg;
-                width: 100%;
-                height: 100%;
-                color: currentColor;
-                border-color: currentColor transparent transparent currentColor;
-                border-width: var(--border-width) var(--border-width) 0em 0em;
+                --bg-color: var(--ring1-color, currentColor);
+                --ring-dimensions: 100%;
+
                 animation-direction: normal;
-            }
 
+                & > .ring {
+                    border-color: var(--bg-color) transparent transparent var(--bg-color);
+                    border-width: $commet-path-width $commet-path-width 0em 0em;
+                    transform: rotateZ(-44deg);
+                }
+
+                & > .ringball-holder::before {
+                    content: "";
+                    position: absolute;
+                    width: $bolus-size;
+                    height: $bolus-size;
+                    top: calc($commet-path-width * diffRatio($commet-path-width, $bolus-size) * -1);
+                    left: 50%;
+                    // transform: translateX(-50%);
+                    background-color: var(--bg-color);
+                    border-radius: 50%;
+
+                    @include glow();
+                }
+            }
             &.ring2 {
-                --deg: -135deg;
-                width: 70%;
-                height: 70%;
-                color: currentColor;
-                border-color: currentColor currentColor transparent transparent;
-                border-width: var(--border-width) 0em 0em var(--border-width);
+                --bg-color: var(--ring2-color, currentColor);
+                --ring-dimensions: 70%;
+
                 animation-direction: reverse;
-            }
+                & > .ring {
+                    border-color: var(--bg-color) var(--bg-color) transparent transparent;
+                    border-width: $commet-path-width 0em 0em $commet-path-width;
+                    transform: rotateZ(134deg);
+                }
 
-            .ringball {
-                --scale: 0.33em;
-                position: absolute;
-                width: 50%;
-                height: 2px;
-                top: 50%;
-                left: 50%;
-                background-color: transparent;
-                transform: rotate(var(--deg)) translateY(-50%);
-                transform-origin: left center;
-                filter: blur(0.43px);
-            }
+                & > .ringball-holder {
+                    &::before {
+                        content: "";
+                        position: absolute;
+                        width: $bolus-size;
+                        height: $bolus-size;
+                        right: calc($commet-path-width * diffRatio($commet-path-width, $bolus-size) * -1);
+                        // right: 0;
+                        // left: 50%;
+                        bottom: 50%;
+                        // transform: translateX(-50%);
+                        background-color: var(--bg-color);
+                        border-radius: 50%;
 
-            .ringball::before {
-                content: "";
-                position: absolute;
-                top: 50%;
-                // Adding border-width dimension to left which is set to zero; So that ball is appended in the middle of path
-                left: calc((100% - var(--scale)) + var(--border-width));
-                transform: translateY(-50%);
-                width: calc(2 * var(--scale));
-                height: calc(2 * var(--scale));
-                background-color: currentColor;
-                border-radius: 50%;
-                // box-shadow: 0 0 2em, 0 0 4em, 0 0 6em, 0 0 8em, 0 0 10em, 0 0 0 0.5em rgba(255, 255, 0, 0.1);
+                        @include glow();
+                    }
+                }
             }
         }
     }
-
-    @keyframes spinCommet {
-        to {
-            transform: rotate(1turn);
-        }
+}
+@keyframes spinCommet {
+    to {
+        transform: rotate(1turn);
     }
 }
