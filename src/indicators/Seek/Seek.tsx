@@ -1,50 +1,34 @@
+"use strict";
+
 import React from "react";
+
 import { SeekProps } from "./Seek.types";
 import "./Seek.scss";
+import useFontsizeMapper from "../../hooks/useFontsizeMapper";
 
 const Seek = (props: SeekProps) => {
 	// Styles
-	let styles: React.CSSProperties = props?.style || {};
+	let styles: React.CSSProperties = Object(props?.style);
+
+	/* Size SETTINGS */
+	let fontSize: string | number = useFontsizeMapper(props?.size);
+	// Setting size by specifying font-size in style attr
+	// and modifying styles to exclude fontSize
+	if (props?.style?.fontSize) {
+		const { fontSize: cssFontSize, ...css } = props?.style;
+
+		styles = css;
+		fontSize = cssFontSize;
+	}
 
 	/* Color SETTINGS */
 	// If Color property is a string, that is the color of all rings
 	// If color property is an array, that is color for each rings
-	let allSeekBouncesColor: { color?: string } = {};
-	let allSeekBouncesColorArr: string[] = [];
-
-	if (props?.color && typeof props?.color === "string") {
-		allSeekBouncesColor = { color: props?.color };
-	} else if (props?.color?.length && props?.color instanceof Array) {
-		allSeekBouncesColorArr = props?.color;
-	}
-	if (allSeekBouncesColorArr.length > 0) {
-		// NOT supporting Individual riples coloring
-		const [allSeekBounces] = allSeekBouncesColorArr;
-		allSeekBouncesColor = { color: allSeekBounces };
-	}
-
-	/* Size SETTINGS */
-	const size: string = props?.size || "";
-	let fontSize: string | number = "";
-	switch (size) {
-		case "small":
-			fontSize = "12px";
-			break;
-		case "medium":
-			fontSize = "16px";
-			break;
-		case "large":
-			fontSize = "20px";
-			break;
-	}
-	// Setting size by specifying font-size in style attr
-  // and modifying styles to exclude fontSize
-	if (props?.style?.fontSize) {
-		const { fontSize: extractedFontSize, ...extractedStyles } = props?.style;
-
-    styles = extractedStyles;
-		fontSize = extractedFontSize;
-	}
+	const seekBounceColor: string | string[] = props?.color ?? "";
+	const seekBounceColorStyles: React.CSSProperties =
+		seekBounceColor instanceof Array
+			? { ...genStyleFromColorArr(seekBounceColor) }
+			: { ...genStyleFromColorStr(seekBounceColor) };
 
 	return (
 		<span
@@ -53,7 +37,7 @@ const Seek = (props: SeekProps) => {
 		>
 			<span
 				className="rli-d-i-b seek-loader"
-				style={{ ...allSeekBouncesColor, ...styles }}
+				style={{ ...seekBounceColorStyles, ...styles }}
 			>
 				<span className="rli-d-i-b seek-bounce seek-bounce1"></span>
 				<span className="rli-d-i-b seek-bounce seek-bounce2"></span>
@@ -80,3 +64,26 @@ const Seek = (props: SeekProps) => {
 };
 
 export { Seek };
+
+function genStyleFromColorStr(
+	colorStr: string | undefined
+): React.CSSProperties {
+	colorStr = colorStr ?? "";
+
+	const stylesObject: any = {};
+
+	stylesObject["color"] = colorStr;
+
+	return stylesObject;
+}
+
+function genStyleFromColorArr(colorArr: string[]): React.CSSProperties {
+	const stylesObject: any = {};
+
+	// NOT supporting Individual riple coloring
+	const [color] = colorArr;
+
+	stylesObject["color"] = color;
+
+	return stylesObject;
+}

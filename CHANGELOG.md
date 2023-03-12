@@ -49,7 +49,9 @@
 - Remove duplicated `d-i-b` css class and add `rli-d-i-b` as a global style.
 
 # --next-version-
+
 - Add new indicator `GlidingBlink`.
-- Add sass mixins in separate file.
-- Create sass variables containing defaults.
-- Make package tree-shakeable.
+- Centralize default _vars_.
+- Fine tune `Atom` and `Commet` indicators.
+- Code refactor.
+- Tree-shaking optimization.

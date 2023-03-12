@@ -1,5 +1,8 @@
 @use "../../scss/variables" as defaults;
 
+$expandSquareAnimDuration: 1s;
+$rotateSquareAnimDuration: 1s;
+
 .foursquare-bounding-box {
     box-sizing: border-box;
     display: inline-block;
@@ -22,7 +25,7 @@
             width: inherit;
             color: currentColor;
             position: relative;
-            animation: expand 1s cubic-bezier(0.05, 0.28, 0.79, 0.98) infinite;
+            animation: expand $expandSquareAnimDuration cubic-bezier(0.05, 0.28, 0.79, 0.98) infinite;
             transform: rotate(45deg);
             position: absolute;
             top: 0;
@@ -47,24 +50,28 @@
             height: calc(var(--dimension-unit) / 2 * 1em);
             border-radius: 3px;
             background-color: currentColor;
-            animation: square 1s both infinite;
+            animation: rotateSquare $rotateSquareAnimDuration both infinite;
 
             &.square1 {
+                background-color: var(--square1-color, currentColor);
                 top: 0;
                 left: 0;
             }
 
             &.square2 {
+                background-color: var(--square2-color, currentColor);
                 top: 0;
                 right: 0;
             }
 
             &.square3 {
+                background-color: var(--square3-color, currentColor);
                 bottom: 0;
                 left: 0;
             }
 
             &.square4 {
+                background-color: var(--square4-color, currentColor);
                 bottom: 0;
                 right: 0;
             }
@@ -99,7 +106,7 @@
     }
 }
 
-@keyframes square {
+@keyframes rotateSquare {
     0% {
         transform: rotate(0deg);
     }

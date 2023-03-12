@@ -4,21 +4,13 @@ import { ColorTranslator } from "colortranslator";
 import { GlidingBlinkProps } from "./GlidingBlink.types";
 import "./GlidingBlink.scss";
 import useFontsizeMapper from "../../hooks/useFontsizeMapper";
+import { defaultColor } from "../variables";
 
-const DEFAULT_COLOR = new ColorTranslator("rgb(50, 205, 50)"); // limegreen
+const DEFAULT_COLOR = new ColorTranslator(defaultColor);
 
 const GlidingBlink = (props: GlidingBlinkProps) => {
 	// Styles
 	let styles: React.CSSProperties = Object(props?.style);
-
-	/* Color SETTINGS */
-	// If Color property is a string, that is the color of all anime
-	// If color property is an array, that is color for each anime
-	let glidingBlinkColor: string | string[] = props?.color ?? "";
-	const glidingBlinkColorStyles: React.CSSProperties =
-		glidingBlinkColor instanceof Array
-			? { ...genStyleFromColorArr(glidingBlinkColor) }
-			: { ...genStyleFromColorStr(glidingBlinkColor) };
 
 	/* Size SETTINGS */
 	let fontSize: string | number = useFontsizeMapper(props?.size);
@@ -31,6 +23,15 @@ const GlidingBlink = (props: GlidingBlinkProps) => {
 		styles = css;
 		fontSize = cssFontSize;
 	}
+
+	/* Color SETTINGS */
+	// If Color property is a string, that is the color of all anime
+	// If color property is an array, that is color for each anime
+	let glidingBlinkColor: string | string[] = props?.color ?? "";
+	const glidingBlinkColorStyles: React.CSSProperties =
+		glidingBlinkColor instanceof Array
+			? { ...genStyleFromColorArr(glidingBlinkColor) }
+			: { ...genStyleFromColorStr(glidingBlinkColor) };
 
 	return (
 		<span

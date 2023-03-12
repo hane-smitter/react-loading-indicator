@@ -1,7 +1,7 @@
 @use "../../scss/variables" as defaults;
 
 $spinCommetDuration: 1.8s;
-$bolus-size: 0.5em;
+$bolus-size: 0.4667em;
 $commet-path-width: 0.2em;
 
 @function stripUnit($value) {

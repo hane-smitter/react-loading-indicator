@@ -1,74 +1,82 @@
 import React from "react";
+
 import { DiscProps } from "./Disc.types";
 import "./Disc.scss";
+import useFontsizeMapper from "../../../hooks/useFontsizeMapper";
 
 const Disc = (props: DiscProps) => {
-  // Styles
-  let styles: React.CSSProperties = props?.style || {};
+	// Styles
+	let styles: React.CSSProperties = Object(props?.style);
 
-  /* Color SETTING */
-  let ringColor: { color?: string } = {};
-  let ringColorArr: string[] = [];
+	/* Size SETTINGS */
+	let fontSize: string | number = useFontsizeMapper(props?.size);
 
-  if (props?.color && typeof props?.color === "string") {
-    ringColor = { color: props?.color };
-  } else if (props?.color?.length && props?.color instanceof Array) {
-    ringColorArr = props?.color;
-  }
-  if (ringColorArr.length > 0) {
-    // NOT supporting Individual ring coloring
-    const [allRings] = ringColorArr;
-    ringColor = { color: allRings };
-  }
-
-  /* Size SETTINGS */
-  const size: string = props?.size || "";
-  let fontSize: string | number = "";
-  switch (size) {
-    case "small":
-      fontSize = "12px";
-      break;
-    case "medium":
-      fontSize = "16px";
-      break;
-    case "large":
-      fontSize = "20px";
-      break;
-  }
-  // Setting size by specifying font-size in style attr
-  // and modifying styles to exclude fontSize
+	// Setting size by specifying font-size in style attr
+	// and modifying styles to exclude fontSize
 	if (props?.style?.fontSize) {
-		const { fontSize: extractedFontSize, ...extractedStyles } = props?.style;
+		const { fontSize: cssFontSize, ...css } = props?.style;
 
-    styles = extractedStyles;
-		fontSize = extractedFontSize;
+		styles = css;
+		fontSize = cssFontSize;
 	}
 
-  return (
-    <span
-      className="rli-d-i-b disc-bounding-box"
-      style={{ ...(fontSize && { fontSize }) }}
-    >
-      <span className="rli-d-i-b disc-loader" style={{ ...ringColor, ...styles }}>
-        <span className="rli-d-i-b disc-ring"></span>
-        <span
-          className="rli-d-i-b rli-text-format disc-text"
-          style={{
-            ...(props?.textColor && {
-              color: props?.textColor,
-              mixBlendMode: "unset",
-            }),
-          }}
-        >
-          {props?.text
-            ? typeof props?.text === "string" && props?.text.length
-              ? props?.text
-              : "loading"
-            : null}
-        </span>
-      </span>
-    </span>
-  );
+	/* Color SETTING */
+	let discColor: string | string[] = props?.color ?? "";
+	const discColorStyles: React.CSSProperties =
+		discColor instanceof Array
+			? { ...genStyleFromColorArr(discColor) }
+			: { ...genStyleFromColorStr(discColor) };
+
+	return (
+		<span
+			className="rli-d-i-b disc-bounding-box"
+			style={{ ...(fontSize && { fontSize }) }}
+		>
+			<span
+				className="rli-d-i-b disc-loader"
+				style={{ ...discColorStyles, ...styles }}
+			>
+				<span className="rli-d-i-b disc-ring"></span>
+				<span
+					className="rli-d-i-b rli-text-format disc-text"
+					style={{
+						...(props?.textColor && {
+							color: props?.textColor,
+							mixBlendMode: "unset"
+						})
+					}}
+				>
+					{props?.text
+						? typeof props?.text === "string" && props?.text.length
+							? props?.text
+							: "loading"
+						: null}
+				</span>
+			</span>
+		</span>
+	);
 };
 
 export { Disc };
+
+function genStyleFromColorStr(
+	colorStr: string | undefined
+): React.CSSProperties {
+	colorStr = colorStr ?? "";
+
+	const stylesObject: any = {};
+
+	stylesObject["color"] = colorStr;
+
+	return stylesObject;
+}
+
+function genStyleFromColorArr(colorArr: string[]): React.CSSProperties {
+	const stylesObject: any = {};
+	// NOT supporting Individual disc coloring
+	const [color] = colorArr;
+
+	stylesObject["color"] = color;
+
+	return stylesObject;
+}

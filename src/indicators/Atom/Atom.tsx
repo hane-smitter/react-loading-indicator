@@ -4,8 +4,9 @@ import { ColorTranslator } from "colortranslator";
 import "./Atom.scss";
 import { AtomProps } from "./Atom.types";
 import useFontsizeMapper from "../../hooks/useFontsizeMapper";
+import { defaultColor } from "../variables";
 
-const DEFAULT_COLOR = new ColorTranslator("rgb(50, 205, 50)"); // limegreen
+const DEFAULT_COLOR = new ColorTranslator(defaultColor);
 
 const Atom = (props: AtomProps) => {
 	// Styles

@@ -23,7 +23,8 @@
       border-radius: 50%;
       border-width: 0.6em;
       border-style: solid;
-      border-color: var(--ring1-color, currentColor) transparent var(--ring2-color, currentColor) transparent;
+      border-color: var(--split1-color, var(--splits-color, currentColor)) transparent
+        var(--split2-color, var(--splits-color, currentColor)) transparent;
       animation: split-disc-spin 1.2s linear infinite;
 
       background-color: transparent;
