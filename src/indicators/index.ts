@@ -8,5 +8,6 @@ export * from "./Mosaic";
 export * from "./Riple";
 export * from "./Seek";
 export * from "./GlidingBlink";
+export * from "./Twist";
 
 export { CircularProgress as default };
