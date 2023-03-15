@@ -1,0 +1,78 @@
+@use "../../scss/variables" as defaults;
+
+$slabWidth: 4em;
+
+.slab-bounding-box {
+  $boundingWidth: 7em;
+  font-size: defaults.$fontSizer;
+  color: defaults.$defaultColor;
+  position: relative;
+
+  width: $boundingWidth;
+  height: calc($boundingWidth / 1.489);
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+
+  .slab-text {
+    position: absolute;
+    top: 105%;
+    left: 50%;
+    transform: translateX(-50%);
+    color: currentColor;
+    font-size: 0.7em;
+    // font-weight: 600;
+  }
+
+  .slab-loader {
+    width: $slabWidth;
+    height: $slabWidth;
+    transform: perspective(15em) rotateX(66deg) rotateZ(-25deg);
+    transform-style: preserve-3d;
+    margin-bottom: -1.3em;
+
+    .slab {
+      position: absolute;
+      width: $slabWidth;
+      height: $slabWidth;
+      background: currentColor;
+      opacity: 0;
+      box-shadow: -0.08em 0.15em 0 rgb(0 0 0 / 45%);
+      transform-origin: 50% 0%;
+      -webkit-animation: slabMove 4s linear infinite;
+      animation: slabMove 4s linear infinite;
+
+      &:nth-child(1) {
+        animation-delay: 0s;
+      }
+      &:nth-child(2) {
+        animation-delay: 1s;
+      }
+      &:nth-child(3) {
+        animation-delay: 2s;
+      }
+      &:nth-child(4) {
+        animation-delay: 3s;
+      }
+    }
+  }
+}
+
+@keyframes slabMove {
+  0% {
+    transform: translateY(0) rotateX(30deg);
+    opacity: 0;
+  }
+  10% {
+    transform: translateY(-48%);
+    opacity: 1;
+  }
+  90% {
+    transform: translateY(-422%);
+    opacity: 0.1;
+  }
+  100% {
+    transform: translateY(-480%);
+    opacity: 0;
+  }
+}

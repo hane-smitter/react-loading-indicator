@@ -1,0 +1,1 @@
+export { Slab } from "./Slab";
