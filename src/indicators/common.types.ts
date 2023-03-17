@@ -1,4 +1,3 @@
-import React from "react";
 export interface CommonProps {
 	color?: string | string[];
 	size?: "small" | "medium" | "large";

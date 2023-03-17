@@ -5,6 +5,7 @@ import React from "react";
 import { TwistProps } from "./Twist.types";
 import "./Twist.scss";
 import useFontsizeMapper from "../../hooks/useFontsizeMapper";
+import Text from "../../utils/Text";
 
 const Twist = (props: TwistProps) => {
 	// Styles
@@ -47,21 +48,11 @@ const Twist = (props: TwistProps) => {
 				<span className="blade"></span>
 			</span>
 
-			<span
-				className="rli-d-i-b rli-text-format twist-text"
-				style={{
-					...(props?.textColor && {
-						color: props?.textColor,
-						mixBlendMode: "unset"
-					})
-				}}
-			>
-				{props?.text
-					? typeof props?.text === "string" && props?.text.length
-						? props?.text
-						: "loading"
-					: null}
-			</span>
+			<Text
+				className="twist-text"
+				text={props?.text}
+				textColor={props?.textColor}
+			/>
 		</span>
 	);
 };
@@ -83,7 +74,7 @@ function genStyleFromColorStr(
 function genStyleFromColorArr(colorArr: string[]): React.CSSProperties {
 	const stylesObject: any = {};
 
-	// NOT supporting Individual bubble coloring
+	// NOT supporting Individual blade coloring
 	const [color] = colorArr;
 
 	stylesObject["color"] = color;
