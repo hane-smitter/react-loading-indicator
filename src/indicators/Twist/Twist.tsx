@@ -1,6 +1,6 @@
 "use strict";
 
-import React from "react";
+import React, { CSSProperties } from "react";
 
 import { TwistProps } from "./Twist.types";
 import "./Twist.scss";
@@ -9,7 +9,7 @@ import Text from "../../utils/Text";
 
 const Twist = (props: TwistProps) => {
 	// Styles
-	let styles: React.CSSProperties = Object(props?.style);
+	let styles: CSSProperties = Object(props?.style);
 
 	/* Size SETTINGS */
 	let fontSize: string | number = useFontsizeMapper(props?.size);
@@ -27,7 +27,7 @@ const Twist = (props: TwistProps) => {
 	// If Color property is a string, that is the color of all rings
 	// If color property is an array, that is color for each rings
 	const twistColor: string | string[] = props?.color ?? "";
-	const twistColorStyles: React.CSSProperties =
+	const twistColorStyles: CSSProperties =
 		twistColor instanceof Array
 			? { ...genStyleFromColorArr(twistColor) }
 			: { ...genStyleFromColorStr(twistColor) };
@@ -59,9 +59,7 @@ const Twist = (props: TwistProps) => {
 
 export { Twist };
 
-function genStyleFromColorStr(
-	colorStr: string | undefined
-): React.CSSProperties {
+function genStyleFromColorStr(colorStr: string | undefined): CSSProperties {
 	colorStr = colorStr ?? "";
 
 	const stylesObject: any = {};
@@ -71,7 +69,7 @@ function genStyleFromColorStr(
 	return stylesObject;
 }
 
-function genStyleFromColorArr(colorArr: string[]): React.CSSProperties {
+function genStyleFromColorArr(colorArr: string[]): CSSProperties {
 	const stylesObject: any = {};
 
 	// NOT supporting Individual blade coloring

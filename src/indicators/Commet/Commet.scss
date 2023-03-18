@@ -1,15 +1,20 @@
+@use "sass:math";
+@use "sass:meta";
+
 @use "../../scss/variables" as defaults;
 
-$spinCommetDuration: 1.8s;
+$spinCommetDuration: 1.4s;
 $bolus-size: 0.4667em;
 $commet-path-width: 0.2em;
 
 @function stripUnit($value) {
-    @if type-of($value) == "number" and not unitless($value) {
-        @return $value / ($value * 0 + 1);
+    @if meta.type-of($value) != "number" {
+        @error "The type( `#{meta.type-of($value)}` ) is Invalid. Provide a number instead.";
+    } @else if meta.type-of($value) == "number" and not math.is-unitless($value) {
+        @return math.div($value, ($value * 0 + 1));
     }
 
-    @return $number;
+    @return $value;
 }
 
 @function diffRatio($borderWidth, $bolusSize) {
@@ -31,8 +36,8 @@ $commet-path-width: 0.2em;
     box-sizing: border-box;
 
     .commet-loader {
-        width: 4em;
-        height: 4em;
+        width: 5em;
+        height: 5em;
         color: defaults.$defaultColor;
         display: flex;
         align-items: center;

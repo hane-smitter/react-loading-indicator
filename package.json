@@ -1,7 +1,7 @@
 {
 	"name": "react-loading-indicators",
-	"version": "0.0.11",
-	"description": "A collection of loading indicators for your application",
+	"version": "0.1.0",
+	"description": "Simply elegant light-weight loading indicators for react applications",
 	"scripts": {
 		"prebuild": "rm -rf dist",
 		"build": "rollup -c",

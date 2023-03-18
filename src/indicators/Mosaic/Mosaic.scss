@@ -25,16 +25,16 @@
       // filter: invert(1);
 
       position: absolute;
-      top: 50%;
+      top: 105%;
       left: 50%;
-      transform: translate(-50%, -50%);
+      transform: translateX(-50%);
 
       z-index: -2;
     }
 
     .mosaic-cube {
       background-color: currentColor;
-      animation: mosaic-animate 1.3s infinite ease-in-out;
+      animation: mosaicAnimate 1.3s infinite ease-in-out;
     }
     .mosaic-cube1 {
       animation-delay: 0.2s;
@@ -75,7 +75,7 @@
   }
 }
 
-@keyframes mosaic-animate {
+@keyframes mosaicAnimate {
   0%,
   70%,
   100% {

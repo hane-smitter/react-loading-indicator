@@ -1,3 +1,3 @@
-import "./scss_globals/global.scss";
+import "./scss/global.scss";
 export * from "./indicators";
 export { default } from "./indicators";

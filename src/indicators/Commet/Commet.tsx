@@ -3,6 +3,7 @@ import React from "react";
 import { CommetProps } from "./Commet.types";
 import "./Commet.scss";
 import useFontsizeMapper from "../../hooks/useFontsizeMapper";
+import Text from "../../utils/Text";
 
 const Commet = (props: CommetProps) => {
 	// Styles
@@ -40,21 +41,11 @@ const Commet = (props: CommetProps) => {
 					...styles
 				}}
 			>
-				<span
-					className="rli-d-i-b rli-text-format commet-text"
-					style={{
-						...(props?.textColor && {
-							color: props?.textColor,
-							mixBlendMode: "unset"
-						})
-					}}
-				>
-					{props?.text
-						? typeof props?.text === "string" && props?.text.length
-							? props?.text
-							: "loading"
-						: null}
-				</span>
+				<Text
+					className="commet-text"
+					text={props?.text}
+					textColor={props?.textColor}
+				/>
 
 				<span className="rli-d-i-b ring-wrapper ring1">
 					<span className="rli-d-i-b ring "></span>

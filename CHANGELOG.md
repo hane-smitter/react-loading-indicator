@@ -48,9 +48,9 @@
 - Fix text display on `FourSquare` loader.
 - Remove duplicated `d-i-b` css class and add `rli-d-i-b` as a global style.
 
-# --next-version-
+# 0.1.0
 
-- Add new indicator `GlidingBlink`.
+- New indicators `GlidingBlink`, `Twist`, `Pulse` & `Slab`.
 - Centralize default _vars_.
 - Fine tune `Atom` and `Commet` indicators.
 - Code refactor.

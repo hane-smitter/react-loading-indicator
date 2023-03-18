@@ -25,12 +25,12 @@ export default [
 			}
 		],
 		plugins: [
-			peerDepsExternal(),
-			resolve(),
-			commonjs(),
-			typescript({ tsconfig: "./tsconfig.json" }),
-			postcss({ plugins: [autoprefixer] }),
-			terser()
+			peerDepsExternal(), // Prevents Rollup from bundling the peer dependencies we've defined in package.json (react and react-dom)
+			resolve(), // Efficiently bundles third party dependencies we've installed and use in node_modules
+			commonjs(), //  Enables transpilation into CommonJS (CJS) format
+			typescript({ tsconfig: "./tsconfig.json" }), // Transpiles our TypeScript code into JavaScript
+			postcss({ plugins: [autoprefixer] }), // Transforms our Sass -> into CSS -> into JS tokens; for injection in style tags of HTML
+			terser() // Minify the Rollup bundle
 		]
 	},
 	{

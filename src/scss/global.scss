@@ -4,6 +4,7 @@
     font-size: 1rem;
     display: inline-block;
     box-sizing: border-box;
+    text-align: unset;
 }
 .rli-d-i-b {
     display: inline-block;
@@ -12,11 +13,13 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    // font-weight: 500;
-    width: 80%;
+    font-weight: 500;
+    width: 90%;
     text-transform: uppercase;
     text-align: center;
     font-size: 0.6em;
     letter-spacing: 0.5px;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Avenir Next", "Avenir", "Segoe UI", "Lucida Grande", "Helvetica Neue", "Helvetica", "Fira Sans", "Roboto", "Noto", "Droid Sans", "Cantarell", "Oxygen", "Ubuntu", "Franklin Gothic Medium", "Century Gothic", "Liberation Sans", sans-serif;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Avenir Next", "Avenir", "Segoe UI", "Lucida Grande",
+        "Helvetica Neue", "Helvetica", "Fira Sans", "Roboto", "Noto", "Droid Sans", "Cantarell", "Oxygen", "Ubuntu",
+        "Franklin Gothic Medium", "Century Gothic", "Liberation Sans", sans-serif;
 }
