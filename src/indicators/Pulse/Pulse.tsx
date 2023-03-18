@@ -39,7 +39,7 @@ const Pulse = (props: PulseProps) => {
 			const pathEl: SVGPathElement = svgPathRef.current;
 			const parentSvgEl: HTMLElement | null = pathEl.parentElement;
 			const pathLength: number = pathEl.getTotalLength();
-			console.log("SVG PATH LENGTH: ", pathLength);
+			// console.log("SVG PATH LENGTH: ", pathLength);
 
 			const pathLengthRepeats = pathLength / 2;
 			const dashArray = pathLengthRepeats * 0.94;

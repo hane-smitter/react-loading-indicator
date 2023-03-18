@@ -1,10 +1,13 @@
 # react-loading-indicators
 
-A _light-weight library_ providing a _collection of easy to use loading indicators_ for your React projects. Waiting for a response has to be fun🥳.
+A light-weight component library providing _loading indicators_ to bestow elegance in waiting for a response from your React project.
 
-Built with Typescript. Compatible with **react version >=16.8.0**.
+Built with Typescript. Compatible with **react version >=16.8.0**(since hooks).
 
-View [DEMO](https://react-loading-indicators.netlify.app/).
+## A demo speaks a thousand languages
+
+A glimpse of what is wrapped🎁.<br />
+See [DEMO](https://react-loading-indicators.netlify.app/).
 
 ## Installation
 
@@ -24,10 +27,14 @@ yarn add react-loading-indicators
 <Atom />
 <Commet />
 <CircularProgress /> // Default import
+<GlidingBlink />
 <FourSquare />
 <Mosaic />
+<Pulse />
+<Twist />
 <Riple />
 <Seek />
+<Slab />
 
 ```
 

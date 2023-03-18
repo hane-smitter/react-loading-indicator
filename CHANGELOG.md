@@ -55,3 +55,7 @@
 - Fine tune `Atom` and `Commet` indicators.
 - Code refactor.
 - Tree-shaking optimization.
+
+# 0.1.1
+
+- Update readme
