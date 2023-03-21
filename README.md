@@ -2,7 +2,7 @@
 
 A light-weight component library providing _loading indicators_ to bestow elegance in waiting for a response from your React project.
 
-Built with Typescript. Compatible with **react version >=16.8.0**(since hooks).
+Built with Typescript. <!-- Compatible with **react version >=16.8.0**(since hooks). -->
 
 ## A demo speaks a thousand languages
 
