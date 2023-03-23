@@ -1,5 +1,3 @@
-import { CircularProgress } from "./CircularProgress";
-
 export * from "./Atom";
 export * from "./Commet";
 export * from "./CircularProgress";
@@ -11,5 +9,3 @@ export * from "./GlidingBlink";
 export * from "./Twist";
 export * from "./Slab";
 export * from "./Pulse";
-
-export { CircularProgress as default };
