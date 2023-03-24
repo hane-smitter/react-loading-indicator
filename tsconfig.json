@@ -1,25 +1,37 @@
 {
 	"compilerOptions": {
-		// Default
-		"target": "es5",
-		"esModuleInterop": true,
-		"forceConsistentCasingInFileNames": true,
-		"strict": true,
-		"skipLibCheck": true,
+		/* Basic Options */
+		"target": "esnext", // we would be compiling with babel, so we can target esnext
+		"module": "esnext", // for import() and es5 import/export
+		"lib": ["esnext", "dom"], // include all libraries you need
+		"jsx": "preserve", // because babel will transform it
 
-		// Added
-		"jsx": "react",
-		"module": "ESNext",
-		"declaration": true,
-		"declarationDir": "./dist/types",
-		"allowJs": false,
-		"sourceMap": false,
-		"removeComments": true,
-		"outDir": "dist",
-		"moduleResolution": "node",
-		"allowSyntheticDefaultImports": true
-		// "emitDeclarationOnly": true
+		/* Strict Type-Checking Options */
+		"strict": true, // suggested
+
+		/* Module Resolution Options */
+		"moduleResolution": "node", // because of webpack
+		"allowSyntheticDefaultImports": true, // to make it compatible with babel
+		"esModuleInterop": true, // to make it compatible with babel
+		"isolatedModules": true // to limit implementation
 	},
-	"include": ["src/**/*"],
+	"include": ["./src"],
 	"exclude": ["node_modules", "dist", "src/**/*.stories.tsx"]
 }
+
+/* 
+
+"target": "ES5",
+		"jsx": "react",
+		"module": "CommonJS",
+		"lib": ["ES5", "ScriptHost"],
+		"moduleResolution": "Node",
+		"esModuleInterop": true,
+		"skipLibCheck": true,
+		"skipDefaultLibCheck": true,
+		"strict": true,
+		"baseUrl": "./src",
+		"outDir": "./dist",
+		"forceConsistentCasingInFileNames": true
+
+*/

@@ -4,7 +4,9 @@
 	"description": "Simply elegant light-weight loading indicators for react applications",
 	"scripts": {
 		"prebuild": "rm -rf dist",
-		"build": "cross-env NODE_ENV=production webpack",
+		"build": "npm run build:cjs && npm run build:mjs",
+		"build:cjs": "node scripts/builder.cjs --target commonjs --mode production",
+		"build:mjs": "node scripts/builder.cjs --target module --mode production",
 		"checkVersion": "node scripts/versionExistsCheck.cjs",
 		"test": "echo 'no tests yet'",
 		"storybook": "start-storybook -p 6006",
@@ -42,11 +44,15 @@
 		"ts-loader": "^9.4.2",
 		"typescript": "^5.0.2",
 		"webpack": "^5.76.2",
-		"webpack-cli": "^5.0.1"
+		"webpack-cli": "^5.0.1",
+		"webpack-merge": "^5.8.0",
+		"yargs": "^17.7.1"
 	},
-	"main": "dist/cjs/index.js",
-	"module": "dist/mjs/index.js",
-	"modules.root": "dist/mjs",
+	"main": "./dist/cjs/index.js",
+	"module": "./dist/mjs/index.js",
+	"exports": {
+		"./": "./dist/mjs/"
+	},
 	"files": [
 		"dist"
 	],
@@ -57,6 +63,9 @@
 	"peerDependencies": {
 		"react": ">=16.8.0",
 		"react-dom": ">=16.8.0"
+	},
+	"bin": {
+		"builder": "./scripts/builder.cjs"
 	},
 	"keywords": [
 		"react",
