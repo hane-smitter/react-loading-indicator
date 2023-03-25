@@ -13,25 +13,12 @@
 		"moduleResolution": "node", // because of webpack
 		"allowSyntheticDefaultImports": true, // to make it compatible with babel
 		"esModuleInterop": true, // to make it compatible with babel
-		"isolatedModules": true // to limit implementation
+		"isolatedModules": true, // to limit implementation
+
+		// Generate declaration files
+		"declaration": true,
+		"declarationDir": "./dist/types"
 	},
 	"include": ["./src"],
-	"exclude": ["node_modules", "dist", "src/**/*.stories.tsx"]
+	"exclude": ["dist", "src/**/*.stories.tsx"]
 }
-
-/* 
-
-"target": "ES5",
-		"jsx": "react",
-		"module": "CommonJS",
-		"lib": ["ES5", "ScriptHost"],
-		"moduleResolution": "Node",
-		"esModuleInterop": true,
-		"skipLibCheck": true,
-		"skipDefaultLibCheck": true,
-		"strict": true,
-		"baseUrl": "./src",
-		"outDir": "./dist",
-		"forceConsistentCasingInFileNames": true
-
-*/

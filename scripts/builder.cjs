@@ -46,7 +46,7 @@ console.log(`Generated cmd: ${cmd} ${cliOpts.join(" ")}`);
 console.log("Running on node version -- ", process.version);
 
 runCommand(cmd, cliOpts, function (exit_code, output) {
-	console.log("Process ended with exit code: " + exit_code);
+	console.log("progress: Finished with exit code: " + exit_code);
 	// console.log('Full output of script: ',output);
 });
 
@@ -68,7 +68,7 @@ function runCommand(command, args, callback) {
 
 	child.stdout.setEncoding("utf8");
 	child.stdout.on("data", function (data) {
-		console.log("stdout: " + data);
+		console.log("progress: " + data);
 
 		data = data.toString();
 		scriptOutput += data;

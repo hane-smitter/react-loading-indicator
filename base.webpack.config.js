@@ -37,7 +37,10 @@ module.exports = {
 						loader: "babel-loader"
 					},
 					{
-						loader: "ts-loader"
+						loader: "ts-loader",
+						options: {
+							transpileOnly: true
+						}
 					}
 				],
 				exclude: /node_modules/
@@ -69,6 +72,13 @@ module.exports = {
 			} */
 		]
 	},
-	plugins: [new ForkTsCheckerWebpackPlugin()],
+	plugins: [
+		new ForkTsCheckerWebpackPlugin({
+			typescript: {
+				build: true,
+				mode: "write-dts"
+			}
+		})
+	],
 	externals: "react"
 };

@@ -4,9 +4,10 @@
 	"description": "Simply elegant light-weight loading indicators for react applications",
 	"scripts": {
 		"prebuild": "rm -rf dist",
-		"build": "npm run build:cjs && npm run build:mjs",
+		"build": "npm run build:cjs && npm run build:mjs && npm run packTypes",
 		"build:cjs": "node scripts/builder.cjs --target commonjs --mode production",
 		"build:mjs": "node scripts/builder.cjs --target module --mode production",
+		"packTypes": "node scripts/typesPack.cjs",
 		"checkVersion": "node scripts/versionExistsCheck.cjs",
 		"test": "echo 'no tests yet'",
 		"storybook": "start-storybook -p 6006",
@@ -31,6 +32,7 @@
 		"babel-loader": "^8.3.0",
 		"cross-env": "^7.0.3",
 		"css-loader": "^6.7.3",
+		"dts-bundle": "^0.7.3",
 		"fork-ts-checker-webpack-plugin": "^8.0.0",
 		"postcss": "^8.4.21",
 		"postcss-loader": "^7.1.0",
@@ -50,9 +52,7 @@
 	},
 	"main": "./dist/cjs/index.js",
 	"module": "./dist/mjs/index.js",
-	"exports": {
-		"./": "./dist/mjs/"
-	},
+	"exports": "./dist/mjs/",
 	"files": [
 		"dist"
 	],
@@ -89,7 +89,6 @@
 	},
 	"homepage": "https://react-loading-indicators.netlify.app/",
 	"dependencies": {
-		"@rollup/plugin-typescript": "^11.0.0",
 		"colortranslator": "^1.10.2"
 	}
 }
