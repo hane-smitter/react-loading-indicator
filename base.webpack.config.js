@@ -14,7 +14,11 @@ module.exports = {
 			glob("src/indicators/**/*.{tsx, jsx}", {
 				ignore: "src/indicators/**/*.stories.{tsx, jsx}"
 			}).map(file => [
-				path.relative("src", file.slice(0, file.lastIndexOf("/"))),
+				path.relative(
+					"src",
+					// file.slice(0, file.length - path.extname(file).length)
+					file.slice(0, file.lastIndexOf("/"))
+				),
 				// This expands the relative paths to absolute paths, so e.g.
 				// src/nested/foo becomes /project/src/nested/foo.js
 				path.resolve(__dirname, file)
@@ -30,21 +34,6 @@ module.exports = {
 	},
 	module: {
 		rules: [
-			{
-				test: /\.[jt]sx?$/,
-				use: [
-					{
-						loader: "babel-loader"
-					},
-					{
-						loader: "ts-loader",
-						options: {
-							transpileOnly: true
-						}
-					}
-				],
-				exclude: /node_modules/
-			},
 			{
 				test: /\.s?css$/,
 				use: [
@@ -72,13 +61,13 @@ module.exports = {
 			} */
 		]
 	},
-	plugins: [
-		new ForkTsCheckerWebpackPlugin({
-			typescript: {
-				build: true,
-				mode: "write-dts"
-			}
-		})
-	],
+	// plugins: [
+	// 	new ForkTsCheckerWebpackPlugin({
+	// 		typescript: {
+	// 			build: true,
+	// 			mode: "write-dts"
+	// 		}
+	// 	})
+	// ],
 	externals: "react"
 };

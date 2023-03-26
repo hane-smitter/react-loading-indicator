@@ -2,7 +2,7 @@ import React from "react";
 import { AtomProps } from "./Atom.types";
 import "./Atom.scss";
 
-const Atom = (props: AtomProps) => {
+const Atom2 = (props: AtomProps) => {
 	// Styles
 	let styles: React.CSSProperties = props?.style || {};
 
@@ -109,4 +109,4 @@ const Atom = (props: AtomProps) => {
 	);
 };
 
-export { Atom };
+export default Atom2;

@@ -63,7 +63,7 @@ const Seek = (props: SeekProps) => {
 	);
 };
 
-export { Seek };
+export default Seek;
 
 function genStyleFromColorStr(
 	colorStr: string | undefined

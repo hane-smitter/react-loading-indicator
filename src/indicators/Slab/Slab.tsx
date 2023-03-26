@@ -61,7 +61,7 @@ const Slab = (props: SlabProps) => {
 	);
 };
 
-export { Slab };
+export default Slab;
 
 function genStyleFromColorStr(
 	colorStr: string | undefined

@@ -10,13 +10,17 @@ const path = require("path");
 
 const pkgJson = require("../package.json");
 
-const distDir = path.join(__dirname, "../dist");
-console.log({ distDir });
+const contentDir = path.join(__dirname, "..");
+console.log({ contentDir });
 
+// react-loading-indicators/dist/mjs/indicators/Atom
 const options = {
 	name: pkgJson.name,
-	main: `${distDir}/types/index.d.ts`,
-	out: `${distDir}/index.d.ts`
+	main: `${contentDir}/dist/mjs/index.d.ts`,
+	out: `${contentDir}/dist/index.d.ts`,
+	// outputAsModuleFolder: false,
+	baseDir: contentDir
+	// prefix: `${pkgJson.name}/dist/mjs/indicators`
 };
 
 // run it

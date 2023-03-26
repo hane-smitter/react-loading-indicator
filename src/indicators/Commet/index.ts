@@ -1,1 +1,1 @@
-export { Commet } from "./Commet";
+export { default } from "./Commet";

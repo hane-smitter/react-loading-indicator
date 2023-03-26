@@ -62,7 +62,7 @@ const Riple = (props: RipleProps) => {
 	);
 };
 
-export { Riple };
+export default Riple;
 
 function genStyleFromColorStr(
 	colorStr: string | undefined

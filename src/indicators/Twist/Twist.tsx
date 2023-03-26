@@ -57,7 +57,7 @@ const Twist = (props: TwistProps) => {
 	);
 };
 
-export { Twist };
+export default Twist;
 
 function genStyleFromColorStr(colorStr: string | undefined): CSSProperties {
 	colorStr = colorStr ?? "";

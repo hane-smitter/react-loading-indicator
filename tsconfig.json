@@ -15,7 +15,7 @@
 		"esModuleInterop": true, // to make it compatible with babel
 		"isolatedModules": true, // to limit implementation
 
-		// Generate declaration files
+		/* Emit */
 		"declaration": true,
 		"declarationDir": "./dist/types"
 	},

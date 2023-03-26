@@ -4,7 +4,7 @@ import { FourSquareProps } from "./FourSquare.types";
 import "./FourSquare.scss";
 import useFontsizeMapper from "../../hooks/useFontsizeMapper";
 
-export const FourSquare = (props: FourSquareProps) => {
+const FourSquare = (props: FourSquareProps) => {
 	// Styles
 	let styles: React.CSSProperties = Object(props?.style);
 
@@ -65,6 +65,8 @@ export const FourSquare = (props: FourSquareProps) => {
 		</span>
 	);
 };
+
+export default FourSquare;
 
 function genStyleFromColorStr(
 	colorStr: string | undefined

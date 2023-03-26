@@ -66,7 +66,7 @@ const Atom = (props: AtomProps) => {
 	);
 };
 
-export { Atom };
+export default Atom;
 
 function genStyleFromColorStr(
 	colorStr: string | undefined

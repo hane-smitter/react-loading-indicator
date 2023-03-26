@@ -1,1 +1,1 @@
-export { GlidingBlink } from "./GlidingBlink";
+export { default } from "./GlidingBlink";

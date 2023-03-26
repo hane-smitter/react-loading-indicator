@@ -1,2 +1,13 @@
 import "./scss/global.scss";
-export * from "./indicators";
+export { default as Atom } from "./indicators/Atom";
+export { default as Commet } from "./indicators/Commet";
+export { default as CircularProgress } from "./indicators/CircularProgress";
+export { default as FourSquare } from "./indicators/FourSquare";
+export { default as GlidingBlink } from "./indicators/GlidingBlink";
+export { default as Mosaic } from "./indicators/Mosaic";
+export { default as Pulse } from "./indicators/Pulse";
+export { default as Riple } from "./indicators/Riple";
+export { default as Seek } from "./indicators/Seek";
+export { default as Slab } from "./indicators/Slab";
+export { default as Twist } from "./indicators/Twist";
+// export * from "./indicators";

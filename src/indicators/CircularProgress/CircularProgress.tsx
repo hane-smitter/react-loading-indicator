@@ -19,4 +19,4 @@ const CircularProgress = (props: CircularProgressProps) => {
 	) : null;
 };
 
-export { CircularProgress };
+export default CircularProgress;

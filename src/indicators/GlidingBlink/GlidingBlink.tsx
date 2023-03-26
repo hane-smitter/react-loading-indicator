@@ -62,7 +62,7 @@ const GlidingBlink = (props: GlidingBlinkProps) => {
 	);
 };
 
-export { GlidingBlink };
+export default GlidingBlink;
 
 function genStyleFromColorStr(
 	colorStr: string | undefined

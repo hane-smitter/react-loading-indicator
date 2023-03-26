@@ -124,7 +124,7 @@ const Pulse = (props: PulseProps) => {
 	);
 };
 
-export { Pulse };
+export default Pulse;
 
 function genStyleFromColorStr(
 	colorStr: string | undefined

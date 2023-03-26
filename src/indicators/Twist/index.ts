@@ -1,1 +1,1 @@
-export { Twist } from "./Twist";
+export { default } from "./Twist";

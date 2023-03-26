@@ -1,1 +1,1 @@
-export {FourSquare} from "./FourSquare";
+export { default } from "./FourSquare";

@@ -63,7 +63,7 @@ const Commet = (props: CommetProps) => {
 	);
 };
 
-export { Commet };
+export default Commet;
 
 function genStyleFromColorStr(
 	colorStr: string | undefined

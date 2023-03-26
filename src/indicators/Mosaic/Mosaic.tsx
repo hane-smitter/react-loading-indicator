@@ -73,7 +73,7 @@ const Mosaic = (props: MosaicProps) => {
 	);
 };
 
-export { Mosaic };
+export default Mosaic;
 
 function genStyleFromColorStr(
 	colorStr: string | undefined
