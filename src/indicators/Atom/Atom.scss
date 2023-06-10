@@ -4,11 +4,14 @@
 $defaultColorRedChannel: color.red(defaults.$defaultColor);
 $defaultColorGreenChannel: color.green(defaults.$defaultColor);
 $defaultColorBlueChannel: color.blue(defaults.$defaultColor);
-$spinAtomDuration: 2.1s;
-$spinAtomPathDuration: 8s;
+
+$atomSpinDuration: var(--rli-animation-duration, 1.8s); // ratio -> 0.2625(2.1 / 8)
+$atomSpinPathDuration: calc($atomSpinDuration / 0.2625);
+$animationFn: var(--rli-animation-function, linear);
+
 $colorInversionDegree: 200; // 0 - 255
 
-.atom-bounding-box {
+.atom-rli-bounding-box {
   --color-r: #{$defaultColorRedChannel};
   --color-g: #{$defaultColorGreenChannel};
   --color-b: #{$defaultColorBlueChannel};
@@ -21,7 +24,7 @@ $colorInversionDegree: 200; // 0 - 255
   // Create stacking context
   isolation: isolate;
 
-  .atom-loader {
+  .atom-throbber {
     $box-width: 5em;
     $box-height: 5em;
 
@@ -39,22 +42,22 @@ $colorInversionDegree: 200; // 0 - 255
       height: 100%;
       -webkit-transform-style: preserve-3d;
       transform-style: preserve-3d;
-      animation: spinAtom $spinAtomDuration linear infinite;
+      animation: atomSpin $atomSpinDuration $animationFn infinite;
       display: inline-block;
       transform-origin: center center;
       position: relative;
 
       & .disc:nth-of-type(1) {
         --disc-color: var(--disc3-color);
-        animation: rotate $spinAtomPathDuration linear infinite;
+        animation: rotate $atomSpinPathDuration $animationFn infinite;
       }
       & .disc:nth-of-type(2) {
         --disc-color: var(--disc2-color);
-        animation: rotateDisc2 $spinAtomPathDuration linear infinite;
+        animation: rotateAtomDisc2 $atomSpinPathDuration $animationFn infinite;
       }
       & .disc:nth-of-type(3) {
         --disc-color: var(--disc1-color);
-        animation: rotateDisc3 $spinAtomPathDuration linear infinite;
+        animation: rotateAtomDisc3 $atomSpinPathDuration $animationFn infinite;
       }
 
       $disc-border-width: 0.3em;
@@ -120,13 +123,8 @@ $colorInversionDegree: 200; // 0 - 255
   .atom-text {
     color: currentColor;
     mix-blend-mode: difference;
-
-    position: absolute;
-    top: 105%;
-    left: 50%;
-    transform: translateX(-50%);
-
-    z-index: -2;
+    width: unset;
+    display: block;
   }
 }
 
@@ -138,13 +136,13 @@ $colorInversionDegree: 200; // 0 - 255
     transform: rotateX(0deg) rotateY(360deg);
   }
 } */
-@keyframes spinAtom {
+@keyframes atomSpin {
   to {
     transform: rotate(1turn);
   }
 }
 
-@keyframes rotateDisc2 {
+@keyframes rotateAtomDisc2 {
   from {
     transform: rotateX(90deg) rotateZ(0deg);
   }
@@ -152,7 +150,7 @@ $colorInversionDegree: 200; // 0 - 255
     transform: rotateX(90deg) rotateZ(360deg);
   }
 }
-@keyframes rotateDisc3 {
+@keyframes rotateAtomDisc3 {
   from {
     transform: rotateY(90deg) rotateZ(0deg);
   }

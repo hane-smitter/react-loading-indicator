@@ -1,5 +1,5 @@
 .react-loading-indicator-normalize,
-[class$="bounding-box"] {
+[class$="rli-bounding-box"] {
     // Select elements that have a class name ending with that value
     font-size: 1rem;
     display: inline-block;
@@ -13,11 +13,11 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    font-weight: 500;
+    font-weight: 600;
     width: 90%;
     text-transform: uppercase;
     text-align: center;
-    font-size: 0.6em;
+    font-size: 0.7em;
     letter-spacing: 0.5px;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, "Avenir Next", "Avenir", "Segoe UI", "Lucida Grande",
         "Helvetica Neue", "Helvetica", "Fira Sans", "Roboto", "Noto", "Droid Sans", "Cantarell", "Oxygen", "Ubuntu",

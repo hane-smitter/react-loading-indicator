@@ -4,70 +4,40 @@ import React from "react";
 
 import { BubbleDottedProps } from "./BubbleDotted.types";
 import "./BubbleDotted.scss";
-import useFontsizeMapper from "../../../hooks/useFontsizeMapper";
+import Text from "../../../utils/Text";
+import useStylesPipeline from "../../../hooks/useStylesPipeline";
 
 let BubbleDotted = (props: BubbleDottedProps) => {
 	// Styles
-	let styles: React.CSSProperties = Object(props?.style);
-
-	/* Size SETTINGS */
-	let fontSize: string | number = useFontsizeMapper(props?.size);
-
-	// Setting size by specifying font-size in style attr
-	// and modifying styles to exclude fontSize
-	if (props?.style?.fontSize) {
-		const { fontSize: cssFontSize, ...css } = props?.style;
-
-		styles = css;
-		fontSize = cssFontSize;
-	}
+	const { styles, fontSize } = useStylesPipeline(props?.style, props?.size);
 
 	/* Color SETTINGS */
-	// If Color property is a string, that is the color of all rings
-	// If color property is an array, that is color for each rings
-	const dotsColor: string | string[] = props?.color ?? "";
+	// Accept Array or String color prop and set all dots color
+	const colorProp: string | string[] = props?.color ?? "";
 	const dotsColorStyles: React.CSSProperties =
-		dotsColor instanceof Array
-			? { ...genStyleFromColorArr(dotsColor) }
-			: { ...genStyleFromColorStr(dotsColor) };
+		stylesObjectFromColorProp(colorProp);
 
 	return (
 		<span
-			className="rli-d-i-b bubbledot-bounding-box"
+			className="rli-d-i-b bubble-dotted-rli-bounding-box"
 			style={{ ...(fontSize && { fontSize }) }}
 		>
 			<span
-				className="rli-d-i-b bubbledot-loader"
+				className="rli-d-i-b bubble-dotted-throbber"
 				style={{ ...dotsColorStyles, ...styles }}
 			>
-				<span className="rli-d-i-b bubbledot1 dot-child"></span>
-				<span className="rli-d-i-b bubbledot2 dot-child"></span>
-				<span className="rli-d-i-b bubbledot3 dot-child"></span>
-				<span className="rli-d-i-b bubbledot4 dot-child"></span>
-				<span className="rli-d-i-b bubbledot5 dot-child"></span>
-				<span className="rli-d-i-b bubbledot6 dot-child"></span>
-				<span className="rli-d-i-b bubbledot7 dot-child"></span>
-				<span className="rli-d-i-b bubbledot8 dot-child"></span>
-				<span className="rli-d-i-b bubbledot9 dot-child"></span>
-				<span className="rli-d-i-b bubbledot10 dot-child"></span>
-				<span className="rli-d-i-b bubbledot11 dot-child"></span>
-				<span className="rli-d-i-b bubbledot12 dot-child"></span>
+				{Array.from({ length: 12 }).map((item, i) => (
+					<span
+						className="rli-d-i-b bubble-dot-matter"
+						style={{ "--elem-pos": `${i + 1}` } as React.CSSProperties}
+					></span>
+				))}
 
-				<span
-					className="rli-d-i-b rli-text-format bubbledot-text"
-					style={{
-						...(props?.textColor && {
-							color: props?.textColor,
-							mixBlendMode: "unset"
-						})
-					}}
-				>
-					{props?.text
-						? typeof props?.text === "string" && props?.text.length
-							? props?.text
-							: "loading"
-						: null}
-				</span>
+				<Text
+					className="bubble-dotted-text"
+					text={props?.text}
+					textColor={props?.textColor}
+				/>
 			</span>
 		</span>
 	);
@@ -75,25 +45,21 @@ let BubbleDotted = (props: BubbleDottedProps) => {
 
 export { BubbleDotted };
 
-function genStyleFromColorStr(
-	colorStr: string | undefined
+function stylesObjectFromColorProp(
+	colorProp: string | string[]
 ): React.CSSProperties {
-	colorStr = colorStr ?? "";
-
 	const stylesObject: any = {};
 
-	stylesObject["color"] = colorStr;
+	if (colorProp instanceof Array) {
+		// Pick first item as the color
+		const [color] = colorProp;
 
-	return stylesObject;
-}
+		stylesObject["color"] = color;
 
-function genStyleFromColorArr(colorArr: string[]): React.CSSProperties {
-	const stylesObject: any = {};
+		return stylesObject;
+	}
 
-	// NOT supporting Individual bubble coloring
-	const [color] = colorArr;
-
-	stylesObject["color"] = color;
+	stylesObject["color"] = colorProp;
 
 	return stylesObject;
 }

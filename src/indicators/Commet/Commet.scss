@@ -3,9 +3,10 @@
 
 @use "../../scss/variables" as defaults;
 
-$spinCommetDuration: 1.4s;
+$animationDuration: var(--rli-animation-duration, 1.2s);
+$animationFn: var(--rli-animation-function, cubic-bezier(0.08, 0.03, 0.91, 0.93));
 $bolus-size: 0.4667em;
-$commet-path-width: 0.2em;
+$commet-path-width: 0.25em;
 
 @function stripUnit($value) {
     @if meta.type-of($value) != "number" {
@@ -30,14 +31,14 @@ $commet-path-width: 0.2em;
     box-shadow: 0 0 0.3em 0.03em var(--bg-color), 0 0 1.4em 0.16em var(--bg-color);
 }
 
-.commet-bounding-box {
+.commet-rli-bounding-box {
     font-size: defaults.$fontSizer;
     display: inline-block;
     box-sizing: border-box;
 
-    .commet-loader {
-        width: 5em;
-        height: 5em;
+    .commet-throbber {
+        width: 6em;
+        height: 6em;
         color: defaults.$defaultColor;
         display: flex;
         align-items: center;
@@ -61,7 +62,7 @@ $commet-path-width: 0.2em;
             position: absolute;
             width: var(--ring-dimensions);
             height: var(--ring-dimensions);
-            animation: spinCommet $spinCommetDuration cubic-bezier(0.08, 0.03, 0.91, 0.93) infinite;
+            animation: commetSpin $animationDuration $animationFn infinite;
 
             & > .ringball-holder {
                 position: absolute;
@@ -142,7 +143,7 @@ $commet-path-width: 0.2em;
         }
     }
 }
-@keyframes spinCommet {
+@keyframes commetSpin {
     to {
         transform: rotate(1turn);
     }

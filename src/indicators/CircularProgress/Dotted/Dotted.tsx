@@ -1,70 +1,42 @@
 import React from "react";
 
+import "./Dotted.scss"
 import { DottedProps } from "./Dotted.types";
-import "./Dotted.scss";
-import useFontsizeMapper from "../../../hooks/useFontsizeMapper";
+import Text from "../../../utils/Text";
+import useStylesPipeline from "../../../hooks/useStylesPipeline";
 
 const Dotted = (props: DottedProps) => {
 	// Styles
-	let styles: React.CSSProperties = Object(props?.style);
-
-	/* Size SETTINGS */
-	let fontSize: string | number = useFontsizeMapper(props?.size);
-	// Setting size by specifying font-size in style attr
-	// and modifying styles to exclude fontSize
-	if (props?.style?.fontSize) {
-		const { fontSize: cssFontSize, ...css } = props?.style;
-
-		styles = css;
-		fontSize = cssFontSize;
-	}
+	const { styles, fontSize } = useStylesPipeline(props?.style, props?.size);
 
 	/* Color SETTINGS */
-	// If Color property is a string, that is the color of all rings
-	// If color property is an array, that is color for each rings
-	let dotsColor: string | string[] = props?.color ?? "";
+	// Accept Array or String color prop and set all dots color
+	let colorProp: string | string[] = props?.color ?? "";
 	const dotsColorStyles: React.CSSProperties =
-		dotsColor instanceof Array
-			? { ...genStyleFromColorArr(dotsColor) }
-			: { ...genStyleFromColorStr(dotsColor) };
+		stylesObjectFromColorProp(colorProp);
 
 	return (
 		<span
-			className="rli-d-i-b react-loading-indicator-normalize dot-bounding-box"
+			className="rli-d-i-b dot-rli-bounding-box"
 			style={{ ...(fontSize && { fontSize }) }}
 		>
 			<span
-				className="rli-d-i-b fading-dot-loader"
+				className="rli-d-i-b fading-dot-throbber"
 				style={{ ...dotsColorStyles, ...styles }}
 			>
-				<span className="rli-d-i-b fading-dot1 fading-dot"></span>
-				<span className="rli-d-i-b fading-dot2 fading-dot"></span>
-				<span className="rli-d-i-b fading-dot3 fading-dot"></span>
-				<span className="rli-d-i-b fading-dot4 fading-dot"></span>
-				<span className="rli-d-i-b fading-dot5 fading-dot"></span>
-				<span className="rli-d-i-b fading-dot6 fading-dot"></span>
-				<span className="rli-d-i-b fading-dot7 fading-dot"></span>
-				<span className="rli-d-i-b fading-dot8 fading-dot"></span>
-				<span className="rli-d-i-b fading-dot9 fading-dot"></span>
-				<span className="rli-d-i-b fading-dot10 fading-dot"></span>
-				<span className="rli-d-i-b fading-dot11 fading-dot"></span>
-				<span className="rli-d-i-b fading-dot12 fading-dot"></span>
+				{Array.from({ length: 12 }).map((item, i) => (
+					<span
+						key={`fading-dot-${i}`}
+						className={`rli-d-i-b fading-dot${i + 1} fading-dot-matter`}
+						style={{ "--elem-pos": `${i + 1}` } as React.CSSProperties}
+					></span>
+				))}
 
-				<span
-					className="rli-d-i-b rli-text-format fading-dot-text"
-					style={{
-						...(props?.textColor && {
-							color: props?.textColor,
-							mixBlendMode: "unset"
-						})
-					}}
-				>
-					{props?.text
-						? typeof props?.text === "string" && props?.text.length
-							? props?.text
-							: "loading"
-						: null}
-				</span>
+				<Text
+					className="fading-dot-text"
+					text={props?.text}
+					textColor={props?.textColor}
+				/>
 			</span>
 		</span>
 	);
@@ -72,24 +44,21 @@ const Dotted = (props: DottedProps) => {
 
 export { Dotted };
 
-function genStyleFromColorStr(
-	colorStr: string | undefined
+function stylesObjectFromColorProp(
+	colorProp: string | string[]
 ): React.CSSProperties {
-	colorStr = colorStr ?? "";
-
 	const stylesObject: any = {};
 
-	stylesObject["color"] = colorStr;
+	if (colorProp instanceof Array) {
+		// Pick first item as the color
+		const [color] = colorProp;
 
-	return stylesObject;
-}
+		stylesObject["color"] = color;
 
-function genStyleFromColorArr(colorArr: string[]): React.CSSProperties {
-	const stylesObject: any = {};
-	// NOT supporting Individual disc coloring
-	const [color] = colorArr;
+		return stylesObject;
+	}
 
-	stylesObject["color"] = color;
+	stylesObject["color"] = colorProp;
 
 	return stylesObject;
 }

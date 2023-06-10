@@ -1,10 +1,13 @@
 @use "../../../scss/variables" as defaults;
 
-.disc-bounding-box {
+$animationDuration: var(--rli-animation-duration, 1s);
+$animationFn: var(--rli-animation-function, linear);
+
+.disc-rli-bounding-box {
   font-size: defaults.$fontSizer;
   display: inline-block;
 
-  .disc-loader {
+  .disc-throbber {
     width: 5em;
     height: 5em;
     color: defaults.$defaultColor;
@@ -24,7 +27,11 @@
       border-radius: 50%;
       // display: inline-block;
       box-sizing: border-box;
-      animation: spin 1s linear infinite;
+
+      animation-name: discSpin;
+      animation-duration: $animationDuration;
+      animation-timing-function: $animationFn;
+      animation-iteration-count: infinite;
     }
 
     .disc-text {
@@ -43,7 +50,7 @@
   }
 }
 
-@keyframes spin {
+@keyframes discSpin {
   to {
     transform: rotate(1turn);
   }

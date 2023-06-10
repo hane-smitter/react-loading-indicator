@@ -10,6 +10,6 @@ export * from "./Seek";
 export * from "./GlidingBlink";
 export * from "./Twist";
 export * from "./Slab";
-export * from "./Pulse";
+export * from "./LifeLine";
 
 export { CircularProgress as default };

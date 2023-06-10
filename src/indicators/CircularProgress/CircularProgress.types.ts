@@ -4,5 +4,5 @@ export interface CircularProgressProps extends CommonProps {
 	/**
 	 * variant of circular loader. Defaults to `disc`.
 	 */
-	variant?: "dotted" | "bubble-dotted" | "disc" | "split-disc";
+	variant?: "dotted" | "bubble-dotted" | "disc" | "split-disc" | "track-disc";
 }

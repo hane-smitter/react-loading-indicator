@@ -1,32 +1,32 @@
 import React from "react";
 
-import { DiscProps } from "./Disc.types";
-import "./Disc.scss";
+import { TrackDiscProps } from "./TrackDisc.types";
+import "./TrackDisc.scss";
 import Text from "../../../utils/Text";
 import useStylesPipeline from "../../../hooks/useStylesPipeline";
 
-const Disc = (props: DiscProps) => {
+const TrackDisc = (props: TrackDiscProps) => {
 	// Styles
 	const { styles, fontSize } = useStylesPipeline(props?.style, props?.size);
 
 	/* Color SETTING */
 	let colorProp: string | string[] = props?.color ?? "";
-	const discColorStyles: React.CSSProperties =
+	const trackDiscColorStyles: React.CSSProperties =
 		stylesObjectFromColorProp(colorProp);
 
 	return (
 		<span
-			className="rli-d-i-b disc-rli-bounding-box"
+			className="rli-d-i-b track-disc-rli-bounding-box"
 			style={{ ...(fontSize && { fontSize }) }}
 		>
 			<span
-				className="rli-d-i-b disc-throbber"
-				style={{ ...discColorStyles, ...styles }}
+				className="rli-d-i-b track-disc-throbber"
+				style={{ ...trackDiscColorStyles, ...styles }}
 			>
-				<span className="rli-d-i-b disc-ring"></span>
+				<span className="rli-d-i-b track-disc-ring"></span>
 
 				<Text
-					className="disc-text"
+					className="track-disc-text"
 					text={props?.text}
 					textColor={props?.textColor}
 				/>
@@ -35,7 +35,7 @@ const Disc = (props: DiscProps) => {
 	);
 };
 
-export { Disc };
+export { TrackDisc };
 
 function stylesObjectFromColorProp(
 	colorProp: string | string[]
@@ -43,10 +43,11 @@ function stylesObjectFromColorProp(
 	const stylesObject: any = {};
 
 	if (colorProp instanceof Array) {
-		// Pick first item as the color
-		const [color] = colorProp;
+		// Array with first item - disc color, second item - track color
+		const [color, trackColor] = colorProp;
 
-		stylesObject["color"] = color;
+		if (color) stylesObject["color"] = color;
+		if (trackColor) stylesObject["--track-path-color"] = trackColor;
 
 		return stylesObject;
 	}

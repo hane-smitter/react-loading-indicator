@@ -2,60 +2,38 @@ import React from "react";
 
 import { SplitDiscProps } from "./SplitDisc.types";
 import "./SplitDisc.scss";
-import useFontsizeMapper from "../../../hooks/useFontsizeMapper";
+import useStylesPipeline from "../../../hooks/useStylesPipeline";
+import Text from "../../../utils/Text";
 
 const SplitDisc = (props: SplitDiscProps) => {
 	// Styles
-	let styles: React.CSSProperties = props?.style || {};
-
-	/* Size SETTINGS */
-	let fontSize: string | number = useFontsizeMapper(props?.size);
-	// Setting size by specifying font-size in style attr
-	// and modifying styles to exclude fontSize
-	if (props?.style?.fontSize) {
-		const { fontSize: cssFontSize, ...css } = props?.style;
-
-		styles = css;
-		fontSize = cssFontSize;
-	}
+	let { styles, fontSize } = useStylesPipeline(props?.style, props?.size);
 
 	/* Color SETTINGS */
 	// If Color property is a string, that is the color of all rings
 	// If color property is an array, that is color for each rings
-	let discsColor: string | string[] = props?.color ?? "";
+	let colorProp: string | string[] = props?.color ?? "";
 	const discsColorStyles: React.CSSProperties =
-		discsColor instanceof Array
-			? { ...genStyleFromColorArr(discsColor) }
-			: { ...genStyleFromColorStr(discsColor) };
+		stylesObjectFromColorProp(colorProp);
 
 	return (
 		<span
-			className="rli-d-i-b split-disc-bounding-box"
+			className="rli-d-i-b split-disc-rli-bounding-box"
 			style={{ ...(fontSize && { fontSize }) }}
 		>
 			<span
-				className="rli-d-i-b split-disc-loader"
+				className="rli-d-i-b split-disc-throbber"
 				style={{
 					...discsColorStyles,
 					...styles
 				}}
 			>
 				<span className="rli-d-i-b split-disc-ring"></span>
-				<span
-					className="rli-d-i-b rli-text-format split-disc-text"
-					style={{
-						...(props?.textColor && {
-							color: props?.textColor,
-							mixBlendMode: "unset"
-						})
-					}}
-				>
-					{props?.text
-						? typeof props?.text === "string" && props?.text.length
-							? props?.text
-							: "loading"
-						: null}
-				</span>
+				<Text
+					className="split-disc-text"
+					text={props?.text}
+					textColor={props?.textColor}
+				/>
 			</span>
 		</span>
 	);
@@ -63,31 +41,26 @@ const SplitDisc = (props: SplitDiscProps) => {
 
 export { SplitDisc };
 
-function genStyleFromColorStr(
-	colorStr: string | undefined
+function stylesObjectFromColorProp(
+	colorProp: string | string[]
 ): React.CSSProperties {
-	colorStr = colorStr ?? "";
-
 	const stylesObject: any = {};
 
-	stylesObject["color"] = colorStr;
+	if (colorProp instanceof Array) {
+		const arrLength = colorProp.length;
+		stylesObject["--splits-color"] = colorProp[0];
+		stylesObject["color"] = colorProp[0];
 
-	return stylesObject;
-}
+		for (let idx = 0; idx < arrLength; idx++) {
+			if (idx >= 2) break;
+			let currentItem = `split${idx + 1}`;
 
-function genStyleFromColorArr(colorArr: string[]): React.CSSProperties {
-	const stylesObject: any = {};
-	const arrLength = colorArr.length;
-
-	stylesObject["--splits-color"] = colorArr[0];
-	stylesObject["color"] = colorArr[0];
-
-	for (let idx = 0; idx < arrLength; idx++) {
-		if (idx >= 2) break;
-		let currentItem = `split${idx + 1}`;
-
-		stylesObject[`--${currentItem}-color`] = colorArr[idx];
+			stylesObject[`--${currentItem}-color`] = colorProp[idx];
+		}
+		return stylesObject;
 	}
+
+	stylesObject["color"] = colorProp;
 
 	return stylesObject;
 }
