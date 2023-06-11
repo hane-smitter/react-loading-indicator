@@ -4,10 +4,18 @@ import { TrackDiscProps } from "./TrackDisc.types";
 import "./TrackDisc.scss";
 import Text from "../../../utils/Text";
 import useStylesPipeline from "../../../hooks/useStylesPipeline";
+import useAnimationPacer from "../../../hooks/useAnimationPacer";
 
 const TrackDisc = (props: TrackDiscProps) => {
 	// Styles
 	const { styles, fontSize } = useStylesPipeline(props?.style, props?.size);
+
+	const easingFn: string | undefined = props?.easing;
+	const DEFAULT_ANIMATION_DURATION = "1s"; // Animation's default duration
+	const { animationPeriod } = useAnimationPacer(
+		props?.speedPlus,
+		DEFAULT_ANIMATION_DURATION
+	);
 
 	/* Color SETTING */
 	let colorProp: string | string[] = props?.color ?? "";
@@ -17,7 +25,15 @@ const TrackDisc = (props: TrackDiscProps) => {
 	return (
 		<span
 			className="rli-d-i-b track-disc-rli-bounding-box"
-			style={{ ...(fontSize && { fontSize }) }}
+			style={
+				{
+					...(fontSize && { fontSize }),
+					...(animationPeriod && {
+						"--rli-animation-duration": animationPeriod
+					}),
+					...(easingFn && { "--rli-animation-function": easingFn })
+				} as React.CSSProperties
+			}
 		>
 			<span
 				className="rli-d-i-b track-disc-throbber"

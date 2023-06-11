@@ -1,13 +1,21 @@
 import React from "react";
 
-import "./Dotted.scss"
+import "./Dotted.scss";
 import { DottedProps } from "./Dotted.types";
 import Text from "../../../utils/Text";
 import useStylesPipeline from "../../../hooks/useStylesPipeline";
+import useAnimationPacer from "../../../hooks/useAnimationPacer";
 
 const Dotted = (props: DottedProps) => {
 	// Styles
 	const { styles, fontSize } = useStylesPipeline(props?.style, props?.size);
+
+	const easingFn: string | undefined = props?.easing;
+	const DEFAULT_ANIMATION_DURATION = "1.2s"; // Animation's default duration
+	const { animationPeriod } = useAnimationPacer(
+		props?.speedPlus,
+		DEFAULT_ANIMATION_DURATION
+	);
 
 	/* Color SETTINGS */
 	// Accept Array or String color prop and set all dots color
@@ -18,7 +26,15 @@ const Dotted = (props: DottedProps) => {
 	return (
 		<span
 			className="rli-d-i-b dot-rli-bounding-box"
-			style={{ ...(fontSize && { fontSize }) }}
+			style={
+				{
+					...(fontSize && { fontSize }),
+					...(animationPeriod && {
+						"--rli-animation-duration": animationPeriod
+					}),
+					...(easingFn && { "--rli-animation-function": easingFn })
+				} as React.CSSProperties
+			}
 		>
 			<span
 				className="rli-d-i-b fading-dot-throbber"

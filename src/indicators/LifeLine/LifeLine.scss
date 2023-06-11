@@ -1,0 +1,26 @@
+@use "../../scss/variables" as defaults;
+
+// `animation duration` and `animation function(easing function)` are set from javascript
+
+.lifeline-rli-bounding-box {
+  font-size: defaults.$fontSizer;
+  isolation: isolate;
+
+  .lifeline-throbber {
+    color: defaults.$defaultColor;
+    position: relative;
+    text-align: center;
+
+    svg.rli-lifeline-svg {
+      visibility: hidden;
+      overflow: hidden;
+    }
+
+    .lifeline-text {
+      color: currentColor;
+      mix-blend-mode: difference;
+      width: unset;
+      display: block;
+    }
+  }
+}

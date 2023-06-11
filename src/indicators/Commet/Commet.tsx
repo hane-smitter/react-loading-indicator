@@ -4,10 +4,18 @@ import { CommetProps } from "./Commet.types";
 import "./Commet.scss";
 import Text from "../../utils/Text";
 import useStylesPipeline from "../../hooks/useStylesPipeline";
+import useAnimationPacer from "../../hooks/useAnimationPacer";
 
 const Commet = (props: CommetProps) => {
 	// Styles
 	let { styles, fontSize } = useStylesPipeline(props?.style, props?.size);
+
+	const easingFn: string | undefined = props?.easing;
+	const DEFAULT_ANIMATION_DURATION = "1.2s"; // Animation's default duration
+	const { animationPeriod } = useAnimationPacer(
+		props?.speedPlus,
+		DEFAULT_ANIMATION_DURATION
+	);
 
 	// color SETTINGS
 	// If Color property is a string, that is the color of all rings
@@ -19,7 +27,15 @@ const Commet = (props: CommetProps) => {
 	return (
 		<span
 			className="rli-d-i-b commet-rli-bounding-box"
-			style={{ ...(fontSize && { fontSize }) }}
+			style={
+				{
+					...(fontSize && { fontSize }),
+					...(animationPeriod && {
+						"--rli-animation-duration": animationPeriod
+					}),
+					...(easingFn && { "--rli-animation-function": easingFn })
+				} as React.CSSProperties
+			}
 		>
 			<span
 				className="rli-d-i-b commet-throbber"
