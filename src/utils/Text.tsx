@@ -11,7 +11,8 @@ const staticTextStyles: React.CSSProperties = {
 	color: "currentColor",
 	mixBlendMode: "difference",
 	width: "unset",
-	display: "block"
+	display: "block",
+	paddingTop: "2px"
 };
 
 const Text = (props: TextProps): JSX.Element => {

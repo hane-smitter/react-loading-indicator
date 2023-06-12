@@ -1,1 +1,1 @@
-export { Pulse } from "./LifeLine";
+export { default as Lifeline } from "./LifeLine";

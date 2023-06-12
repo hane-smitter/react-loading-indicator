@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback, useRef } from "react";
 
 import { CommetProps } from "./Commet.types";
 import "./Commet.scss";
@@ -7,9 +7,11 @@ import useStylesPipeline from "../../hooks/useStylesPipeline";
 import useAnimationPacer from "../../hooks/useAnimationPacer";
 
 const Commet = (props: CommetProps) => {
+	const elemRef = useRef<HTMLSpanElement | null>(null);
 	// Styles
 	let { styles, fontSize } = useStylesPipeline(props?.style, props?.size);
 
+	// Animation speed and smoothing control
 	const easingFn: string | undefined = props?.easing;
 	const DEFAULT_ANIMATION_DURATION = "1.2s"; // Animation's default duration
 	const { animationPeriod } = useAnimationPacer(
@@ -20,9 +22,32 @@ const Commet = (props: CommetProps) => {
 	// color SETTINGS
 	// If Color property is a string, that is the color of all rings
 	// If color property is an array, that is color for each rings
+	const colorReset = useCallback(
+		function () {
+			if (elemRef.current) {
+				// e.g --ring1-color
+				const cssColorVars: Array<string> = Array.from(
+					{ length: 2 },
+					(item, idx) => {
+						const num: number = idx + 1;
+						const cssPropName: string = `--${"ring" + num + "-"}color`;
+						return cssPropName;
+					}
+				);
+
+				elemRef.current?.style.removeProperty("color");
+				for (let i = 0; i < cssColorVars.length; i++) {
+					elemRef.current?.style.removeProperty(cssColorVars[i]);
+				}
+			}
+		},
+		[elemRef.current]
+	);
 	let colorProp: string | string[] = props?.color ?? "";
-	const ringColorStyles: React.CSSProperties =
-		stylesObjectFromColorProp(colorProp);
+	const ringColorStyles: React.CSSProperties = stylesObjectFromColorProp(
+		colorProp,
+		colorReset
+	);
 
 	return (
 		<span
@@ -39,6 +64,7 @@ const Commet = (props: CommetProps) => {
 		>
 			<span
 				className="rli-d-i-b commet-throbber"
+				ref={elemRef}
 				style={{
 					...ringColorStyles,
 					...styles
@@ -58,20 +84,26 @@ const Commet = (props: CommetProps) => {
 					<span className="rli-d-i-b ring "></span>
 					<span className="rli-d-i-b ringball-holder"></span>
 				</span>
-				{/* <span className="rli-d-i-b ring ring2">
-					<span className="rli-d-i-b ringball"></span>
-				</span> */}
 			</span>
 		</span>
 	);
 };
 
-export { Commet };
+export default React.memo(Commet);
 
+/**
+ * Creates a style object with props that color the throbber/spinner
+ */
 function stylesObjectFromColorProp(
-	colorProp: string | string[]
+	colorProp: string | string[],
+	resetToDefaultColors: () => void
 ): React.CSSProperties {
 	const stylesObject: any = {};
+
+	if (!colorProp) {
+		resetToDefaultColors();
+		return stylesObject;
+	}
 
 	if (colorProp instanceof Array) {
 		const arrLength = colorProp.length;

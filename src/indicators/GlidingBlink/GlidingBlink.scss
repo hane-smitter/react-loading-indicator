@@ -1,11 +1,14 @@
 @use "sass:color";
 @use "../../scss/variables" as defaults;
 
-$defaultColorRedChannel: color.red(defaults.$defaultColor);
-$defaultColorGreenChannel: color.green(defaults.$defaultColor);
-$defaultColorBlueChannel: color.blue(defaults.$defaultColor);
+$defaultR: color.red(defaults.$defaultColor);
+$defaultG: color.green(defaults.$defaultColor);
+$defaultB: color.blue(defaults.$defaultColor);
 $blurAmount: 10px;
-$glideAnimDuration: 2s;
+
+$animationDuration: var(--rli-animation-duration, 2s);
+$animationFn: var(--rli-animation-function, linear);
+// $glideAnimDuration: 2s;
 
 // Calculate opacity in the scale 0-1
 @function calcOpacity($shapeNum, $progress) {
@@ -73,12 +76,14 @@ $glideAnimDuration: 2s;
       rgba(colBase(6), blinkOpacity(6, $progress));
 }
 
-.glidingblink-bounding-box {
-  font-size: defaults.$fontSizer;
+.gliding-blink-rli-bounding-box {
+  --color-base: #{$defaultR}, #{$defaultG}, #{$defaultB};
 
-  .glidingblink-loader {
+  font-size: defaults.$fontSizer;
+  color: rgb(var(--color-base));
+
+  .glidingblink-throbber {
     --bar-width: 2em;
-    --color-base: #{$defaultColorRedChannel}, #{$defaultColorGreenChannel}, #{$defaultColorBlueChannel};
 
     // create stacking context
     isolation: isolate;
@@ -86,7 +91,7 @@ $glideAnimDuration: 2s;
     width: 15.75em;
     height: 3em;
     position: relative;
-    color: rgb(var(--color-base));
+    color: currentColor;
 
     .gliding-blink-text {
       position: absolute;
@@ -115,12 +120,12 @@ $glideAnimDuration: 2s;
 
       @include shapes(58);
 
-      animation: glideAnim $glideAnimDuration linear infinite;
+      animation: glidingBlinkGlide $animationDuration $animationFn infinite;
     }
   }
 }
 
-@keyframes glideAnim {
+@keyframes glidingBlinkGlide {
   $progress: 0%;
 
   @while $progress <= 100% {

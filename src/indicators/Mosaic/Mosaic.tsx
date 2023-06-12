@@ -1,47 +1,72 @@
 "use strict";
 
-import React from "react";
+import React, { useCallback, useRef } from "react";
 
 import { MosaicProps } from "./Mosaic.types";
 import "./Mosaic.scss";
-import useFontsizeMapper from "../../hooks/useFontsizeMapper";
+import useStylesPipeline from "../../hooks/useStylesPipeline";
+import useAnimationPacer from "../../hooks/useAnimationPacer";
+import Text from "../../utils/Text";
 
 const Mosaic = (props: MosaicProps) => {
-	// Styles
-	let styles: React.CSSProperties = Object(props?.style);
+	const elemRef = useRef<HTMLSpanElement | null>(null);
+	// Styles and size
+	const { styles, fontSize } = useStylesPipeline(props?.style, props?.size);
 
-	/* Size SETTINGS */
-	let fontSize: string | number = useFontsizeMapper(props?.size);
+	// Animation speed and smoothing control
+	const easingFn: string | undefined = props?.easing;
+	const DEFAULT_ANIMATION_DURATION = "1.3s"; // Animation's default duration
+	const { animationPeriod } = useAnimationPacer(
+		props?.speedPlus,
+		DEFAULT_ANIMATION_DURATION
+	);
+	// Specific to this throbber, we create a `rounded off` interval
+	// since CSS can't do that seamlessly
+	const numOfTesseracts: 9 = 9;
+	let tesseractAnimationInterval: any =
+		Math.round((parseFloat(animationPeriod) / numOfTesseracts) * 100) / 100;
+	tesseractAnimationInterval = tesseractAnimationInterval + "s"; // Convert to CSS time unit
 
-	// Setting size by specifying font-size in style attr
-	// Deleting font-size style propert since `dot-bounding-box` class in JSX, is
-	// the parent to set the fontsize which can be set with the `fontSize` variable.
-	// Setting size by specifying font-size in style attr
-	// and modifying styles to exclude fontSize
-	if (props?.style?.fontSize) {
-		const { fontSize: cssFontSize, ...css } = props?.style;
-
-		styles = css;
-		fontSize = cssFontSize;
-	}
-
-	/* Color SETTINGS */
-	// If Color property is a string, that is the color of all rings
-	// If color property is an array, that is color for each rings
-	const tesseraeColor: string | string[] = props?.color ?? "";
-	const tesseraeColorStyles: React.CSSProperties =
-		tesseraeColor instanceof Array
-			? { ...genStyleFromColorArr(tesseraeColor) }
-			: { ...genStyleFromColorStr(tesseraeColor) };
+	/* Color SETTINGS - Sets colors of all tesserae boxes*/
+	const colorReset = useCallback(
+		function () {
+			if (elemRef.current) {
+				elemRef.current?.style.removeProperty("color");
+			}
+		},
+		[elemRef.current]
+	);
+	const colorProp: string | string[] = props?.color ?? "";
+	const tesseraeColorStyles: React.CSSProperties = stylesObjectFromColorProp(
+		colorProp,
+		colorReset
+	);
 
 	return (
 		<span
-			className="rli-d-i-b react-loading-indicator-normalize mosaic-bounding-box"
-			style={{ ...(fontSize && { fontSize }) }}
+			className="rli-d-i-b  mosaic-rli-bounding-box"
+			ref={elemRef}
+			style={
+				{
+					...(fontSize && { fontSize }),
+					...(animationPeriod && {
+						"--rli-animation-duration": animationPeriod
+					}),
+					...(easingFn && { "--rli-animation-function": easingFn }),
+					...tesseraeColorStyles
+				} as React.CSSProperties
+			}
 		>
 			<span
-				className="rli-d-i-b mosaic-loader"
-				style={{ ...tesseraeColorStyles, ...styles }}
+				className="rli-d-i-b mosaic-throbber"
+				style={
+					{
+						...(tesseractAnimationInterval && {
+							"--mosaic-skip-interval": tesseractAnimationInterval
+						}),
+						...styles
+					} as React.CSSProperties
+				}
 			>
 				<span className="rli-d-i-b mosaic-cube mosaic-cube1"></span>
 				<span className="rli-d-i-b mosaic-cube mosaic-cube2"></span>
@@ -52,47 +77,43 @@ const Mosaic = (props: MosaicProps) => {
 				<span className="rli-d-i-b mosaic-cube mosaic-cube7"></span>
 				<span className="rli-d-i-b mosaic-cube mosaic-cube8"></span>
 				<span className="rli-d-i-b mosaic-cube mosaic-cube9"></span>
-
-				<span
-					className="rli-d-i-b rli-text-format mosaic-cube-text"
-					style={{
-						...(props?.textColor && {
-							color: props?.textColor,
-							mixBlendMode: "unset"
-						})
-					}}
-				>
-					{props?.text
-						? typeof props?.text === "string" && props?.text.length
-							? props?.text
-							: "loading"
-						: null}
-				</span>
 			</span>
+
+			<Text
+				// className="mosaic-cube-text"
+				staticText
+				text={props?.text}
+				textColor={props?.textColor}
+			/>
 		</span>
 	);
 };
 
-export { Mosaic };
+export default React.memo(Mosaic);
 
-function genStyleFromColorStr(
-	colorStr: string | undefined
+/**
+ * Creates a style object with props that color the throbber/spinner
+ */
+function stylesObjectFromColorProp(
+	colorProp: string | string[],
+	resetToDefaultColors: () => void
 ): React.CSSProperties {
-	colorStr = colorStr ?? "";
-
 	const stylesObject: any = {};
 
-	stylesObject["color"] = colorStr;
+	if (!colorProp) {
+		resetToDefaultColors();
+		return stylesObject;
+	}
 
-	return stylesObject;
-}
+	if (colorProp instanceof Array) {
+		const [color] = colorProp;
 
-function genStyleFromColorArr(colorArr: string[]): React.CSSProperties {
-	const stylesObject: any = {};
-	// NOT supporting Individual tesseract coloring
-	const [color] = colorArr;
+		stylesObject["color"] = color;
 
-	stylesObject["color"] = color;
+		return stylesObject;
+	}
+
+	stylesObject["color"] = colorProp;
 
 	return stylesObject;
 }

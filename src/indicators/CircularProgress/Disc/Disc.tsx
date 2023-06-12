@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback, useRef } from "react";
 
 import { DiscProps } from "./Disc.types";
 import "./Disc.scss";
@@ -7,9 +7,11 @@ import useStylesPipeline from "../../../hooks/useStylesPipeline";
 import useAnimationPacer from "../../../hooks/useAnimationPacer";
 
 const Disc = (props: DiscProps) => {
+	const elemRef = useRef<HTMLSpanElement | null>(null);
 	// Styles
 	const { styles, fontSize } = useStylesPipeline(props?.style, props?.size);
 
+	// Animation speed and smoothing control
 	const easingFn: string | undefined = props?.easing;
 	const DEFAULT_ANIMATION_DURATION = "1.2s"; // Animation's default duration
 	const { animationPeriod } = useAnimationPacer(
@@ -18,9 +20,19 @@ const Disc = (props: DiscProps) => {
 	);
 
 	/* Color SETTING */
+	const colorReset = useCallback(
+		function () {
+			if (elemRef.current) {
+				elemRef.current?.style.removeProperty("color");
+			}
+		},
+		[elemRef.current]
+	);
 	let colorProp: string | string[] = props?.color ?? "";
-	const discColorStyles: React.CSSProperties =
-		stylesObjectFromColorProp(colorProp);
+	const discColorStyles: React.CSSProperties = stylesObjectFromColorProp(
+		colorProp,
+		colorReset
+	);
 
 	return (
 		<span
@@ -37,6 +49,7 @@ const Disc = (props: DiscProps) => {
 		>
 			<span
 				className="rli-d-i-b disc-throbber"
+				ref={elemRef}
 				style={{ ...discColorStyles, ...styles }}
 			>
 				<span className="rli-d-i-b disc-ring"></span>
@@ -53,10 +66,19 @@ const Disc = (props: DiscProps) => {
 
 export { Disc };
 
+/**
+ * Creates a style object with props that color the throbber/spinner
+ */
 function stylesObjectFromColorProp(
-	colorProp: string | string[]
+	colorProp: string | string[],
+	resetToDefaultColors: () => void
 ): React.CSSProperties {
 	const stylesObject: any = {};
+
+	if (!colorProp) {
+		resetToDefaultColors();
+		return stylesObject;
+	}
 
 	if (colorProp instanceof Array) {
 		// Pick first item as the color

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback, useRef } from "react";
 
 import "./Dotted.scss";
 import { DottedProps } from "./Dotted.types";
@@ -7,9 +7,11 @@ import useStylesPipeline from "../../../hooks/useStylesPipeline";
 import useAnimationPacer from "../../../hooks/useAnimationPacer";
 
 const Dotted = (props: DottedProps) => {
+	const elemRef = useRef<HTMLSpanElement | null>(null);
 	// Styles
 	const { styles, fontSize } = useStylesPipeline(props?.style, props?.size);
 
+	// Animation speed and smoothing control
 	const easingFn: string | undefined = props?.easing;
 	const DEFAULT_ANIMATION_DURATION = "1.2s"; // Animation's default duration
 	const { animationPeriod } = useAnimationPacer(
@@ -19,9 +21,19 @@ const Dotted = (props: DottedProps) => {
 
 	/* Color SETTINGS */
 	// Accept Array or String color prop and set all dots color
+	const colorReset = useCallback(
+		function () {
+			if (elemRef.current) {
+				elemRef.current?.style.removeProperty("color");
+			}
+		},
+		[elemRef.current]
+	);
 	let colorProp: string | string[] = props?.color ?? "";
-	const dotsColorStyles: React.CSSProperties =
-		stylesObjectFromColorProp(colorProp);
+	const dotsColorStyles: React.CSSProperties = stylesObjectFromColorProp(
+		colorProp,
+		colorReset
+	);
 
 	return (
 		<span
@@ -38,6 +50,7 @@ const Dotted = (props: DottedProps) => {
 		>
 			<span
 				className="rli-d-i-b fading-dot-throbber"
+				ref={elemRef}
 				style={{ ...dotsColorStyles, ...styles }}
 			>
 				{Array.from({ length: 12 }).map((item, i) => (
@@ -60,10 +73,19 @@ const Dotted = (props: DottedProps) => {
 
 export { Dotted };
 
+/**
+ * Creates a style object with props that color the throbber/spinner
+ */
 function stylesObjectFromColorProp(
-	colorProp: string | string[]
+	colorProp: string | string[],
+	resetToDefaultColors: () => void
 ): React.CSSProperties {
 	const stylesObject: any = {};
+
+	if (!colorProp) {
+		resetToDefaultColors();
+		return stylesObject;
+	}
 
 	if (colorProp instanceof Array) {
 		// Pick first item as the color

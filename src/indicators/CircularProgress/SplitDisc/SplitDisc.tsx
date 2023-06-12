@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback, useRef } from "react";
 
 import { SplitDiscProps } from "./SplitDisc.types";
 import "./SplitDisc.scss";
@@ -7,9 +7,11 @@ import Text from "../../../utils/Text";
 import useAnimationPacer from "../../../hooks/useAnimationPacer";
 
 const SplitDisc = (props: SplitDiscProps) => {
+	const elemRef = useRef<HTMLSpanElement | null>(null);
 	// Styles
 	let { styles, fontSize } = useStylesPipeline(props?.style, props?.size);
 
+	// Animation speed and smoothing control
 	const easingFn: string | undefined = props?.easing;
 	const DEFAULT_ANIMATION_DURATION = "1.2s"; // Animation's default duration
 	const { animationPeriod } = useAnimationPacer(
@@ -20,9 +22,19 @@ const SplitDisc = (props: SplitDiscProps) => {
 	/* Color SETTINGS */
 	// If Color property is a string, that is the color of all rings
 	// If color property is an array, that is color for each rings
+	const colorReset = useCallback(
+		function () {
+			if (elemRef.current) {
+				elemRef.current?.style.removeProperty("color");
+			}
+		},
+		[elemRef.current]
+	);
 	let colorProp: string | string[] = props?.color ?? "";
-	const discsColorStyles: React.CSSProperties =
-		stylesObjectFromColorProp(colorProp);
+	const discsColorStyles: React.CSSProperties = stylesObjectFromColorProp(
+		colorProp,
+		colorReset
+	);
 
 	return (
 		<span
@@ -39,6 +51,7 @@ const SplitDisc = (props: SplitDiscProps) => {
 		>
 			<span
 				className="rli-d-i-b split-disc-throbber"
+				ref={elemRef}
 				style={{
 					...discsColorStyles,
 					...styles
@@ -57,10 +70,19 @@ const SplitDisc = (props: SplitDiscProps) => {
 
 export { SplitDisc };
 
+/**
+ * Creates a style object with props that color the throbber/spinner
+ */
 function stylesObjectFromColorProp(
-	colorProp: string | string[]
+	colorProp: string | string[],
+	resetToDefaultColors: () => void
 ): React.CSSProperties {
 	const stylesObject: any = {};
+
+	if (!colorProp) {
+		resetToDefaultColors();
+		return stylesObject;
+	}
 
 	if (colorProp instanceof Array) {
 		const arrLength = colorProp.length;

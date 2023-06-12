@@ -1,6 +1,6 @@
 "use strict";
 
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useCallback } from "react";
 
 import { LifeLineProps } from "./LifeLine.types";
 import "./LifeLine.scss";
@@ -9,10 +9,12 @@ import useStylesPipeline from "../../hooks/useStylesPipeline";
 import useAnimationPacer from "../../hooks/useAnimationPacer";
 
 const LifeLine = (props: LifeLineProps) => {
+	const elemRef = useRef<HTMLSpanElement | null>(null);
 	const svgPathRef = useRef<SVGPathElement>(null);
 	const lifeLineAnimation = useRef<Animation | null>(null);
 	const { styles, fontSize } = useStylesPipeline(props?.style, props?.size);
 
+	// Animation speed and smoothing control
 	const easingFn: string | undefined = props?.easing;
 	const DEFAULT_ANIMATION_DURATION = "2s"; // Animation's default duration
 	const { animationPeriod } = useAnimationPacer(
@@ -22,16 +24,25 @@ const LifeLine = (props: LifeLineProps) => {
 
 	/* Color SETTINGS */
 	// Sets the color
+	const colorReset = useCallback(
+		function () {
+			if (elemRef.current) {
+				elemRef.current?.style.removeProperty("color");
+			}
+		},
+		[elemRef.current]
+	);
 	const colorProp: string | string[] = props?.color ?? "";
-	const lifeLineColorStyles: React.CSSProperties =
-		stylesObjectFromColorProp(colorProp);
+	const lifeLineColorStyles: React.CSSProperties = stylesObjectFromColorProp(
+		colorProp,
+		colorReset
+	);
 
 	useEffect(() => {
 		if (svgPathRef.current) {
 			const pathEl: SVGPathElement = svgPathRef.current;
 			const parentSvgEl: HTMLElement | null = pathEl.parentElement;
 			const pathLength: number = pathEl.getTotalLength();
-			// console.log("SVG PATH LENGTH: ", pathLength);
 
 			const pathLengthRepeats = pathLength / 2;
 			const dashArray = pathLengthRepeats * 0.94;
@@ -94,6 +105,7 @@ const LifeLine = (props: LifeLineProps) => {
 			}
 		>
 			<span
+				ref={elemRef}
 				className="rli-d-i-b lifeline-throbber"
 				style={{ ...lifeLineColorStyles, ...styles }}
 			>
@@ -147,12 +159,21 @@ const LifeLine = (props: LifeLineProps) => {
 	);
 };
 
-export { LifeLine };
+export default React.memo(LifeLine);
 
+/**
+ * Creates a style object with props that color the throbber/spinner
+ */
 function stylesObjectFromColorProp(
-	colorProp: string | string[]
+	colorProp: string | string[],
+	resetToDefaultColors: () => void
 ): React.CSSProperties {
 	const stylesObject: any = {};
+
+	if (!colorProp) {
+		resetToDefaultColors();
+		return stylesObject;
+	}
 
 	if (colorProp instanceof Array) {
 		const [color] = colorProp;

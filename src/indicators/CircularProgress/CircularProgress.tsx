@@ -24,4 +24,4 @@ const CircularProgress = (props: CircularProgressProps) => {
 	) : null;
 };
 
-export { CircularProgress };
+export default React.memo(CircularProgress);

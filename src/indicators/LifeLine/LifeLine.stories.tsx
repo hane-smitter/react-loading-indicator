@@ -1,13 +1,15 @@
 import React from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
-import { LifeLine } from "./LifeLine";
+import LifeLine from "./LifeLine";
 
 export default {
 	title: "rli/LifeLine",
 	component: LifeLine
 } as ComponentMeta<typeof LifeLine>;
 
-const Template: ComponentStory<typeof LifeLine> = args => <LifeLine {...args} />;
+const Template: ComponentStory<typeof LifeLine> = args => (
+	<LifeLine {...args} />
+);
 
 export const Primary = Template.bind({});
 

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback, useRef } from "react";
 
 import { TrackDiscProps } from "./TrackDisc.types";
 import "./TrackDisc.scss";
@@ -7,9 +7,11 @@ import useStylesPipeline from "../../../hooks/useStylesPipeline";
 import useAnimationPacer from "../../../hooks/useAnimationPacer";
 
 const TrackDisc = (props: TrackDiscProps) => {
+	const elemRef = useRef<HTMLSpanElement | null>(null);
 	// Styles
 	const { styles, fontSize } = useStylesPipeline(props?.style, props?.size);
 
+	// Animation speed and smoothing control
 	const easingFn: string | undefined = props?.easing;
 	const DEFAULT_ANIMATION_DURATION = "1s"; // Animation's default duration
 	const { animationPeriod } = useAnimationPacer(
@@ -18,9 +20,20 @@ const TrackDisc = (props: TrackDiscProps) => {
 	);
 
 	/* Color SETTING */
+	const colorReset = useCallback(
+		function () {
+			if (elemRef.current) {
+				elemRef.current?.style.removeProperty("color");
+				elemRef.current?.style.removeProperty("--track-path-color");
+			}
+		},
+		[elemRef.current]
+	);
 	let colorProp: string | string[] = props?.color ?? "";
-	const trackDiscColorStyles: React.CSSProperties =
-		stylesObjectFromColorProp(colorProp);
+	const trackDiscColorStyles: React.CSSProperties = stylesObjectFromColorProp(
+		colorProp,
+		colorReset
+	);
 
 	return (
 		<span
@@ -37,6 +50,7 @@ const TrackDisc = (props: TrackDiscProps) => {
 		>
 			<span
 				className="rli-d-i-b track-disc-throbber"
+				ref={elemRef}
 				style={{ ...trackDiscColorStyles, ...styles }}
 			>
 				<span className="rli-d-i-b track-disc-ring"></span>
@@ -53,10 +67,19 @@ const TrackDisc = (props: TrackDiscProps) => {
 
 export { TrackDisc };
 
+/**
+ * Creates a style object with props that color the throbber/spinner
+ */
 function stylesObjectFromColorProp(
-	colorProp: string | string[]
+	colorProp: string | string[],
+	resetToDefaultColors: () => void
 ): React.CSSProperties {
 	const stylesObject: any = {};
+
+	if (!colorProp) {
+		resetToDefaultColors();
+		return stylesObject;
+	}
 
 	if (colorProp instanceof Array) {
 		// Array with first item - disc color, second item - track color

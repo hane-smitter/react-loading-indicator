@@ -1,42 +1,70 @@
-import React from "react";
+"use strict";
+
+import React, { useCallback, useRef } from "react";
 
 import { FourSquareProps } from "./FourSquare.types";
 import "./FourSquare.scss";
-import useFontsizeMapper from "../../hooks/useFontsizeMapper";
+import useStylesPipeline from "../../hooks/useStylesPipeline";
+import useAnimationPacer from "../../hooks/useAnimationPacer";
+import Text from "../../utils/Text";
 
-export const FourSquare = (props: FourSquareProps) => {
-	// Styles
-	let styles: React.CSSProperties = Object(props?.style);
+const FourSquare = (props: FourSquareProps) => {
+	const elemRef = useRef<HTMLSpanElement | null>(null);
+	// Styles and size
+	const { styles, fontSize } = useStylesPipeline(props?.style, props?.size);
 
-	/* Size SETTINGS */
-	let fontSize: string | number = useFontsizeMapper(props?.size);
+	// Animation speed and smoothing control
+	const easingFn: string | undefined = props?.easing;
+	const DEFAULT_ANIMATION_DURATION = "1s"; // Animation's default duration
+	const { animationPeriod } = useAnimationPacer(
+		props?.speedPlus,
+		DEFAULT_ANIMATION_DURATION
+	);
 
-	// Setting size by specifying font-size in style attr
-	// and modifying styles to exclude fontSize
-	if (props?.style?.fontSize) {
-		const { fontSize: cssFontSize, ...css } = props?.style;
+	/* Color SETTINGS - Sets the colors of the 4 squares*/
+	const colorReset = useCallback(
+		function () {
+			if (elemRef.current) {
+				// e.g --square1-color
+				const cssColorVars: Array<string> = Array.from(
+					{ length: 4 },
+					(item, idx) => {
+						const num: number = idx + 1;
+						const cssPropName: string = `--${"square" + num + "-"}color`;
+						return cssPropName;
+					}
+				);
 
-		styles = css;
-		fontSize = cssFontSize;
-	}
-
-	/* Color SETTINGS */
-	// If Color property is a string, that is the color of all rings
-	// If color property is an array, that is color for each rings
-
-	const fourSquareColor: string | string[] = props?.color ?? "";
-	const fourSquareColorStyles: React.CSSProperties =
-		fourSquareColor instanceof Array
-			? { ...genStyleFromColorArr(fourSquareColor) }
-			: { ...genStyleFromColorStr(fourSquareColor) };
+				elemRef.current?.style.removeProperty("color");
+				for (let i = 0; i < cssColorVars.length; i++) {
+					elemRef.current?.style.removeProperty(cssColorVars[i]);
+				}
+			}
+		},
+		[elemRef.current]
+	);
+	const colorProp: string | string[] = props?.color ?? "";
+	const fourSquareColorStyles: React.CSSProperties = stylesObjectFromColorProp(
+		colorProp,
+		colorReset
+	);
 
 	return (
 		<span
-			className="rli-d-i-b foursquare-bounding-box"
-			style={{ ...(fontSize && { fontSize }) }}
+			className="rli-d-i-b foursquare-rli-bounding-box"
+			style={
+				{
+					...(fontSize && { fontSize }),
+					...(animationPeriod && {
+						"--rli-animation-duration": animationPeriod
+					}),
+					...(easingFn && { "--rli-animation-function": easingFn })
+				} as React.CSSProperties
+			}
 		>
 			<span
-				className={`rli-d-i-b foursquare-loader`}
+				className={`rli-d-i-b foursquare-throbber`}
+				ref={elemRef}
 				style={{ ...fourSquareColorStyles, ...styles }}
 			>
 				<span className="rli-d-i-b squares-container">
@@ -46,50 +74,49 @@ export const FourSquare = (props: FourSquareProps) => {
 					<span className={`square square4`}></span>
 				</span>
 
-				<span
-					className="rli-d-i-b rli-text-format foursquare-text"
-					style={{
-						...(props?.textColor && {
-							color: props?.textColor,
-							mixBlendMode: "unset"
-						})
-					}}
-				>
-					{props?.text
-						? typeof props?.text === "string" && props?.text.length
-							? props?.text
-							: "loading"
-						: null}
-				</span>
+				<Text
+					className="foursquare-text"
+					text={props?.text}
+					textColor={props?.textColor}
+				/>
 			</span>
 		</span>
 	);
 };
 
-function genStyleFromColorStr(
-	colorStr: string | undefined
+export default React.memo(FourSquare);
+
+/**
+ * Creates a style object with props that color the throbber/spinner
+ */
+function stylesObjectFromColorProp(
+	colorProp: string | string[],
+	resetToDefaultColors: () => void
 ): React.CSSProperties {
-	colorStr = colorStr ?? "";
-
 	const stylesObject: any = {};
 
-	stylesObject["color"] = colorStr;
-
-	return stylesObject;
-}
-
-function genStyleFromColorArr(colorArr: string[]): React.CSSProperties {
-	const stylesObject: any = {};
-	const arrLength = colorArr.length;
-
-	stylesObject["color"] = colorArr[0];
-
-	for (let idx = 0; idx < arrLength; idx++) {
-		if (idx >= 4) break;
-		let currentItem = `square${idx + 1}`;
-
-		stylesObject[`--${currentItem}-color`] = colorArr[idx];
+	if (!colorProp) {
+		resetToDefaultColors();
+		return stylesObject;
 	}
+
+	if (colorProp instanceof Array) {
+		const arrLength = colorProp.length;
+
+		stylesObject["color"] = colorProp[0];
+
+		for (let idx = 0; idx < arrLength; idx++) {
+			if (idx >= 4) break;
+			let num: number = idx + 1;
+			let squareId = `square${num}`;
+
+			stylesObject[`--${squareId}-color`] = colorProp[idx];
+		}
+
+		return stylesObject;
+	}
+
+	stylesObject["color"] = colorProp;
 
 	return stylesObject;
 }

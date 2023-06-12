@@ -1,15 +1,19 @@
 @use "../../scss/variables" as defaults;
 
-$expandSquareAnimDuration: 1s;
-$rotateSquareAnimDuration: 1s;
+$animationDuration: var(--rli-animation-duration, 1s);
+$animationFn: var(--rli-animation-function, cubic-bezier(0.05, 0.28, 0.79, 0.98));
+$rotateSquareAnimDuration: $animationDuration;
 
-.foursquare-bounding-box {
+// $expandSquareAnimDuration: 1s;
+// $rotateSquareAnimDuration: 1s;
+
+.foursquare-rli-bounding-box {
     box-sizing: border-box;
     display: inline-block;
     font-size: defaults.$fontSizer;
     overflow: visible;
 
-    .foursquare-loader {
+    .foursquare-throbber {
         --dimension-unit: 4;
 
         height: calc(var(--dimension-unit) * 1em);
@@ -25,7 +29,7 @@ $rotateSquareAnimDuration: 1s;
             width: inherit;
             color: currentColor;
             position: relative;
-            animation: expand $expandSquareAnimDuration cubic-bezier(0.05, 0.28, 0.79, 0.98) infinite;
+            animation: fourSquareExpand $animationDuration $animationFn infinite;
             transform: rotate(45deg);
             position: absolute;
             top: 0;
@@ -50,7 +54,12 @@ $rotateSquareAnimDuration: 1s;
             height: calc(var(--dimension-unit) / 2 * 1em);
             border-radius: 3px;
             background-color: currentColor;
-            animation: rotateSquare $rotateSquareAnimDuration both infinite;
+
+            animation-name: fourSquareSquareSpin;
+            animation-duration: $rotateSquareAnimDuration;
+            animation-timing-function: $animationFn;
+            animation-fill-mode: both;
+            animation-iteration-count: infinite;
 
             &.square1 {
                 background-color: var(--square1-color, currentColor);
@@ -79,7 +88,7 @@ $rotateSquareAnimDuration: 1s;
     }
 }
 
-@keyframes expand {
+@keyframes fourSquareExpand {
     0% {
         width: calc(var(--dimension-unit) * 1em);
         height: calc(var(--dimension-unit) * 1em);
@@ -106,7 +115,7 @@ $rotateSquareAnimDuration: 1s;
     }
 }
 
-@keyframes rotateSquare {
+@keyframes fourSquareSquareSpin {
     0% {
         transform: rotate(0deg);
     }

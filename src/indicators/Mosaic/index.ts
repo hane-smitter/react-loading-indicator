@@ -1,1 +1,1 @@
-export { Mosaic } from "./Mosaic";
+export { default as Mosaic } from "./Mosaic";
