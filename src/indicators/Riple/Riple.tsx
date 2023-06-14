@@ -1,88 +1,99 @@
 "use strict";
 
-import React from "react";
+import React, { useCallback, useRef } from "react";
 
 import { RipleProps } from "./Riple.types";
 import "./Riple.scss";
-import useFontsizeMapper from "../../hooks/useFontsizeMapper";
+import useStylesPipeline from "../../hooks/useStylesPipeline";
+import useAnimationPacer from "../../hooks/useAnimationPacer";
+import Text from "../../utils/Text";
 
 const Riple = (props: RipleProps) => {
-	// Styles
-	let styles: React.CSSProperties = Object(props?.style);
+	const elemRef = useRef<HTMLSpanElement | null>(null);
+	// Styles and size
+	const { styles, fontSize } = useStylesPipeline(props?.style, props?.size);
 
-	/* Size SETTINGS */
-	let fontSize: string | number = useFontsizeMapper(props?.size);
-	// Setting size by specifying font-size in style attr
-	// and modifying styles to exclude fontSize
-	if (props?.style?.fontSize) {
-		const { fontSize: cssFontSize, ...css } = props?.style;
-
-		styles = css;
-		fontSize = cssFontSize;
-	}
+	// Animation speed and smoothing control
+	const easingFn: string | undefined = props?.easing;
+	const DEFAULT_ANIMATION_DURATION = "1s"; // Animation's default duration
+	const { animationPeriod } = useAnimationPacer(
+		props?.speedPlus,
+		DEFAULT_ANIMATION_DURATION
+	);
 
 	/* Color SETTINGS */
 	// If Color property is a string, that is the color of all rings
 	// If color property is an array, that is color for each rings
-	const ripleColor: string | string[] = props?.color ?? "";
-	const ripleColorStyles: React.CSSProperties =
-		ripleColor instanceof Array
-			? { ...genStyleFromColorArr(ripleColor) }
-			: { ...genStyleFromColorStr(ripleColor) };
+	const colorReset: () => void = useCallback(
+		function () {
+			if (elemRef.current) {
+				elemRef.current?.style.removeProperty("color");
+			}
+		},
+		[elemRef.current]
+	);
+	const colorProp: string | string[] = props?.color ?? "";
+	const ripleColorStyles: React.CSSProperties = stylesObjectFromColorProp(
+		colorProp,
+		colorReset
+	);
 
 	return (
 		<span
-			className="rli-d-i-b react-loading-indicator-normalize ripple-bounding-box"
-			style={{ ...(fontSize && { fontSize }) }}
+			className="rli-d-i-b riple-rli-bounding-box"
+			style={
+				{
+					...(fontSize && { fontSize }),
+					...(animationPeriod && {
+						"--rli-animation-duration": animationPeriod
+					}),
+					...(easingFn && { "--rli-animation-function": easingFn })
+				} as React.CSSProperties
+			}
 		>
 			<span
-				className="rli-d-i-b ripple-loader"
+				className="rli-d-i-b riple-throbber"
+				ref={elemRef}
 				style={{ ...ripleColorStyles, ...styles }}
 			>
-				<span className="rli-d-i-b ripple"></span>
-				<span className="rli-d-i-b ripple"></span>
+				<span className="rli-d-i-b riple"></span>
+				<span className="rli-d-i-b riple"></span>
 
-				<span
-					className="rli-d-i-b rli-text-format ripple-text"
-					style={{
-						...(props?.textColor && {
-							color: props?.textColor,
-							mixBlendMode: "unset"
-						})
-					}}
-				>
-					{props?.text
-						? typeof props?.text === "string" && props?.text.length
-							? props?.text
-							: "loading"
-						: null}
-				</span>
+				<Text
+					className="riple-text"
+					text={props?.text}
+					textColor={props?.textColor}
+				/>
 			</span>
 		</span>
 	);
 };
 
-export { Riple };
+export default React.memo(Riple);
 
-function genStyleFromColorStr(
-	colorStr: string | undefined
+/**
+ * Creates a style object with props that color the loading indicator
+ */
+function stylesObjectFromColorProp(
+	colorProp: string | string[],
+	resetToDefaultColors: () => void
 ): React.CSSProperties {
-	colorStr = colorStr ?? "";
-
 	const stylesObject: any = {};
 
-	stylesObject["color"] = colorStr;
+	if (!colorProp) {
+		resetToDefaultColors();
+		return stylesObject;
+	}
 
-	return stylesObject;
-}
+	if (colorProp instanceof Array) {
+		const [color] = colorProp;
 
-function genStyleFromColorArr(colorArr: string[]): React.CSSProperties {
-	const stylesObject: any = {};
+		stylesObject["color"] = color;
 
-	// NOT supporting Individual riple coloring
-	const [color] = colorArr;
+		return stylesObject;
+	}
 
-	stylesObject["color"] = color;
+	stylesObject["color"] = colorProp;
 
 	return stylesObject;
 }

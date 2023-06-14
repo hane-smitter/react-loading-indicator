@@ -1,33 +1,33 @@
 import React from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
-import { Riple } from "./Riple";
+import Riple from "./Riple";
 
 export default {
-  title: "rli/Riple",
-  component: Riple,
+	title: "rli/Riple",
+	component: Riple
 } as ComponentMeta<typeof Riple>;
 
-const Template: ComponentStory<typeof Riple> = (args) => <Riple {...args} />;
+const Template: ComponentStory<typeof Riple> = args => <Riple {...args} />;
 
 export const Primary = Template.bind({});
 
 export const Secondary = Template.bind({});
 Secondary.args = {
-  color: "#b7ac9a",
-  text: true
+	color: "#b7ac9a",
+	text: true
 };
 
 export const Small = Template.bind({});
 Small.args = {
-  size: "small",
+	size: "small"
 };
 
 export const Medium = Template.bind({});
 Medium.args = {
-  size: "medium",
+	size: "medium"
 };
 
 export const Large = Template.bind({});
 Large.args = {
-  size: "large",
+	size: "large"
 };
