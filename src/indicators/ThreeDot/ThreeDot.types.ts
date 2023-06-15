@@ -7,6 +7,5 @@ export interface ThreeDotProps extends CommonProps {
 		| "pulsate"
 		| "windmill"
 		| "bob"
-		| "carousel"
 		| "brick-stack";
 }
