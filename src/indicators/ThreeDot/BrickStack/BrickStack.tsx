@@ -10,6 +10,7 @@ import Text from "../../../utils/Text";
 
 const BrickStack = (props: BrickStackProps) => {
 	const elemRef = useRef<HTMLSpanElement | null>(null);
+	
 	// Styles and size
 	const { styles, fontSize } = useStylesPipeline(props?.style, props?.size);
 
