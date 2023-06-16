@@ -1,0 +1,97 @@
+@use "../../../scss/variables" as defaults;
+
+// Radial graient syntax: radial-gradient( [ <ending-shape> || <size> ]? [ at <position> ]? , <color-stop-list> )
+$animationDuration: var(--rli-animation-duration, 1.2s);
+$animationFn: var(--rli-animation-function, linear);
+$dot-width: 0.96em;
+
+@mixin dotColor($dotNo) {
+    @if ($dotNo == 1) {
+        background: radial-gradient(circle at center, var(--bob-dot1-color, currentColor) 0% 65%, rgba(0, 0, 0, 0) 74%)
+            center/100%
+            50%
+            no-repeat;
+    } @else if($dotNo == 2) {
+        background: radial-gradient(circle at center, var(--bob-dot2-color, currentColor) 0% 65%, rgba(0, 0, 0, 0) 74%)
+            center/100%
+            50%
+            no-repeat;
+    } @else if($dotNo == 3) {
+        background: radial-gradient(circle at center, var(--bob-dot3-color, currentColor) 0% 65%, rgba(0, 0, 0, 0) 74%)
+            center/100%
+            50%
+            no-repeat;
+    } @else {
+        background: radial-gradient(circle at center, currentColor 0% 65%, rgba(0, 0, 0, 0) 74%)
+            center/100%
+            50%
+            no-repeat;
+    }
+}
+
+.bob-rli-bounding-box {
+    box-sizing: border-box;
+    font-size: defaults.$fontSizer;
+    display: inline-block;
+    color: defaults.$defaultColor;
+
+    .bob-indicator {
+        // width = dot1: 2.5em + spacing: 1.25em + dot2: 2.5em + spacing: 1.25em + dot3: 2.5em
+        width: calc($dot-width * 3 + (($dot-width / 2) * 2));
+        height: calc($dot-width * 2);
+        position: relative;
+        display: block;
+        margin: 0 auto;
+
+        .bobbing,
+        .bobbing:before,
+        .bobbing:after {
+            width: $dot-width;
+            height: 100%;
+            display: grid;
+
+            animation-name: bobMovement;
+            animation-duration: $animationDuration;
+            animation-iteration-count: infinite;
+            animation-timing-function: $animationFn;
+            animation-delay: calc(var(--delay, 0) * 0.4s);
+        }
+        .bobbing:before,
+        .bobbing:after {
+            content: "";
+            grid-area: 1/1;
+        }
+        .bobbing {
+            --delay: -0.5;
+
+            @include dotColor(1);
+        }
+        .bobbing:before {
+            --delay: 0;
+            transform: translateX(150%);
+
+            @include dotColor(2);
+        }
+        .bobbing:after {
+            --delay: 0.5;
+            transform: translateX(300%);
+
+            @include dotColor(3);
+        }
+    }
+}
+
+@keyframes bobMovement {
+    20% {
+        background-position: 50% 0%;
+    }
+    40% {
+        background-position: 50% 100%;
+    }
+    60% {
+        background-position: 50% 25%;
+    }
+    80% {
+        background-position: 50% 50%;
+    }
+}
