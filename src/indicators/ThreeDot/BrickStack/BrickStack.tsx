@@ -16,7 +16,7 @@ const BrickStack = (props: BrickStackProps) => {
 
 	// Animation speed and smoothing control
 	const easingFn: string | undefined = props?.easing;
-	const DEFAULT_ANIMATION_DURATION = "2s"; // Animation's default duration
+	const DEFAULT_ANIMATION_DURATION = "1s"; // Animation's default duration
 	const { animationPeriod } = useAnimationPacer(
 		props?.speedPlus,
 		DEFAULT_ANIMATION_DURATION
@@ -62,7 +62,7 @@ const BrickStack = (props: BrickStackProps) => {
 			}
 		>
 			<span className="rli-d-i-b brick-stack-indicator" style={{ ...styles }}>
-				<span className=" rli-d-i-b three-dot-brick-stack"></span>
+				<span className=" rli-d-i-b brick-stack"></span>
 			</span>
 
 			<Text staticText text={props?.text} textColor={props?.textColor} />

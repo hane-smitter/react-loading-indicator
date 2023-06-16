@@ -1,25 +1,21 @@
 @use "../../../scss/variables" as defaults;
 
-$animationDuration: var(--rli-animation-duration, 2s);
-$animationFn: var(--rli-animation-function, ease);
+$animationDuration: var(--rli-animation-duration, 1s);
+$animationFn: var(--rli-animation-function, ease-out);
+$brick-width: 0.96em;
 
-$brick-width: 0.8em;
-$spacing: 0.4em;
-
-$brick-width-alignmentX: calc($brick-width + 0.1em);
-$brick-width-alignmentY: $brick-width;
-$x1: $brick-width-alignmentX;
-$x2: calc($brick-width-alignmentX * 2 + $spacing);
-$y1: 0;
-$y2: calc(($brick-width-alignmentY + $spacing) * -1);
-
-@function brickColor($brickNumber) {
+@function brickFace($brickNumber) {
   @if ($brickNumber == 1) {
-    @return var(--brick1-color, currentColor);
+    // no-repeat radial-gradient(circle closest-side, var(--brick1-color, currentColor) 90%, #0000)
+    //
+    @return no-repeat
+      radial-gradient(circle closest-side, var(--brick1-color, currentColor) 0% 85%, rgba(0, 0, 0, 0) 97%);
   } @else if ($brickNumber == 2) {
-    @return var(--brick2-color, currentColor);
+    @return no-repeat
+      radial-gradient(circle closest-side, var(--brick2-color, currentColor) 0% 85%, rgba(0, 0, 0, 0) 97%);
   } @else if ($brickNumber == 3) {
-    @return var(--brick3-color, currentColor);
+    @return no-repeat
+      radial-gradient(circle closest-side, var(--brick3-color, currentColor) 0% 85%, rgba(0, 0, 0, 0) 97%);
   } @else {
     @return currentColor;
   }
@@ -32,81 +28,37 @@ $y2: calc(($brick-width-alignmentY + $spacing) * -1);
   color: defaults.$defaultColor;
 
   .brick-stack-indicator {
-    width: calc($brick-width * 2.2 + $spacing);
-    height: calc($brick-width * 2.2 + $spacing);
+    width: calc($brick-width * 2);
+    height: calc($brick-width * 2);
     position: relative;
     display: block;
     margin: 0 auto;
+  }
 
-    .three-dot-brick-stack {
-      display: inline-block;
-      position: absolute;
-      bottom: 0;
-      left: calc($brick-width * -1);
-      width: $brick-width;
-      height: $brick-width;
-      border-radius: 50%;
-      background-color: transparent;
-      box-shadow: $x1 $y2 0 0 brickColor(1), $x1 $y1 0 0 brickColor(2), $x2 $y1 0 0 brickColor(3);
+  .brick-stack {
+    width: 100%;
+    height: 100%;
+    background: brickFace(1) 0 0, brickFace(2) 0 100%, brickFace(3) 100% 100%;
+    background-size: 40% 40%;
 
-      animation-name: stackBricks;
-      animation-duration: $animationDuration;
-      animation-iteration-count: infinite;
-      animation-timing-function: $animationFn;
-    }
+    animation-name: stackBricks;
+    animation-duration: $animationDuration;
+    animation-iteration-count: infinite;
+    animation-timing-function: $animationFn;
   }
 }
 
 @keyframes stackBricks {
-  0% {
-    box-shadow: $x1 $y2 0 0 brickColor(1), $x1 $y1 0 0 brickColor(2), $x2 $y1 0 0 brickColor(3);
-  }
-
-  8.333% {
-    box-shadow: $x2 $y2 0 0 brickColor(1), $x1 $y1 0 0 brickColor(2), $x2 $y1 0 0 brickColor(3);
-  }
-
-  16.667% {
-    box-shadow: $x2 $y2 0 0 brickColor(1), $x1 $y2 0 0 brickColor(2), $x2 $y1 0 0 brickColor(3);
-  }
-
   25% {
-    box-shadow: $x2 $y2 0 0 brickColor(1), $x1 $y2 0 0 brickColor(2), $x1 $y1 0 0 brickColor(3);
+    background-position: 100% 0, 0 100%, 100% 100%;
   }
-
-  33.333% {
-    box-shadow: $x2 $y1 0 0 brickColor(1), $x1 $y2 0 0 brickColor(2), $x1 $y1 0 0 brickColor(3);
-  }
-
-  41.667% {
-    box-shadow: $x2 $y1 0 0 brickColor(1), $x2 $y2 0 0 brickColor(2), $x1 $y1 0 0 brickColor(3);
-  }
-
   50% {
-    box-shadow: $x2 $y1 0 0 brickColor(1), $x2 $y2 0 0 brickColor(2), $x1 $y2 0 0 brickColor(3);
+    background-position: 100% 0, 0 0, 100% 100%;
   }
-
-  58.333% {
-    box-shadow: $x1 $y1 0 0 brickColor(1), $x2 $y2 0 0 brickColor(2), $x1 $y2 0 0 brickColor(3);
-  }
-
-  66.666% {
-    box-shadow: $x1 $y1 0 0 brickColor(1), $x2 $y1 0 0 brickColor(2), $x1 $y2 0 0 brickColor(3);
-  }
-
   75% {
-    box-shadow: $x1 $y1 0 0 brickColor(1), $x2 $y1 0 0 brickColor(2), $x2 $y2 0 0 brickColor(3);
+    background-position: 100% 0, 0 0, 0 100%;
   }
-
-  83.333% {
-    box-shadow: $x1 $y2 0 0 brickColor(1), $x2 $y1 0 0 brickColor(2), $x2 $y2 0 0 brickColor(3);
-  }
-
-  91.667% {
-    box-shadow: $x1 $y2 0 0 brickColor(1), $x1 $y1 0 0 brickColor(2), $x2 $y2 0 0 brickColor(3);
-  }
-
   100% {
-    box-shadow: $x1 $y2 0 0 brickColor(1), $x1 $y1 0 0 brickColor(2), $x2 $y1 0 0 brickColor(3);
+    background-position: 100% 100%, 0 0, 0 100%;
   }
 }

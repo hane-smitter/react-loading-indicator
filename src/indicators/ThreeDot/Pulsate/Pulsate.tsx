@@ -61,7 +61,7 @@ const Pulsate = (props: PulsateProps) => {
 				} as React.CSSProperties
 			}
 		>
-			<span className="rli-d-i-b pulsate-throbber" style={{ ...styles }}>
+			<span className="rli-d-i-b pulsate-indicator" style={{ ...styles }}>
 				<span className="rli-d-i-b pulsate-bounce pulsate-bounce1"></span>
 				<span className="rli-d-i-b pulsate-bounce pulsate-bounce2"></span>
 				<span className="rli-d-i-b pulsate-bounce pulsate-bounce3"></span>
