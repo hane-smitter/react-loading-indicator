@@ -8,7 +8,7 @@ export * from "./Mosaic";
 export * from "./Riple";
 export * from "./ThreeDot";
 export * from "./GlidingBlink";
-export * from "./Twist";
+export * from "./TrophySpin";
 export * from "./Slab";
 export * from "./LifeLine";
 

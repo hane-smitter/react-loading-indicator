@@ -1,13 +1,13 @@
 import React from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
-import { Twist } from "./Twist";
+import { TrophySpin } from "./TrophySpin";
 
 export default {
-	title: "rli/Twist",
-	component: Twist
-} as ComponentMeta<typeof Twist>;
+	title: "rli/TrophySpin",
+	component: TrophySpin
+} as ComponentMeta<typeof TrophySpin>;
 
-const Template: ComponentStory<typeof Twist> = args => <Twist {...args} />;
+const Template: ComponentStory<typeof TrophySpin> = args => <TrophySpin {...args} />;
 
 export const Primary = Template.bind({});
 
