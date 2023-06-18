@@ -37,6 +37,6 @@ export default [
 		input: "dist/esm/types/index.d.ts",
 		output: [{ file: "dist/index.d.ts", format: "esm" }],
 		plugins: [dts()],
-		external: [/\.(css|less|s[ac]ss)$/] // Packages that should not be in our bundle
+		external: [/\.(css|less|s[ac]ss|stories.[tj]s[x]?)$/] // Packages that should not be in our bundle
 	}
 ];

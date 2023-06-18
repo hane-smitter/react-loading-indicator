@@ -1,1 +1,1 @@
-export { Twist } from "./TrophySpin";
+export { TrophySpin } from "./TrophySpin";
