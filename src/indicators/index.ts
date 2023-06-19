@@ -1,15 +1,11 @@
-import { CircularProgress } from "./CircularProgress";
-
-export * from "./Atom";
-export * from "./Commet";
-export * from "./CircularProgress";
-export * from "./FourSquare";
-export * from "./Mosaic";
-export * from "./Riple";
-export * from "./ThreeDot";
-export * from "./GlidingBlink";
-export * from "./TrophySpin";
-export * from "./Slab";
-export * from "./LifeLine";
-
-export { CircularProgress as default };
+export { default as Atom } from "./Atom/Atom";
+export { default as Commet } from "./Commet/Commet";
+export { default as OrbitProgress } from "./OrbitProgress/OrbitProgress";
+export { default as FourSquare } from "./FourSquare/FourSquare";
+export { default as Mosaic } from "./Mosaic/Mosaic";
+export { default as Riple } from "./Riple/Riple";
+export { default as ThreeDot } from "./ThreeDot/ThreeDot";
+export { default as GlidingBlink } from "./GlidingBlink/GlidingBlink";
+export { default as TrophySpin } from "./TrophySpin/TrophySpin";
+export { default as Slab } from "./Slab/Slab";
+export { default as LifeLine } from "./LifeLine/LifeLine";

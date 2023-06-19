@@ -1,1 +1,3 @@
-export { default as ThreeDot } from "./ThreeDot";
+import "../../scss/global.scss";
+
+export { default } from "./ThreeDot";

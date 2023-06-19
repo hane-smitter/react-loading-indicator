@@ -1,1 +1,3 @@
-export { default as Lifeline } from "./LifeLine";
+import "../../scss/global.scss";
+
+export { default } from "./LifeLine";

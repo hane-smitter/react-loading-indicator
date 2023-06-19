@@ -1,1 +1,3 @@
-export { TrophySpin } from "./TrophySpin";
+import "../../scss/global.scss";
+
+export { default } from "./TrophySpin";

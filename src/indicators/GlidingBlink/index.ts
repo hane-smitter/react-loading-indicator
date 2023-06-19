@@ -1,1 +1,3 @@
-export { default as GlidingBlink } from "./GlidingBlink";
+import "../../scss/global.scss";
+
+export { default } from "./GlidingBlink";

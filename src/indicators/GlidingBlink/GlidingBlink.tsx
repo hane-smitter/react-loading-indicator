@@ -1,5 +1,5 @@
 import React, { useCallback, useRef } from "react";
-import { ColorTranslator } from "colortranslator";
+import colorParse from "tinycolor2";
 
 import { GlidingBlinkProps } from "./GlidingBlink.types";
 import "./GlidingBlink.scss";
@@ -8,7 +8,7 @@ import useStylesPipeline from "../../hooks/useStylesPipeline";
 import useAnimationPacer from "../../hooks/useAnimationPacer";
 import Text from "../../utils/Text";
 
-const DEFAULT_COLOR = new ColorTranslator(defaultColor);
+const DEFAULT_COLOR = colorParse(defaultColor).toRgb();
 
 const GlidingBlink = (props: GlidingBlinkProps) => {
 	const elemRef = useRef<HTMLSpanElement | null>(null);
@@ -24,14 +24,9 @@ const GlidingBlink = (props: GlidingBlinkProps) => {
 	);
 
 	/* Color SETTINGS */
-	// If Color property is a string, that is the color of all anime
-	// If color property is an array, that is color for each anime
 	const colorReset = useCallback(
 		function () {
 			if (elemRef.current) {
-				// --color-base, --shape1-color-base, --shape2-color-base,
-				// --shape3-color-base, --shape4-color-base,
-				// --shape5-color-base, --shape6-color-base
 				const cssColorVars: Array<string> = Array.from(
 					{ length: 7 },
 					(item, idx) => {
@@ -100,12 +95,14 @@ function stylesObjectFromColorProp(
 
 	if (colorProp instanceof Array && colorProp.length > 0) {
 		try {
-			let firstColor = new ColorTranslator(colorProp[0]);
+			let firstColor = colorParse(colorProp[0]);
+			if (!firstColor.isValid()) throw new Error("invalid color");
 
+			const rgbColor = firstColor.toRgb();
 			// Set `color-base` from the first item in Array
 			stylesObject[
 				"--color-base"
-			] = `${firstColor.R}, ${firstColor.G}, ${firstColor.B}`;
+			] = `${rgbColor.r}, ${rgbColor.g}, ${rgbColor.b}`;
 		} catch (error) {
 			console.warn(
 				`Possibly an invalid color( ${JSON.stringify(
@@ -114,7 +111,7 @@ function stylesObjectFromColorProp(
 			);
 			stylesObject[
 				`--color-base`
-			] = `${DEFAULT_COLOR.R}, ${DEFAULT_COLOR.G}, ${DEFAULT_COLOR.B}`;
+			] = `${DEFAULT_COLOR.r}, ${DEFAULT_COLOR.g}, ${DEFAULT_COLOR.b}`;
 		}
 
 		let arrLength: number = colorProp.length;
@@ -123,17 +120,20 @@ function stylesObjectFromColorProp(
 			if (i > 5) break; // Max no. of shapes is 6
 			let shapeId: string = `shape${i + 1}`;
 			try {
-				const color: ColorTranslator = new ColorTranslator(colorProp[i]);
+				const color = colorParse(colorProp[i]);
+				if (!color.isValid()) throw new Error("invalid color");
+
+				const rgbColor = color.toRgb();
 				stylesObject[
 					`--${shapeId}-color-base`
-				] = `${color.R}, ${color.G}, ${color.B}`;
+				] = `${rgbColor.r}, ${rgbColor.g}, ${rgbColor.b}`;
 			} catch (error) {
 				console.warn(
 					`Possibly an invalid color( ${colorProp[i]} ) in GlidingBlink loader!`
 				);
 				stylesObject[
 					`--${shapeId}-color-base`
-				] = `${DEFAULT_COLOR.R}, ${DEFAULT_COLOR.G}, ${DEFAULT_COLOR.B}`;
+				] = `${DEFAULT_COLOR.r}, ${DEFAULT_COLOR.g}, ${DEFAULT_COLOR.b}`;
 			}
 		}
 
@@ -142,8 +142,13 @@ function stylesObjectFromColorProp(
 
 	try {
 		if (typeof colorProp === "string") {
-			const color: ColorTranslator = new ColorTranslator(colorProp);
-			stylesObject["--color-base"] = `${color.R}, ${color.G}, ${color.B}`;
+			const color = colorParse(colorProp);
+			if (!color.isValid()) throw new Error("invalid color");
+
+			const rgbColor = color.toRgb();
+			stylesObject[
+				"--color-base"
+			] = `${rgbColor.r}, ${rgbColor.g}, ${rgbColor.b}`;
 		} else {
 			throw new Error("Color unprocessable");
 		}
@@ -155,7 +160,7 @@ function stylesObjectFromColorProp(
 		);
 		stylesObject[
 			"--color-base"
-		] = `${DEFAULT_COLOR.R}, ${DEFAULT_COLOR.G}, ${DEFAULT_COLOR.B}`;
+		] = `${DEFAULT_COLOR.r}, ${DEFAULT_COLOR.g}, ${DEFAULT_COLOR.b}`;
 	}
 
 	return stylesObject;

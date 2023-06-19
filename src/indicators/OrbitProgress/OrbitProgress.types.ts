@@ -1,6 +1,6 @@
 import { CommonProps } from "../common.types";
 
-export interface CircularProgressProps extends CommonProps {
+export interface OrbitProgressProps extends CommonProps {
 	/**
 	 * variant of a circular loading indicator. Defaults to `disc`.
 	 */

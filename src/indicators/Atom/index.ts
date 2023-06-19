@@ -1,1 +1,3 @@
-export { default as Atom } from "./Atom";
+import "../../scss/global.scss";
+
+export { default } from "./Atom";

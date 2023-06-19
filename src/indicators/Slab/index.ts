@@ -1,1 +1,3 @@
-export { Slab } from "./Slab";
+import "../../scss/global.scss";
+
+export { default } from "./Slab";

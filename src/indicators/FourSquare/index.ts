@@ -1,1 +1,3 @@
-export { default as FourSquare } from "./FourSquare";
+import "../../scss/global.scss";
+
+export { default } from "./FourSquare";

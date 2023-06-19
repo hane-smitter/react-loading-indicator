@@ -1,14 +1,15 @@
 import React from "react";
 import { BubbleDotted } from "./BubbleDotted";
-import { CircularProgressProps } from "./CircularProgress.types";
+import { OrbitProgressProps } from "./OrbitProgress.types";
+
 import { Disc } from "./Disc";
 import { Dotted } from "./Dotted";
 import { SplitDisc } from "./SplitDisc";
 import { TrackDisc } from "./TrackDisc";
 
-const CircularProgress = (props: CircularProgressProps) => {
+const OrbitProgress = (props: OrbitProgressProps) => {
 	// let componentVariant: string = props?.variant || "disc";
-	let { variant: componentVariant = "disc" }: CircularProgressProps =
+	let { variant: componentVariant = "disc" }: OrbitProgressProps =
 		Object(props);
 
 	return componentVariant === "dotted" ? (
@@ -24,4 +25,4 @@ const CircularProgress = (props: CircularProgressProps) => {
 	) : null;
 };
 
-export default React.memo(CircularProgress);
+export default React.memo(OrbitProgress);

@@ -1,13 +1,15 @@
 import React from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
-import { TrophySpin } from "./TrophySpin";
+import TrophySpin from "./TrophySpin";
 
 export default {
 	title: "rli/TrophySpin",
 	component: TrophySpin
 } as ComponentMeta<typeof TrophySpin>;
 
-const Template: ComponentStory<typeof TrophySpin> = args => <TrophySpin {...args} />;
+const Template: ComponentStory<typeof TrophySpin> = args => (
+	<TrophySpin {...args} />
+);
 
 export const Primary = Template.bind({});
 
