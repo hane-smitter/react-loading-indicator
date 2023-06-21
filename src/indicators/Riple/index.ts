@@ -1,1 +1,3 @@
-export { default as Riple } from "./Riple";
+import "../../scss/global.scss";
+
+export { default } from "./Riple";

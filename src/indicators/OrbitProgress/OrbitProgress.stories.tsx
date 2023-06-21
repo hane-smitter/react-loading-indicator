@@ -1,14 +1,14 @@
 import React from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
-import CircularProgress from "./CircularProgress";
+import OrbitProgress from "./OrbitProgress";
 
 export default {
-	title: "rli/CircularProgress",
-	component: CircularProgress
-} as ComponentMeta<typeof CircularProgress>;
+	title: "rli/OrbitProgress",
+	component: OrbitProgress
+} as ComponentMeta<typeof OrbitProgress>;
 
-const Template: ComponentStory<typeof CircularProgress> = args => (
-	<CircularProgress {...args} />
+const Template: ComponentStory<typeof OrbitProgress> = args => (
+	<OrbitProgress {...args} />
 );
 
 export const Primary = Template.bind({});

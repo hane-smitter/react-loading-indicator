@@ -72,7 +72,7 @@ const TrophySpin = (props: TwistProps) => {
 	);
 };
 
-export { TrophySpin };
+export default React.memo(TrophySpin);
 
 /**
  * Creates a style object with props that color the throbber/spinner

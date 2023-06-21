@@ -1,5 +1,5 @@
 import React, { useCallback, useRef } from "react";
-import { ColorTranslator } from "colortranslator";
+import colorParse from "tinycolor2";
 
 import "./Atom.scss";
 import { AtomProps } from "./Atom.types";
@@ -8,7 +8,7 @@ import useStylesPipeline from "../../hooks/useStylesPipeline";
 import Text from "../../utils/Text";
 import useAnimationPacer from "../../hooks/useAnimationPacer";
 
-const DEFAULT_COLOR = new ColorTranslator(defaultColor);
+const DEFAULT_COLOR = colorParse(defaultColor).toRgb();
 
 const Atom = (props: AtomProps) => {
 	const elemRef = useRef<HTMLSpanElement | null>(null);
@@ -34,7 +34,7 @@ const Atom = (props: AtomProps) => {
 					{ length: 3 },
 					(item, idx) => {
 						const num: number = idx + 1;
-						const cssPropName: string = `--${"disc" + num + "-"}color`;
+						const cssPropName: string = `--${"orbit" + num + "-"}color`;
 						return cssPropName;
 					}
 				);
@@ -72,11 +72,11 @@ const Atom = (props: AtomProps) => {
 		>
 			<span className="rli-d-i-b atom-throbber" style={{ ...styles }}>
 				<span className="rli-d-i-b inner">
-					<span className="disc nucleus-holder">
+					<span className="orbit nucleus-holder">
 						<span className="nucleus"></span>
 					</span>
-					<span className="disc"></span>
-					<span className="disc"></span>
+					<span className="orbit"></span>
+					<span className="orbit"></span>
 				</span>
 			</span>
 			<Text
@@ -111,22 +111,25 @@ function stylesObjectFromColorProp(
 		if (arrLength <= 0) return stylesObject;
 
 		try {
-			const firstColor: ColorTranslator = new ColorTranslator(colorProp[0]);
-			stylesObject["--color-r"] = firstColor.R;
-			stylesObject["--color-g"] = firstColor.G;
-			stylesObject["--color-b"] = firstColor.B;
+			const firstColor = colorParse(colorProp[0]);
+			if (!firstColor.isValid()) throw new Error("invalid color");
+
+			const toRgbColor = firstColor.toRgb();
+			stylesObject["--color-r"] = toRgbColor.r;
+			stylesObject["--color-g"] = toRgbColor.g;
+			stylesObject["--color-b"] = toRgbColor.b;
 		} catch (error) {
 			console.warn(
 				`Possibly an invalid color( ${colorProp[0]} ) passed to Atom loader!`
 			);
-			stylesObject["--color-r"] = DEFAULT_COLOR.R;
-			stylesObject["--color-g"] = DEFAULT_COLOR.G;
-			stylesObject["--color-b"] = DEFAULT_COLOR.B;
+			stylesObject["--color-r"] = DEFAULT_COLOR.r;
+			stylesObject["--color-g"] = DEFAULT_COLOR.g;
+			stylesObject["--color-b"] = DEFAULT_COLOR.b;
 		}
 
 		for (let i = 0; i < arrLength; i++) {
 			if (i >= 3) break; // Max no. of discs can only be 3
-			let currentItem: string = `disc${i + 1}`;
+			let currentItem: string = `orbit${i + 1}`;
 			let currentColor = colorProp[i];
 
 			stylesObject[`--${currentItem}-color`] = currentColor;
@@ -134,20 +137,21 @@ function stylesObjectFromColorProp(
 		return stylesObject;
 	}
 
-	if (!colorProp) return stylesObject;
-
 	try {
-		const color: ColorTranslator = new ColorTranslator(colorProp);
-		stylesObject["--color-r"] = color.R;
-		stylesObject["--color-g"] = color.G;
-		stylesObject["--color-b"] = color.B;
+		const color = colorParse(colorProp);
+		if (!color.isValid()) throw new Error("invalid color");
+
+		const toRgbColor = color.toRgb();
+		stylesObject["--color-r"] = toRgbColor.r;
+		stylesObject["--color-g"] = toRgbColor.g;
+		stylesObject["--color-b"] = toRgbColor.b;
 	} catch (error) {
 		console.warn(
-			`Invalid color( ${JSON.stringify(colorProp)} ) passed to Atom loader!`
+			`Invalid color( ${JSON.stringify(colorProp)} ) passed to Atom indicator!`
 		);
-		stylesObject["--color-r"] = DEFAULT_COLOR.R;
-		stylesObject["--color-g"] = DEFAULT_COLOR.G;
-		stylesObject["--color-b"] = DEFAULT_COLOR.B;
+		stylesObject["--color-r"] = DEFAULT_COLOR.r;
+		stylesObject["--color-g"] = DEFAULT_COLOR.g;
+		stylesObject["--color-b"] = DEFAULT_COLOR.b;
 	}
 
 	return stylesObject;

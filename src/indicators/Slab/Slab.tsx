@@ -61,7 +61,7 @@ const Slab = (props: SlabProps) => {
 	);
 };
 
-export { Slab };
+export default React.memo(Slab);
 
 function genStyleFromColorStr(
 	colorStr: string | undefined

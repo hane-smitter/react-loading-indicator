@@ -1,1 +1,3 @@
-export { default as Mosaic } from "./Mosaic";
+import "../../scss/global.scss";
+
+export { default } from "./Mosaic";

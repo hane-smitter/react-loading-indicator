@@ -1,6 +1,6 @@
 import React from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
-import { Slab } from "./Slab";
+import Slab from "./Slab";
 
 export default {
 	title: "rli/Slab",

@@ -13,8 +13,7 @@
     "declaration": true,
     "declarationDir": "types",
     "sourceMap": false,
-    "removeComments": true,
-    // "outDir": "dist",
+    "removeComments": false,
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
     "emitDeclarationOnly": true

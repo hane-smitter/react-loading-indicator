@@ -47,26 +47,26 @@ $colorInversionDegree: 200; // 0 - 255
       transform-origin: center center;
       position: relative;
 
-      & .disc:nth-of-type(1) {
-        --disc-color: var(--disc3-color);
+      & .orbit:nth-of-type(1) {
+        --orbit-color: var(--disc3-color);
         animation: rotate $atomSpinPathDuration $animationFn infinite;
       }
-      & .disc:nth-of-type(2) {
-        --disc-color: var(--disc2-color);
+      & .orbit:nth-of-type(2) {
+        --orbit-color: var(--disc2-color);
         animation: rotateAtomDisc2 $atomSpinPathDuration $animationFn infinite;
       }
-      & .disc:nth-of-type(3) {
-        --disc-color: var(--disc1-color);
+      & .orbit:nth-of-type(3) {
+        --orbit-color: var(--disc1-color);
         animation: rotateAtomDisc3 $atomSpinPathDuration $animationFn infinite;
       }
 
-      $disc-border-width: 0.3em;
-      & .disc {
+      $orbit-border-width: 0.3em;
+      & .orbit {
         position: absolute;
         // width: 100%;
         // height: 98%;
         border-radius: 50%;
-        border: $disc-border-width solid var(--disc-color, currentColor);
+        border: $orbit-border-width solid var(--orbit-color, currentColor);
         display: inline-block;
         top: 0;
         left: 0;
@@ -74,10 +74,10 @@ $colorInversionDegree: 200; // 0 - 255
         bottom: 2%;
       }
 
-      & .disc.nucleus-holder {
+      & .orbit.nucleus-holder {
         // width: $box-width;
         // height: $box-height;
-        border: $disc-border-width solid transparent;
+        border: $orbit-border-width solid transparent;
 
         & .nucleus {
           $nucleus-dimension: 0.8em;

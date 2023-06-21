@@ -1,1 +1,3 @@
-export { default as Commet } from "./Commet";
+import "../../scss/global.scss";
+
+export { default } from "./Commet";
