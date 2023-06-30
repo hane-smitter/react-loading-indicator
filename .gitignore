@@ -3,5 +3,6 @@
 dist
 .npmrc
 **/*/css
+css
 /storybook-static
 *_bak
