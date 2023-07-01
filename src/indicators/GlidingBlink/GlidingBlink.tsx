@@ -1,4 +1,4 @@
-import React, { useCallback, useRef } from "react";
+import React, { useCallback, useEffect, useRef } from "react";
 import colorParse from "tinycolor2";
 
 import { GlidingBlinkProps } from "./GlidingBlink.types";
@@ -8,10 +8,12 @@ import useStylesPipeline from "../../hooks/useStylesPipeline";
 import useAnimationPacer from "../../hooks/useAnimationPacer";
 import Text from "../../utils/Text";
 
-const DEFAULT_COLOR = colorParse(defaultColor).toRgb();
+const DEFAULT_COLOR: colorParse.ColorFormats.RGBA =
+	colorParse(defaultColor).toRgb();
 
 const GlidingBlink = (props: GlidingBlinkProps) => {
 	const elemRef = useRef<HTMLSpanElement | null>(null);
+	const blinkBlurElemRef = useRef<HTMLSpanElement | null>(null);
 	// Styles and size
 	const { styles, fontSize } = useStylesPipeline(props?.style, props?.size);
 
@@ -22,6 +24,19 @@ const GlidingBlink = (props: GlidingBlinkProps) => {
 		props?.speedPlus,
 		DEFAULT_ANIMATION_DURATION
 	);
+
+	// Adding animations optimizations
+	useEffect(() => {
+		const glidingBlinkElem = blinkBlurElemRef?.current;
+		/* No need to add since it is added on the element directly */
+		// if (glidingBlinkElem) {
+		// 	glidingBlinkElem.style.willChange = "box-shadow";
+		// }
+
+		return () => {
+			glidingBlinkElem && (glidingBlinkElem.style.willChange = "auto");
+		};
+	}, []);
 
 	/* Color SETTINGS */
 	const colorReset = useCallback(
@@ -63,10 +78,13 @@ const GlidingBlink = (props: GlidingBlinkProps) => {
 				} as React.CSSProperties
 			}
 		>
-			<span
-				className="rli-d-i-b glidingblink-throbber"
-				style={{ ...styles }}
-			></span>
+			<span className="rli-d-i-b gliding-blink-indicator" style={{ ...styles }}>
+				<span
+					ref={blinkBlurElemRef}
+					className="gliding-blink-shape"
+					style={{ willChange: "box-shadow" }}
+				></span>
+			</span>
 			<Text
 				// className="gliding-blink-text"
 				staticText
