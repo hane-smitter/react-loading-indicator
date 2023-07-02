@@ -15,9 +15,9 @@ const staticTextStyles: React.CSSProperties = {
 	paddingTop: "2px"
 };
 
-const Text = (props: TextProps): JSX.Element => {
+const Text = (props: TextProps): JSX.Element | null => {
 	const { className, text, textColor, staticText } = props;
-	return (
+	return text ? (
 		<span
 			className={`rli-d-i-b rli-text-format ${className || ""}`}
 			style={{
@@ -28,13 +28,9 @@ const Text = (props: TextProps): JSX.Element => {
 				})
 			}}
 		>
-			{text
-				? typeof text === "string" && text.length
-					? text
-					: "loading"
-				: null}
+			{typeof text === "string" && text.length ? text : "loading"}
 		</span>
-	);
+	) : null;
 };
 
 export default Text;

@@ -7,9 +7,12 @@ $animationFn: var(--rli-animation-function, linear);
 $defaultR: color.red(defaults.$defaultColor);
 $defaultG: color.green(defaults.$defaultColor);
 $defaultB: color.blue(defaults.$defaultColor);
-$blurAmount: 12px;
+$blurAmount: 15px;
 $maxOpacity: 1;
 $percentIncStep: 10;
+$noOfShapes: 5;
+$shapeWidth: 2em;
+$shapeSpacing: 0.4em;
 
 //  Invert a range of a scale
 @function invertScale($value, $min: 0, $max: 1) {
@@ -26,38 +29,17 @@ $percentIncStep: 10;
 
   @return $number;
 }
-
 $percentJustBelow50: closestTo50($percentIncStep);
-// @debug "Number just Next to 50%: #{$percentJustBelow50}";
 
-// Calculate opacity in the scale 0-1
-// @function calcOpacity($shapeNum: 1, $progress: 0) {
-//   $progress: abs($progress - ($shapeNum - 1) * $percentIncStep);
-
-//   @if ($progress > 50) {
-//     $progress: 100 - $progress;
-//   }
-
-//   $opacity: calc(($progress * 2) / 100);
-
-//   @return $opacity;
-// }
 @function calcOpacity($shapeNum, $progress, $causeBlink: false) {
-  // $opacity: calcOpacity($shapeNum, $progress);
-
   // Generate different progress values for each shape
   $progressPerShape: calc($progress + (($shapeNum - 1) * $percentIncStep));
-  @debug "$progressPerShape:: #{$progressPerShape}";
 
-  // @if ($opacity == 0) {
-  //   @return 0.135;
-  // }
-
+  // Causes a blink behavior in the opacity calculation
   @if ($causeBlink == true) {
-    // Cause blink to only when animation is almost at full opaqueness
+    // Set opacity to `0` to cause blink, when animation is almost at full opaqueness
     @if (($progressPerShape == $percentJustBelow50) and $progressPerShape < 50) {
       $opacity: 0;
-      @debug "'progress per shape' #{$progressPerShape} == 'just below-50' #{$percentJustBelow50}, Opacity: #{$opacity}";
       @return $opacity;
     }
   }
@@ -68,50 +50,13 @@ $percentJustBelow50: closestTo50($percentIncStep);
     $progressPerShape: abs(calc(100 - $progressPerShape));
   }
 
-  $opacity: calc(($maxOpacity * $progressPerShape / 50)); // Ensures that we are at `1`, when progress is at 50%
-  @debug "Shape num: #{$shapeNum}, Opacity: #{$opacity}, Progress: #{$progressPerShape}";
+  // Ensures that we are at `1`, when progress is at 50%
+  $opacity: calc(($maxOpacity * $progressPerShape / 50));
 
-  // @return invertScale($opacity, 0, 1);
   @return $opacity;
 }
 
-// This causes a blink behavior in the opacity calculation
-// @function blinkOpacity($shapeNum, $progress) {
-//   $opacity: calcOpacity($shapeNum, $progress);
-
-//   // Generate different progress values for each shape
-//   $progressPerShape: calc($progress + (($shapeNum - 1) * $percentIncStep));
-//   @debug "$progressPerShape:: #{$progressPerShape}";
-
-//   // @if ($opacity == 0) {
-//   //   @return 0.135;
-//   // }
-
-//   // Cause blink to only when animation is almost at full opaqueness
-//   @if (($progressPerShape == $percentJustBelow50) and $progressPerShape < 50) {
-//     $opacity: 0;
-//     @debug "'progress per shape' #{$progressPerShape} == 'just below-50' #{$percentJustBelow50}, Opacity: #{$opacity}";
-//     @return $opacity;
-//   }
-
-//   // Reset progress
-//   // so that after full opaqueness at 50%, now it heads to full transparency at 100%
-//   @if ($progressPerShape > 50) {
-//     $progressPerShape: abs(calc(100 - $progressPerShape));
-//   }
-
-//   $opacity: calc(($maxOpacity * $progressPerShape / 50)); // Ensures that we are at `1`, when progress is at 50%
-//   @debug "Shape num: #{$shapeNum}, Opacity: #{$opacity}, Progress: #{$progressPerShape}";
-
-//   @return $opacity;
-// }
-
-// Adds css variables for the size of shape/boxes/bar
-@function barWidth() {
-  @return var(--bar-width);
-}
-
-// Adds css variables representing color
+// Return css variables representing color
 @function colBase($shapeNumber) {
   $cssVar: var(--color-base);
 
@@ -123,17 +68,19 @@ $percentJustBelow50: closestTo50($percentIncStep);
 }
 
 @mixin shapes($progress) {
-  box-shadow: calc(barWidth() * 1.2) 0 invertScale(calcOpacity(1, $progress)) * $blurAmount
-      rgba(colBase(1), calcOpacity(1, calc($progress), true)),
-    calc(barWidth() * 2.4) 0 invertScale(calcOpacity(2, $progress)) * $blurAmount
-      rgba(colBase(2), calcOpacity(2, calc($progress), true)),
-    calc(barWidth() * 3.6) 0 invertScale(calcOpacity(3, $progress)) * $blurAmount
+  $placementX: calc($shapeWidth + $shapeSpacing);
+
+  box-shadow: calc($placementX * 1) 0 calc(invertScale(calcOpacity(5, $progress)) * $blurAmount)
+      rgba(colBase(1), calcOpacity(5, $progress, true)),
+    calc($placementX * 2) 0 calc(invertScale(calcOpacity(4, $progress)) * $blurAmount)
+      rgba(colBase(2), calcOpacity(4, $progress, true)),
+    calc($placementX * 3) 0 calc(invertScale(calcOpacity(3, $progress)) * $blurAmount)
       rgba(colBase(3), calcOpacity(3, $progress, true)),
-    calc(barWidth() * 4.8) 0 invertScale(calcOpacity(4, $progress)) * $blurAmount
-      rgba(colBase(4), calcOpacity(4, $progress, true)),
-    calc(barWidth() * 6) 0 invertScale(calcOpacity(5, $progress)) * $blurAmount
-      rgba(colBase(5), calcOpacity(5, $progress, true));
-  // calc(barWidth() * 7.2) 0 invertScale(calcOpacity(6, $progress)) * $blurAmount
+    calc($placementX * 4) 0 calc(invertScale(calcOpacity(2, $progress)) * $blurAmount)
+      rgba(colBase(4), calcOpacity(2, $progress, true)),
+    calc($placementX * 5) 0 calc(invertScale(calcOpacity(1, $progress)) * $blurAmount)
+      rgba(colBase(5), calcOpacity(1, $progress, true));
+  // calc($placementX * 6) 0 invertScale(calcOpacity(6, $progress)) * $blurAmount
   //   rgba(colBase(6), calcOpacity(6, $progress, true));
 }
 
@@ -144,40 +91,39 @@ $percentJustBelow50: closestTo50($percentIncStep);
   color: rgb(var(--color-base));
 
   .gliding-blink-indicator {
-    --bar-width: 2em;
-
     // create stacking context
     isolation: isolate;
 
-    width: 15.75em;
-    height: 3em;
+    // width: 15.75em;
+    width: calc($noOfShapes * $shapeWidth + $noOfShapes * $shapeSpacing);
+    height: calc($shapeWidth + 1em);
     position: relative;
     color: currentColor;
 
-    .gliding-blink-text {
-      position: absolute;
-      top: 105%;
-      left: 50%;
-      transform: translateX(-50%);
-      color: currentColor;
-      font-size: 0.7em;
-      // font-weight: 600;
-    }
+    // .gliding-blink-text {
+    //   position: absolute;
+    //   top: 105%;
+    //   left: 50%;
+    //   transform: translateX(-50%);
+    //   color: currentColor;
+    //   font-size: 0.7em;
+    //   font-weight: 600;
+    // }
 
     .gliding-blink-shape {
       position: absolute;
       top: 50%;
-      left: calc(var(--bar-width) * -1);
+      // left: calc($shapeWidth * -1);
       display: block;
-      width: var(--bar-width);
-      height: calc(var(--bar-width) / 0.8);
+      width: $shapeWidth;
+      height: calc($shapeWidth / 0.8);
 
       border-radius: 4px;
       background-color: transparent;
 
-      transform: skewX(-20deg) translateY(-50%);
+      transform: skewX(-20deg) translate(-100%, -50%);
 
-      @include shapes(58);
+      @include shapes(10);
 
       animation: glidingBlinkGlide $animationDuration $animationFn infinite;
     }
@@ -191,17 +137,6 @@ $percentJustBelow50: closestTo50($percentIncStep);
     @debug "progress at: #{$progress}";
 
     $progressTrack: calc($progress / 1%);
-
-    // @progress `40%`, opacity would be `0.8`. But instead cause opacity to be `1`.
-    // But don't set the $progress var so that at `50%`, opacity is `1` again.
-    // $causeBlinkAt: 20%; // should be a multiple of 10 and below 50
-    // @if ($progress >= $causeBlinkAt and $progress < 50%) {
-    //   @if ($progress == $causeBlinkAt) {
-    //     $progressTrack: 50; // makes opacity to be 1
-    //   } @else {
-    //     $progressTrack: calc(($progress - $causeBlinkAt) / 1%);
-    //   }
-    // }
 
     #{$progress} {
       @include shapes($progressTrack);

@@ -85,6 +85,7 @@ const GlidingBlink = (props: GlidingBlinkProps) => {
 					style={{ willChange: "box-shadow" }}
 				></span>
 			</span>
+
 			<Text
 				// className="gliding-blink-text"
 				staticText
@@ -98,7 +99,7 @@ const GlidingBlink = (props: GlidingBlinkProps) => {
 export default React.memo(GlidingBlink);
 
 /**
- * Creates a style object with props that color the throbber/spinner
+ * Creates a style object with props that color the loading indicator
  */
 function stylesObjectFromColorProp(
 	colorProp: string | string[],
