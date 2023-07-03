@@ -19,7 +19,7 @@ const Text = (props: TextProps): JSX.Element | null => {
 	const { className, text, textColor, staticText } = props;
 	return text ? (
 		<span
-			className={`rli-d-i-b rli-text-format ${className || ""}`}
+			className={`rli-d-i-b rli-text-format ${className || ""}`.trim()}
 			style={{
 				...(staticText && staticTextStyles),
 				...(textColor && {
