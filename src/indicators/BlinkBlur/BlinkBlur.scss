@@ -1,4 +1,5 @@
 @use "sass:color";
+@use "sass:math";
 @use "../../scss/variables" as defaults;
 
 $animationDuration: var(--rli-animation-duration, 2s);
@@ -39,7 +40,7 @@ $percentJustBelow50: closestTo50($percentIncStep);
   @if ($causeBlink == true) {
     // Set opacity to `0` to cause blink, when animation is almost at full opaqueness
     @if (($progressPerShape == $percentJustBelow50) and $progressPerShape < 50) {
-      $opacity: 0;
+      $opacity: "zero";
       @return $opacity;
     }
   }
@@ -47,11 +48,20 @@ $percentJustBelow50: closestTo50($percentIncStep);
   // Reset progress
   // so that after full opaqueness at 50%, now it heads to full transparency at 100%
   @if ($progressPerShape > 50) {
-    $progressPerShape: abs(calc(100 - $progressPerShape));
+    $progressPerShape: math.abs(calc(100 - $progressPerShape));
   }
 
   // Ensures that we are at `1`, when progress is at 50%
   $opacity: calc(($maxOpacity * $progressPerShape / 50));
+
+  @return math.max($opacity, 0.14);
+}
+@function blinkOpacity($shapeNum, $progress) {
+  $opacity: calcOpacity($shapeNum, $progress, true);
+
+  @if ($opacity == "zero") {
+    @return 0;
+  }
 
   @return $opacity;
 }
@@ -71,26 +81,26 @@ $percentJustBelow50: closestTo50($percentIncStep);
   $placementX: calc($shapeWidth + $shapeSpacing);
 
   box-shadow: calc($placementX * 1) 0 calc(invertScale(calcOpacity(5, $progress)) * $blurAmount)
-      rgba(colBase(1), calcOpacity(5, $progress, true)),
+      rgba(colBase(1), blinkOpacity(5, $progress)),
     calc($placementX * 2) 0 calc(invertScale(calcOpacity(4, $progress)) * $blurAmount)
-      rgba(colBase(2), calcOpacity(4, $progress, true)),
+      rgba(colBase(2), blinkOpacity(4, $progress)),
     calc($placementX * 3) 0 calc(invertScale(calcOpacity(3, $progress)) * $blurAmount)
-      rgba(colBase(3), calcOpacity(3, $progress, true)),
+      rgba(colBase(3), blinkOpacity(3, $progress)),
     calc($placementX * 4) 0 calc(invertScale(calcOpacity(2, $progress)) * $blurAmount)
-      rgba(colBase(4), calcOpacity(2, $progress, true)),
+      rgba(colBase(4), blinkOpacity(2, $progress)),
     calc($placementX * 5) 0 calc(invertScale(calcOpacity(1, $progress)) * $blurAmount)
-      rgba(colBase(5), calcOpacity(1, $progress, true));
+      rgba(colBase(5), blinkOpacity(1, $progress));
   // calc($placementX * 6) 0 invertScale(calcOpacity(6, $progress)) * $blurAmount
   //   rgba(colBase(6), calcOpacity(6, $progress, true));
 }
 
-.gliding-blink-rli-bounding-box {
+.blink-blur-rli-bounding-box {
   --color-base: #{$defaultR}, #{$defaultG}, #{$defaultB};
 
   font-size: defaults.$fontSizer;
   color: rgb(var(--color-base));
 
-  .gliding-blink-indicator {
+  .blink-blur-indicator {
     // create stacking context
     isolation: isolate;
 
@@ -100,7 +110,7 @@ $percentJustBelow50: closestTo50($percentIncStep);
     position: relative;
     color: currentColor;
 
-    // .gliding-blink-text {
+    // .blink-blur-text {
     //   position: absolute;
     //   top: 105%;
     //   left: 50%;
@@ -110,7 +120,7 @@ $percentJustBelow50: closestTo50($percentIncStep);
     //   font-weight: 600;
     // }
 
-    .gliding-blink-shape {
+    .blink-blur-shape {
       position: absolute;
       top: 50%;
       // left: calc($shapeWidth * -1);
@@ -120,21 +130,26 @@ $percentJustBelow50: closestTo50($percentIncStep);
 
       border-radius: 4px;
       background-color: transparent;
+      will-change: box-shadow; // Apply browser optimizations
 
       transform: skewX(-20deg) translate(-100%, -50%);
 
       @include shapes(10);
 
-      animation: glidingBlinkGlide $animationDuration $animationFn infinite;
+      // Animation Name is set by javascript so `will-change` optimizations find time to take place
+      // animation-name: sweepingBlinkBlur;
+      animation-duration: $animationDuration;
+      animation-timing-function: $animationFn;
+      animation-iteration-count: infinite;
     }
   }
 }
 
-@keyframes glidingBlinkGlide {
+@keyframes sweepingBlinkBlur {
   $progress: 0%;
 
   @while $progress <= 100% {
-    @debug "progress at: #{$progress}";
+    // @debug "progress at: #{$progress}";
 
     $progressTrack: calc($progress / 1%);
 

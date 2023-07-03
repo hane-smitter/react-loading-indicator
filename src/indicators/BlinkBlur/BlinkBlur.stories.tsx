@@ -1,14 +1,14 @@
 import React from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
-import GlidingBlink from "./GlidingBlink";
+import BlinkBlur from "./BlinkBlur";
 
 export default {
-	title: "rli/GlidingBlink",
-	component: GlidingBlink
-} as ComponentMeta<typeof GlidingBlink>;
+	title: "rli/BlinkBlur",
+	component: BlinkBlur
+} as ComponentMeta<typeof BlinkBlur>;
 
-const Template: ComponentStory<typeof GlidingBlink> = args => (
-	<GlidingBlink {...args} />
+const Template: ComponentStory<typeof BlinkBlur> = args => (
+	<BlinkBlur {...args} />
 );
 
 export const Primary = Template.bind({});

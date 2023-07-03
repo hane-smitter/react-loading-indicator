@@ -1,8 +1,8 @@
 import React, { useCallback, useEffect, useRef } from "react";
 import colorParse from "tinycolor2";
 
-import { GlidingBlinkProps } from "./GlidingBlink.types";
-import "./GlidingBlink.scss";
+import { BlinkBlurProps } from "./BlinkBlur.types";
+import "./BlinkBlur.scss";
 import { defaultColor } from "../variables";
 import useStylesPipeline from "../../hooks/useStylesPipeline";
 import useAnimationPacer from "../../hooks/useAnimationPacer";
@@ -11,7 +11,7 @@ import Text from "../../utils/Text";
 const DEFAULT_COLOR: colorParse.ColorFormats.RGBA =
 	colorParse(defaultColor).toRgb();
 
-const GlidingBlink = (props: GlidingBlinkProps) => {
+const BlinkBlur = (props: BlinkBlurProps) => {
 	const elemRef = useRef<HTMLSpanElement | null>(null);
 	const blinkBlurElemRef = useRef<HTMLSpanElement | null>(null);
 	// Styles and size
@@ -29,9 +29,9 @@ const GlidingBlink = (props: GlidingBlinkProps) => {
 	useEffect(() => {
 		const glidingBlinkElem = blinkBlurElemRef?.current;
 		/* No need to add since it is added on the element directly */
-		// if (glidingBlinkElem) {
-		// 	glidingBlinkElem.style.willChange = "box-shadow";
-		// }
+		if (glidingBlinkElem) {
+			glidingBlinkElem.style.animationName = "sweepingBlinkBlur";
+		}
 
 		return () => {
 			glidingBlinkElem && (glidingBlinkElem.style.willChange = "auto");
@@ -65,7 +65,7 @@ const GlidingBlink = (props: GlidingBlinkProps) => {
 
 	return (
 		<span
-			className="rli-d-i-b gliding-blink-rli-bounding-box"
+			className="rli-d-i-b blink-blur-rli-bounding-box"
 			ref={elemRef}
 			style={
 				{
@@ -78,16 +78,15 @@ const GlidingBlink = (props: GlidingBlinkProps) => {
 				} as React.CSSProperties
 			}
 		>
-			<span className="rli-d-i-b gliding-blink-indicator" style={{ ...styles }}>
+			<span className="rli-d-i-b blink-blur-indicator" style={{ ...styles }}>
 				<span
 					ref={blinkBlurElemRef}
-					className="gliding-blink-shape"
-					style={{ willChange: "box-shadow" }}
+					className="blink-blur-shape"
 				></span>
 			</span>
 
 			<Text
-				// className="gliding-blink-text"
+				// className="blink-blur-text"
 				staticText
 				text={props?.text}
 				textColor={props?.textColor}
@@ -96,7 +95,7 @@ const GlidingBlink = (props: GlidingBlinkProps) => {
 	);
 };
 
-export default React.memo(GlidingBlink);
+export default React.memo(BlinkBlur);
 
 /**
  * Creates a style object with props that color the loading indicator
@@ -126,7 +125,7 @@ function stylesObjectFromColorProp(
 			console.warn(
 				`Possibly an invalid color( ${JSON.stringify(
 					colorProp[0]
-				)} ) passed to GlidingBlink loader!`
+				)} ) passed to BlinkBlur loader!`
 			);
 			stylesObject[
 				`--color-base`
@@ -148,7 +147,7 @@ function stylesObjectFromColorProp(
 				] = `${rgbColor.r}, ${rgbColor.g}, ${rgbColor.b}`;
 			} catch (error) {
 				console.warn(
-					`Possibly an invalid color( ${colorProp[i]} ) in GlidingBlink loader!`
+					`Possibly an invalid color( ${colorProp[i]} ) in BlinkBlur loader!`
 				);
 				stylesObject[
 					`--${shapeId}-color-base`
@@ -175,7 +174,7 @@ function stylesObjectFromColorProp(
 		console.warn(
 			`Possibly an invalid color( ${JSON.stringify(
 				colorProp
-			)} ) passed to GlidingBlink loader!`
+			)} ) passed to BlinkBlur loader!`
 		);
 		stylesObject[
 			"--color-base"
