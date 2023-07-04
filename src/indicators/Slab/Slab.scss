@@ -2,7 +2,7 @@
 
 $slabWidth: 4em;
 
-.slab-bounding-box {
+.slab-rli-bounding-box {
   $boundingWidth: 7em;
   font-size: defaults.$fontSizer;
   color: defaults.$defaultColor;
@@ -10,9 +10,9 @@ $slabWidth: 4em;
 
   width: $boundingWidth;
   height: calc($boundingWidth / 1.489);
-  display: flex;
-  justify-content: flex-end;
-  align-items: flex-end;
+  // display: flex;
+  // justify-content: flex-end;
+  // align-items: flex-end;
 
   .slab-text {
     position: absolute;
@@ -24,12 +24,13 @@ $slabWidth: 4em;
     // font-weight: 600;
   }
 
-  .slab-loader {
+  .slab-indicator {
     width: $slabWidth;
     height: $slabWidth;
     transform: perspective(15em) rotateX(66deg) rotateZ(-25deg);
     transform-style: preserve-3d;
-    margin-bottom: -1.3em;
+    // margin-bottom: -1.3em;
+    display: block;
 
     .slab {
       position: absolute;
@@ -39,7 +40,6 @@ $slabWidth: 4em;
       opacity: 0;
       box-shadow: -0.08em 0.15em 0 rgb(0 0 0 / 45%);
       transform-origin: 50% 0%;
-      -webkit-animation: slabMove 4s linear infinite;
       animation: slabMove 4s linear infinite;
 
       &:nth-child(1) {

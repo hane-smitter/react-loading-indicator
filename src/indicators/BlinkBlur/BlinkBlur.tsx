@@ -27,14 +27,14 @@ const BlinkBlur = (props: BlinkBlurProps) => {
 
 	// Adding animations optimizations
 	useEffect(() => {
-		const glidingBlinkElem = blinkBlurElemRef?.current;
+		const blinkBlurElem = blinkBlurElemRef?.current;
 		/* No need to add since it is added on the element directly */
-		if (glidingBlinkElem) {
-			glidingBlinkElem.style.animationName = "sweepingBlinkBlur";
+		if (blinkBlurElem) {
+			blinkBlurElem.style.animationName = "sweepingBlinkBlur";
 		}
 
 		return () => {
-			glidingBlinkElem && (glidingBlinkElem.style.willChange = "auto");
+			blinkBlurElem && (blinkBlurElem.style.willChange = "auto");
 		};
 	}, []);
 

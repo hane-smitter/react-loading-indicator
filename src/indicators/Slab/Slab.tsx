@@ -1,87 +1,86 @@
 "use strict";
 
-import React from "react";
+import React, { useCallback, useRef } from "react";
 
 import { SlabProps } from "./Slab.types";
 import "./Slab.scss";
-import useFontsizeMapper from "../../hooks/useFontsizeMapper";
+import useStylesPipeline from "../../hooks/useStylesPipeline";
+import useAnimationPacer from "../../hooks/useAnimationPacer";
+import Text from "../../utils/Text";
 
 const Slab = (props: SlabProps) => {
 	// Styles
-	let styles: React.CSSProperties = Object(props?.style);
+	const elemRef = useRef<HTMLSpanElement | null>(null);
 
-	/* Size SETTINGS */
-	let fontSize: string | number = useFontsizeMapper(props?.size);
+	// Styles and size
+	const { styles, fontSize } = useStylesPipeline(props?.style, props?.size);
 
-	// Setting size by specifying font-size in style attr
-	// and modifying styles to exclude fontSize
-	if (props?.style?.fontSize) {
-		const { fontSize: cssFontSize, ...css } = props?.style;
+	// Animation speed and smoothing control
+	const easingFn: string | undefined = props?.easing;
+	const DEFAULT_ANIMATION_DURATION = "4s"; // Animation's default duration
+	const { animationPeriod } = useAnimationPacer(
+		props?.speedPlus,
+		DEFAULT_ANIMATION_DURATION
+	);
 
-		styles = css;
-		fontSize = cssFontSize;
-	}
-
-	/* Color SETTINGS */
-	// If Color property is a string, that is the color of all rings
-	// If color property is an array, that is color for each rings
-	const slabColor: string | string[] = props?.color ?? "";
-	const slabColorStyles: React.CSSProperties =
-		slabColor instanceof Array
-			? { ...genStyleFromColorArr(slabColor) }
-			: { ...genStyleFromColorStr(slabColor) };
+	/* Color SETTINGS - Set color of the loading indicator */
+	const colorReset: () => void = useCallback(
+		function () {
+			if (elemRef.current) {
+				elemRef.current?.style.removeProperty("color");
+			}
+		},
+		[elemRef.current]
+	);
+	const colorProp: string | string[] = props?.color ?? "";
+	const slabColorStyles: React.CSSProperties = stylesObjectFromColorProp(
+		colorProp,
+		colorReset
+	);
 
 	return (
 		<span
-			className="rli-d-i-b slab-bounding-box"
+			className="rli-d-i-b slab-rli-bounding-box"
 			style={{ ...(fontSize && { fontSize }), ...slabColorStyles, ...styles }}
 		>
-			<span className="rli-d-i-b slab-loader slabs">
+			<span className="rli-d-i-b slab-indicator slabs">
 				<span className="slab"></span>
 				<span className="slab"></span>
 				<span className="slab"></span>
 				<span className="slab"></span>
 			</span>
-			<span
-				className="rli-d-i-b rli-text-format slab-text"
-				style={{
-					...(props?.textColor && {
-						color: props?.textColor,
-						mixBlendMode: "unset"
-					})
-				}}
-			>
-				{props?.text
-					? typeof props?.text === "string" && props?.text.length
-						? props?.text
-						: "loading"
-					: null}
-			</span>
+
+			<Text
+				// className="slab-text"
+				staticText
+				text={props?.text}
+				textColor={props?.textColor}
+			/>
 		</span>
 	);
 };
 
 export default React.memo(Slab);
 
-function genStyleFromColorStr(
-	colorStr: string | undefined
+function stylesObjectFromColorProp(
+	colorProp: string | string[],
+	resetToDefaultColors: () => void
 ): React.CSSProperties {
-	colorStr = colorStr ?? "";
-
 	const stylesObject: any = {};
 
-	stylesObject["color"] = colorStr;
+	if (!colorProp) {
+		resetToDefaultColors();
+		return stylesObject;
+	}
 
-	return stylesObject;
-}
+	if (colorProp instanceof Array) {
+		const [color] = colorProp;
+		stylesObject["color"] = color;
 
-function genStyleFromColorArr(colorArr: string[]): React.CSSProperties {
-	const stylesObject: any = {};
+		return stylesObject;
+	}
 
-	// NOT supporting Individual bubble coloring
-	const [color] = colorArr;
-
-	stylesObject["color"] = color;
+	stylesObject["color"] = colorProp;
 
 	return stylesObject;
 }

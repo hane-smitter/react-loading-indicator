@@ -27,16 +27,15 @@ const Bob = (props: BobProps) => {
 		function () {
 			if (elemRef.current) {
 				const cssVars: string[] = Array.from({ length: 3 }, (item, idx) => {
-					const num: number = idx + 1;
 					// bob-dot2-color
-					const bodDotId: string = `--bob-dot${num}-color`;
+					const bodDotId: string = `--bob-dot${idx + 1}-color`;
 
 					return bodDotId;
 				});
 
 				elemRef.current?.style.removeProperty("color");
 				for (let i = 0; i < cssVars.length; i++) {
-					console.log(elemRef.current?.style.removeProperty(cssVars[i]));
+					elemRef.current?.style.removeProperty(cssVars[i]);
 				}
 			}
 		},

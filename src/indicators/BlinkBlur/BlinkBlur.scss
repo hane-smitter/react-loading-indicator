@@ -40,7 +40,7 @@ $percentJustBelow50: closestTo50($percentIncStep);
   @if ($causeBlink == true) {
     // Set opacity to `0` to cause blink, when animation is almost at full opaqueness
     @if (($progressPerShape == $percentJustBelow50) and $progressPerShape < 50) {
-      $opacity: "zero";
+      $opacity: 0;
       @return $opacity;
     }
   }
@@ -56,15 +56,15 @@ $percentJustBelow50: closestTo50($percentIncStep);
 
   @return math.max($opacity, 0.14);
 }
-@function blinkOpacity($shapeNum, $progress) {
-  $opacity: calcOpacity($shapeNum, $progress, true);
+// @function blinkOpacity($shapeNum, $progress) {
+//   $opacity: calcOpacity($shapeNum, $progress, true);
 
-  @if ($opacity == "zero") {
-    @return 0;
-  }
+//   @if ($opacity == "zero") {
+//     @return 0;
+//   }
 
-  @return $opacity;
-}
+//   @return $opacity;
+// }
 
 // Return css variables representing color
 @function colBase($shapeNumber) {
@@ -81,15 +81,15 @@ $percentJustBelow50: closestTo50($percentIncStep);
   $placementX: calc($shapeWidth + $shapeSpacing);
 
   box-shadow: calc($placementX * 1) 0 calc(invertScale(calcOpacity(5, $progress)) * $blurAmount)
-      rgba(colBase(1), blinkOpacity(5, $progress)),
+      rgba(colBase(1), calcOpacity(5, $progress, true)),
     calc($placementX * 2) 0 calc(invertScale(calcOpacity(4, $progress)) * $blurAmount)
-      rgba(colBase(2), blinkOpacity(4, $progress)),
+      rgba(colBase(2), calcOpacity(4, $progress, true)),
     calc($placementX * 3) 0 calc(invertScale(calcOpacity(3, $progress)) * $blurAmount)
-      rgba(colBase(3), blinkOpacity(3, $progress)),
+      rgba(colBase(3), calcOpacity(3, $progress, true)),
     calc($placementX * 4) 0 calc(invertScale(calcOpacity(2, $progress)) * $blurAmount)
-      rgba(colBase(4), blinkOpacity(2, $progress)),
+      rgba(colBase(4), calcOpacity(2, $progress, true)),
     calc($placementX * 5) 0 calc(invertScale(calcOpacity(1, $progress)) * $blurAmount)
-      rgba(colBase(5), blinkOpacity(1, $progress));
+      rgba(colBase(5), calcOpacity(1, $progress, true));
   // calc($placementX * 6) 0 invertScale(calcOpacity(6, $progress)) * $blurAmount
   //   rgba(colBase(6), calcOpacity(6, $progress, true));
 }
