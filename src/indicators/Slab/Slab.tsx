@@ -41,13 +41,24 @@ const Slab = (props: SlabProps) => {
 	return (
 		<span
 			className="rli-d-i-b slab-rli-bounding-box"
-			style={{ ...(fontSize && { fontSize }), ...slabColorStyles, ...styles }}
+			ref={elemRef}
+			style={{
+				...(fontSize && { fontSize }),
+				...(animationPeriod && {
+					"--rli-animation-duration": animationPeriod
+				}),
+				...(easingFn && { "--rli-animation-function": easingFn }),
+				...slabColorStyles,
+				...styles
+			}}
 		>
-			<span className="rli-d-i-b slab-indicator slabs">
-				<span className="slab"></span>
-				<span className="slab"></span>
-				<span className="slab"></span>
-				<span className="slab"></span>
+			<span className="rli-d-i-b slab-indicator">
+				<span className="slabs-wrapper">
+					<span className="slab"></span>
+					<span className="slab"></span>
+					<span className="slab"></span>
+					<span className="slab"></span>
+				</span>
 			</span>
 
 			<Text
