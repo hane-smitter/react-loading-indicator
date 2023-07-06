@@ -75,10 +75,10 @@ $windmill-wrapper-box: calc($dot-width * 3);
 
 @keyframes windmillSpin {
   0% {
-    transform: rotateZ(0deg) translate3d(0, 0, 0);
+    transform: rotateZ(0deg);
   }
 
   100% {
-    transform: rotateZ(360deg) translate3d(0, 0, 0);
+    transform: rotateZ(360deg);
   }
 }

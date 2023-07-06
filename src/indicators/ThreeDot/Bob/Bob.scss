@@ -5,28 +5,15 @@ $animationDuration: var(--rli-animation-duration, 1.2s);
 $animationFn: var(--rli-animation-function, linear);
 $dot-width: 0.96em;
 
-@mixin dotColor($dotNo) {
-    @if ($dotNo == 1) {
-        background: radial-gradient(circle at center, var(--bob-dot1-color, currentColor) 0% 65%, rgba(0, 0, 0, 0) 74%)
-            center/100%
-            50%
-            no-repeat;
-    } @else if($dotNo == 2) {
-        background: radial-gradient(circle at center, var(--bob-dot2-color, currentColor) 0% 65%, rgba(0, 0, 0, 0) 74%)
-            center/100%
-            50%
-            no-repeat;
-    } @else if($dotNo == 3) {
-        background: radial-gradient(circle at center, var(--bob-dot3-color, currentColor) 0% 65%, rgba(0, 0, 0, 0) 74%)
-            center/100%
-            50%
-            no-repeat;
-    } @else {
-        background: radial-gradient(circle at center, currentColor 0% 65%, rgba(0, 0, 0, 0) 74%)
-            center/100%
-            50%
-            no-repeat;
+@mixin dot($dotNo) {
+    $dotColor: currentColor;
+
+    @if ($dotNo) {
+        $dotColor: var(--bob-dot#{$dotNo}-color, currentColor);
     }
+    @debug $dotColor;
+
+    background: radial-gradient(circle at center, $dotColor 0% 58%, rgba(0, 0, 0, 0) 68%) center/100% 50% no-repeat;
 }
 
 .bob-rli-bounding-box {
@@ -44,8 +31,8 @@ $dot-width: 0.96em;
         margin: 0 auto;
 
         .bobbing,
-        .bobbing:before,
-        .bobbing:after {
+        .bobbing::before,
+        .bobbing::after {
             width: $dot-width;
             height: 100%;
             display: grid;
@@ -56,27 +43,27 @@ $dot-width: 0.96em;
             animation-timing-function: $animationFn;
             animation-delay: calc(var(--delay, 0) * 0.4s);
         }
-        .bobbing:before,
-        .bobbing:after {
+        .bobbing::before,
+        .bobbing::after {
             content: "";
             grid-area: 1/1;
         }
         .bobbing {
             --delay: -0.5;
 
-            @include dotColor(1);
+            @include dot(1);
         }
-        .bobbing:before {
+        .bobbing::before {
             --delay: 0;
             transform: translateX(150%);
 
-            @include dotColor(2);
+            @include dot(2);
         }
-        .bobbing:after {
+        .bobbing::after {
             --delay: 0.5;
             transform: translateX(300%);
 
-            @include dotColor(3);
+            @include dot(3);
         }
     }
 }

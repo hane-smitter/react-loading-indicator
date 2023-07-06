@@ -2,23 +2,21 @@
 
 $animationDuration: var(--rli-animation-duration, 1s);
 $animationFn: var(--rli-animation-function, ease-out);
-$brick-width: 0.96em;
+$brick-width: 0.98em;
 
 @function brickFace($brickNumber) {
-  @if ($brickNumber == 1) {
-    // no-repeat radial-gradient(circle closest-side, var(--brick1-color, currentColor) 90%, #0000)
-    //
-    @return no-repeat
-      radial-gradient(circle closest-side, var(--brick1-color, currentColor) 0% 85%, rgba(0, 0, 0, 0) 97%);
-  } @else if ($brickNumber == 2) {
-    @return no-repeat
-      radial-gradient(circle closest-side, var(--brick2-color, currentColor) 0% 85%, rgba(0, 0, 0, 0) 97%);
-  } @else if ($brickNumber == 3) {
-    @return no-repeat
-      radial-gradient(circle closest-side, var(--brick3-color, currentColor) 0% 85%, rgba(0, 0, 0, 0) 97%);
-  } @else {
-    @return currentColor;
+  $bgProps: currentColor;
+
+  @if ($brickNumber) {
+    $bgProps: no-repeat
+      radial-gradient(
+        circle closest-side,
+        var(--brick#{$brickNumber}-color, currentColor) 0% 75%,
+        rgba(0, 0, 0, 0) 95%
+      );
   }
+
+  @return $bgProps;
 }
 
 .brick-stack-rli-bounding-box {
