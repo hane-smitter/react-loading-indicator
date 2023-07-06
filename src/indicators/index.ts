@@ -5,7 +5,7 @@ export { default as FourSquare } from "./FourSquare/FourSquare";
 export { default as Mosaic } from "./Mosaic/Mosaic";
 export { default as Riple } from "./Riple/Riple";
 export { default as ThreeDot } from "./ThreeDot/ThreeDot";
-export { default as GlidingBlink } from "./GlidingBlink/GlidingBlink";
+export { default as BlinkBlur } from "./BlinkBlur/BlinkBlur";
 export { default as TrophySpin } from "./TrophySpin/TrophySpin";
 export { default as Slab } from "./Slab/Slab";
 export { default as LifeLine } from "./LifeLine/LifeLine";

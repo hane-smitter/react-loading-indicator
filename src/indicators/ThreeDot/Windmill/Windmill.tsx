@@ -61,7 +61,7 @@ const Windmill = (props: WindmillProps) => {
 				} as React.CSSProperties
 			}
 		>
-			<span className="rli-d-i-d windmill-indicator">
+			<span className="rli-d-i-b windmill-indicator">
 				<span className="windmill"></span>
 			</span>
 
