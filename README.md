@@ -1,10 +1,10 @@
 # react-loading-indicators
 
-A library of light-weight and customizable _loading indicators_ to fascinate your users while waiting for a response. Built with elegance keeping browser performance in mind.
+A library of well done and highly usable _loading indicators_ to inform users that the system is working.
 
 Built with Typescript. Compatible with **react version >=16.8.0**(since hooks).
 
-## A demo has something to say
+## A demo speaks for itself
 
 A glimpse of what is wrapped🎁.<br />
 See [DEMO](https://react-loading-indicators.netlify.app/).
@@ -32,6 +32,16 @@ npm install react-loading-indicators
 
 ```
 
+> #### Heads Up
+>
+> The following components were renamed:
+>
+> - `<CircularProgress />` - `<OrbitProgress />`
+> - `<Seek />` - `<ThreeDot />`
+> - `<GlidingBlink />` - `<BlinkBlur />`
+> - `<Twist />` - `<TrophySpin />`
+> - `<Pulse />` - `<LifeLine />`
+
 ## Examples
 
 ### Importing a loading indicator
@@ -39,6 +49,10 @@ npm install react-loading-indicators
 ```jsx
 import React from "react";
 import { Atom } from "react-loading-indicators";
+/* 
+| OR specifically pull it 😊️
+| import Atom from "react-loading-indicators/Atom";
+*/
 
 const Loading = () => <Atom text="Loading..." />;
 
@@ -58,9 +72,10 @@ export default Loading;
 
 </details>
 
-### An even lighter build
+### Lighter build
 
-If you desire to include **only** what you need from the package, you can pull specifically the indicator you want:
+This library is fairly small. However, you might be aiming at making the bundle size of your project to be as small as possible.<br />
+You can only include a specific loading indicator you want to use:
 
 ```jsx
 import React from "react";
