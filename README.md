@@ -32,15 +32,15 @@ npm install react-loading-indicators
 
 ```
 
-> #### Heads Up
->
+> #### Heads Up 📢
+
 > The following components were renamed:
 >
-> - `<CircularProgress />` - `<OrbitProgress />`
-> - `<Seek />` - `<ThreeDot />`
-> - `<GlidingBlink />` - `<BlinkBlur />`
-> - `<Twist />` - `<TrophySpin />`
-> - `<Pulse />` - `<LifeLine />`
+> - ~~`<CircularProgress />`~~ - `<OrbitProgress />`
+> - ~~`<Seek />`~~ - `<ThreeDot />`
+> - ~~`<GlidingBlink />`~~ - `<BlinkBlur />`
+> - ~~`<Twist />`~~ - `<TrophySpin />`
+> - ~~`<Pulse />`~~ - `<LifeLine />`
 
 ## Examples
 
