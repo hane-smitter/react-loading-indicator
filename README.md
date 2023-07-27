@@ -33,7 +33,7 @@ npm install react-loading-indicators
 ```
 
 > #### Heads Up 📢
-
+>
 > The following components were renamed:
 >
 > - ~~`<CircularProgress />`~~ - `<OrbitProgress />`
@@ -51,7 +51,7 @@ import React from "react";
 import { Atom } from "react-loading-indicators";
 /* 
 | OR directly pull it 😎
-| import Atom from "react-loading-indicators/Atom";
+| import Atom from "react-loading-indicators/dist/Atom";
 */
 
 const Loading = () => <Atom text="Loading..." />;
@@ -79,7 +79,7 @@ You can directly include a loading indicator you want to ensure it is the only t
 
 ```jsx
 import React from "react";
-import OrbitProgress from "react-loading-indicators/OrbitProgress";
+import OrbitProgress from "react-loading-indicators/dist/OrbitProgress";
 
 const Loading = () => (
 	<OrbitProgress variant="track-disc" color="crimson" size="small" />
