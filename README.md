@@ -1,13 +1,13 @@
 # react-loading-indicators
 
-A library of well done and highly usable _loading indicators_ to inform users that the system is working.
+A library of usable and wonderful _loading indicators_ to communicate a behind scenes progress to system users.
 
 Built with Typescript. Compatible with **react version >=16.8.0**(since hooks).
 
-## A demo speaks for itself
+## A demo for your insights
 
-A glimpse of what is wrapped🎁.<br />
-See [DEMO](https://react-loading-indicators.netlify.app/).
+A glimpse of what is wrapped 🎁.<br />
+See [DEMO](https://react-loading-indicators.netlify.app/) page.
 
 ## Installation
 
@@ -50,7 +50,7 @@ npm install react-loading-indicators
 import React from "react";
 import { Atom } from "react-loading-indicators";
 /* 
-| OR specifically pull it 😊️
+| OR directly pull it 😎
 | import Atom from "react-loading-indicators/Atom";
 */
 
@@ -68,14 +68,14 @@ export default Loading;
 </Suspense>
 ```
 
-<strong><small>Side note:</small></strong> You can use <a href="https://dev.to/smitterhane/swap-out-useeffect-with-suspense-for-data-fetching-in-react-2leb">suspense for data fetching</a> other than lazy loading.
+<strong><small>Side note:</small></strong> You can use <a href="https://dev.to/smitterhane/swap-out-useeffect-with-suspense-for-data-fetching-in-react-2leb#2-data-fetching-usecase">suspense for data fetching</a> other than lazy loading.
 
 </details>
 
 ### Lighter build
 
-This library is fairly small. However, you might be aiming at making the bundle size of your project to be as small as possible.<br />
-You can only include a specific loading indicator you want to use:
+This library is fairly small. However, you might be turbo-charged to make bundle size of your project as small as possible.<br />
+You can directly include a loading indicator you want to ensure it is the only thing included from the library:
 
 ```jsx
 import React from "react";
@@ -109,7 +109,7 @@ Each of these components will accept the following _optional props_.
 - `style` - Applies CSS styles to the loading indicator
 - `text` - Displays message in the loading indicator.
 - `textColor` - Sets the color of text message in the loading indicator.
-- `speedPlus` - Controls speed of animation. _Negative_ values slows down. _Positive_ numbers speeds up animation.
+- `speedPlus` - Controls speed of animation. _Negative_ values slows down. _Positive_ numbers speeds up animation. `0` is normal speed.
 - `easing` - Controls the smoothness of the animation, altered with values such as `linear`, `ease-in`.
 
 Some components accept a `variant` prop, Specifically `<OrbitProgress />` and `<ThreeDot />`. This lets you choose a variation of a loading indicator that you want.
@@ -118,11 +118,13 @@ Some components accept a `variant` prop, Specifically `<OrbitProgress />` and `<
 | :-----: | :------: |
 | variant | `string` |
 
-See [DEMO](https://react-loading-indicators.netlify.app/) to know list of variants a loading indicator supports.
+`<OrbitProgress />` has the following variants: **`dotted`**, **`bubble-dotted`**, **`disc`**, **`split-disc`**, **`track-disc`**. Defaults to `disc`.<br />
+`<ThreeDot />` has the following variants: **`pulsate`**, **`windmill`**, **`bob`**, **`brick-stack`**. Defaults to `pulsate`.<br />
+See [DEMO](https://react-loading-indicators.netlify.app/) to visualize.
 
 ### How to resize
 
-You can resize loader to fit into your needs with the `size` prop that accepts predefined string input.<br>
+You can resize a spinner to fit into your needs with the `size` prop that accepts predefined string input.<br>
 If this is not enough, you can give a loading indicator a `fontSize` property via the `style` prop. The style prop is an object that allows you to add your own css. Including `fontSize` in the style object will _evenly_ alter the animation's size, e.g
 
 ```jsx

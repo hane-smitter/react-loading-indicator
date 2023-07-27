@@ -62,14 +62,16 @@
 
 # 0.2.0
 
-- Add new props: `easing` and `speedPlus`.
-- Update readme.
-- Rename indicators:
-  - `<CircularProgress />` - `<OrbitProgress />`
-  - `<Seek />` - `<ThreeDot />`
-  - `<GlidingBlink />` - `<BlinkBlur />`
-  - `<Twist />` - `<TrophySpin />`
-  - `<Pulse />` - `<LifeLine />`
-- Add `track-disc` variant to `<OrbitProgress />`.
-- Add variants on `<ThreeDot />`.
+- New props: `easing` and `speedPlus`.
+- Updated readme.
+- Renamed indicators:
+  - ~~`<CircularProgress />`~~ - `<OrbitProgress />`
+  - ~~`<Seek />`~~ - `<ThreeDot />`
+  - ~~`<GlidingBlink />`~~ - `<BlinkBlur />`
+  - ~~`<Twist />`~~ - `<TrophySpin />`
+  - ~~`<Pulse />`~~ - `<LifeLine />`
+- New `track-disc` variant to `<OrbitProgress />`.
+- Variants prop on `<ThreeDot />`.
 - Refactor `<BlinkBlur />`.
+- Light build option.
+- Less files lib.
