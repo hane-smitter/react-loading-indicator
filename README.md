@@ -21,7 +21,7 @@ npm install react-loading-indicators
 <Atom />
 <Commet />
 <OrbitProgress />
-<GlidingBlink />
+<BlinkBlur />
 <FourSquare />
 <TrophySpin />
 <ThreeDot />
