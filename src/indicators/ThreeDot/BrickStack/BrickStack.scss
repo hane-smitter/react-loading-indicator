@@ -1,0 +1,62 @@
+@use "../../../scss/variables" as defaults;
+
+$animationDuration: var(--rli-animation-duration, 1s);
+$animationFn: var(--rli-animation-function, ease-out);
+$brick-width: 0.98em;
+
+@function brickFace($brickNumber) {
+  $bgProps: currentColor;
+
+  @if ($brickNumber) {
+    $bgProps: no-repeat
+      radial-gradient(
+        circle closest-side,
+        var(--brick#{$brickNumber}-color, currentColor) 0% 75%,
+        rgba(0, 0, 0, 0) 95%
+      );
+  }
+
+  @return $bgProps;
+}
+
+.brick-stack-rli-bounding-box {
+  box-sizing: border-box;
+  font-size: defaults.$fontSizer;
+  display: inline-block;
+  color: defaults.$defaultColor;
+
+  .brick-stack-indicator {
+    width: calc($brick-width * 2);
+    height: calc($brick-width * 2);
+    position: relative;
+    display: block;
+    margin: 0 auto;
+  }
+
+  .brick-stack {
+    width: 100%;
+    height: 100%;
+    background: brickFace(1) 0 0, brickFace(2) 0 100%, brickFace(3) 100% 100%;
+    background-size: 40% 40%;
+
+    animation-name: stackBricks;
+    animation-duration: $animationDuration;
+    animation-iteration-count: infinite;
+    animation-timing-function: $animationFn;
+  }
+}
+
+@keyframes stackBricks {
+  25% {
+    background-position: 100% 0, 0 100%, 100% 100%;
+  }
+  50% {
+    background-position: 100% 0, 0 0, 100% 100%;
+  }
+  75% {
+    background-position: 100% 0, 0 0, 0 100%;
+  }
+  100% {
+    background-position: 100% 100%, 0 0, 0 100%;
+  }
+}

@@ -12,8 +12,8 @@
     "module": "ESNext",
     "declaration": true,
     "declarationDir": "types",
-    "sourceMap": true,
-    "outDir": "dist",
+    "sourceMap": false,
+    "removeComments": false,
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
     "emitDeclarationOnly": true

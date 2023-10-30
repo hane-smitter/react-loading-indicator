@@ -1,4 +1,8 @@
 /node_modules
-*.bak
+*.bak*
 dist
 .npmrc
+**/*/css
+css
+/storybook-static
+*_bak

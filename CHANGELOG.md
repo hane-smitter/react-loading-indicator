@@ -44,6 +44,34 @@
 
 # 0.0.11
 
-- Configure global styles for storybook
-- Fix text display on `FourSquare` loader
+- Configure global styles for storybook.
+- Fix text display on `FourSquare` loader.
 - Remove duplicated `d-i-b` css class and add `rli-d-i-b` as a global style.
+
+# 0.1.0
+
+- New indicators `GlidingBlink`, `Twist`, `Pulse` & `Slab`.
+- Centralize default _vars_.
+- Fine tune `Atom` and `Commet` indicators.
+- Code refactor.
+- Tree-shaking optimization.
+
+# 0.1.1
+
+- Update readme
+
+# 0.2.0
+
+- New props: `easing` and `speedPlus`.
+- Updated readme.
+- Renamed indicators:
+  - ~~`<CircularProgress />`~~ - `<OrbitProgress />`
+  - ~~`<Seek />`~~ - `<ThreeDot />`
+  - ~~`<GlidingBlink />`~~ - `<BlinkBlur />`
+  - ~~`<Twist />`~~ - `<TrophySpin />`
+  - ~~`<Pulse />`~~ - `<LifeLine />`
+- New `track-disc` variant to `<OrbitProgress />`.
+- Variants prop on `<ThreeDot />`.
+- Refactor `<BlinkBlur />`.
+- Light build option.
+- Less files lib.
