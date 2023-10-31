@@ -1,12 +1,27 @@
 "use strict";
 
-import React, { useCallback, useRef } from "react";
+import React, { useCallback, useRef, useEffect } from "react";
 
 import { MosaicProps } from "./Mosaic.types";
 import "./Mosaic.scss";
 import useStylesPipeline from "../../hooks/useStylesPipeline";
 import useAnimationPacer from "../../hooks/useAnimationPacer";
 import Text from "../../utils/Text";
+import { defaultColor as DEFAULT_COLOR } from "../variables";
+import arrayRepeat from "../../utils/arrayRepeat";
+
+// const colorVars = [
+// 	"--mosaic-color1",
+// 	"--mosaic-color2",
+// 	"--mosaic-color3",
+// 	"--mosaic-color4"
+// ];
+
+// CSS properties for switching colors
+const mosaicColorPhases: Array<string> = Array.from(
+	{ length: 4 },
+	(_, idx) => `--mosaic-phase${idx + 1}-color`
+);
 
 const Mosaic = (props: MosaicProps) => {
 	const elemRef = useRef<HTMLSpanElement | null>(null);
@@ -15,7 +30,7 @@ const Mosaic = (props: MosaicProps) => {
 
 	// Animation speed and smoothing control
 	const easingFn: string | undefined = props?.easing;
-	const DEFAULT_ANIMATION_DURATION = "1.3s"; // Animation's default duration
+	const DEFAULT_ANIMATION_DURATION = "1.5s"; // Animation's default duration
 	const { animationPeriod } = useAnimationPacer(
 		props?.speedPlus,
 		DEFAULT_ANIMATION_DURATION
@@ -41,6 +56,25 @@ const Mosaic = (props: MosaicProps) => {
 		colorProp,
 		colorReset
 	);
+
+	// Registering/giving types to css variables controlling color of loading indicator
+	useEffect(() => {
+		for (let i = 0; i < mosaicColorPhases.length; i++) {
+			try {
+				window.CSS.registerProperty({
+					name: mosaicColorPhases[i],
+					syntax: "<color>",
+					inherits: true,
+					initialValue: DEFAULT_COLOR
+				});
+			} catch (error) {
+				// console.group("--mosaic-phaseX-color var ERR");
+				// console.log(error);
+				// console.groupEnd();
+				continue;
+			}
+		}
+	}, []);
 
 	return (
 		<span
@@ -106,14 +140,49 @@ function stylesObjectFromColorProp(
 	}
 
 	if (colorProp instanceof Array) {
-		const [color] = colorProp;
+		const colorArr: string[] = arrayRepeat(colorProp, mosaicColorPhases.length);
 
-		stylesObject["color"] = color;
+		for (let idx = 0; idx < colorArr.length; idx++) {
+			if (idx >= 4) break;
+
+			stylesObject[mosaicColorPhases[idx]] = colorArr[idx];
+		}
 
 		return stylesObject;
 	}
 
-	stylesObject["color"] = colorProp;
+	// If color prop is not an array, set all coloring vars to the received prop
+	// for (let idx: number = 0; idx <= 3; idx++) {
+	// 	let colorId: number = idx + 1;
+
+	// 	stylesObject[`--mosaic-color${colorId}`] = colorProp;
+	// }
+
+	try {
+		if (typeof colorProp !== "string") throw new Error("Color String expected");
+
+		for (let i = 0; i < mosaicColorPhases.length; i++) {
+			stylesObject[mosaicColorPhases[i]] = colorProp;
+		}
+	} catch (error: unknown) {
+		error instanceof Error
+			? console.warn(
+					`[${
+						error.message
+					}]: Received "${typeof colorProp}" instead with value, ${JSON.stringify(
+						colorProp
+					)}`
+			  )
+			: console.warn(
+					`${JSON.stringify(
+						colorProp
+					)} received in <BlinkBlur /> indicator cannot be processed. Using default instead!`
+			  );
+
+		for (let i = 0; i < mosaicColorPhases.length; i++) {
+			stylesObject[mosaicColorPhases[i]] = DEFAULT_COLOR;
+		}
+	}
 
 	return stylesObject;
 }
