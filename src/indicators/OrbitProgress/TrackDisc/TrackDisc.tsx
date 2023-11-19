@@ -8,6 +8,7 @@ import useStylesPipeline from "../../../hooks/useStylesPipeline";
 import useAnimationPacer from "../../../hooks/useAnimationPacer";
 import { defaultColor as DEFAULT_COLOR } from "../../variables";
 import arrayRepeat from "../../../utils/arrayRepeat";
+import useRegisterCssProps from "../../../hooks/useRegisterCssProps";
 
 // CSS properties for switching colors
 const annulusTrackColorVars: Array<string[]> = Array.from(
@@ -33,6 +34,15 @@ const TrackDisc = (props: TrackDiscProps) => {
 	);
 
 	/* Color SETTING */
+	useRegisterCssProps(annulusTrackColorVars, (defaultColor, positionIndex) => {
+		if (positionIndex % 2 == 0) {
+			return colorParse(defaultColor)
+				.setAlpha(ANNULUS_TRACK_ALPHA)
+				.toRgbString();
+		}
+
+		return defaultColor;
+	});
 	const colorReset = useCallback(
 		function () {
 			if (elemRef.current) {
@@ -115,7 +125,9 @@ function stylesObjectFromColorProp(
 					throw new Error(`Invalid Color: ${parsedColor.getOriginalInput()}`);
 				}
 
-				const nowColorLight: string = parsedColor.setAlpha(0.3).toRgbString();
+				const nowColorLight: string = parsedColor
+					.setAlpha(ANNULUS_TRACK_ALPHA)
+					.toRgbString();
 				const nowColor = colorArr[idx];
 
 				stylesObject[varNames[0]] = nowColorLight; // Track color
@@ -123,7 +135,7 @@ function stylesObjectFromColorProp(
 			} catch (error) {
 				const nowColor = DEFAULT_COLOR;
 				const nowColorLight = colorParse(DEFAULT_COLOR)
-					.setAlpha(0.3)
+					.setAlpha(ANNULUS_TRACK_ALPHA)
 					.toRgbString();
 
 				stylesObject[varNames[0]] = nowColorLight; // Track color
