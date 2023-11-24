@@ -13,7 +13,7 @@ import useRegisterCssProps from "../../../hooks/useRegisterCssProps";
 // CSS properties for switching colors
 const dottedColorSwitchVars: Array<string> = Array.from(
 	{ length: 4 },
-	(_, idx) => `--dotted-phase${idx + 1}-color`
+	(_, idx) => `--OP-dotted-phase${idx + 1}-color`
 );
 
 const Dotted = (props: DottedProps) => {
@@ -49,7 +49,7 @@ const Dotted = (props: DottedProps) => {
 
 	return (
 		<span
-			className="rli-d-i-b dot-rli-bounding-box"
+			className="rli-d-i-b OP-dotted-rli-bounding-box"
 			style={
 				{
 					...(fontSize && { fontSize }),
@@ -61,7 +61,7 @@ const Dotted = (props: DottedProps) => {
 			}
 		>
 			<span
-				className="rli-d-i-b fading-dot-throbber"
+				className="rli-d-i-b OP-dotted-indicator"
 				ref={elemRef}
 				style={{ ...dotsColorStyles, ...styles }}
 			>
@@ -74,7 +74,7 @@ const Dotted = (props: DottedProps) => {
 				))}
 
 				<Text
-					className="fading-dot-text"
+					className="OP-dotted-text"
 					text={props?.text}
 					textColor={props?.textColor}
 				/>
