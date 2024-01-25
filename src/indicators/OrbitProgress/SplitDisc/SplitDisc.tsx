@@ -7,7 +7,7 @@ import Text from "../../../utils/Text";
 import { defaultColor as DEFAULT_COLOR } from "../../variables";
 import useAnimationPacer from "../../../hooks/useAnimationPacer";
 import arrayRepeat from "../../../utils/arrayRepeat";
-import useRegisterCssProps from "../../../hooks/useSetCSSColorTypes";
+import useRegisterCssProps from "../../../hooks/useRegisterCssColors";
 
 // CSS properties for switching colors
 const annulusSplitsColorVars: Array<string> = Array.from(
