@@ -18,9 +18,10 @@ const annulusTrackColorVars: Array<string[]> = Array.from(
 		`--OP-annulus-sector-phase${idx + 1}-color`
 	]
 );
-const ANNULUS_TRACK_ALPHA__: number = 0.25; // 0-1
+const ANNULUS_TRACK_ALPHA__: number = 0.23; // 0-1
 const alphaSetter: (num?: number) => number = (originalAlpha: number = 1) => {
-	const derived = originalAlpha * 0.25;
+	const derived = originalAlpha * ANNULUS_TRACK_ALPHA__;
+	console.log({ originalAlpha, "derived-Alpha": derived });
 	return derived;
 };
 
@@ -67,6 +68,7 @@ const TrackDisc = (props: TrackDiscProps) => {
 	let colorProp: string | string[] = props?.color ?? "";
 	const annulusTrackColorStyles: React.CSSProperties =
 		stylesObjectFromColorProp(colorProp, colorReset);
+	const boldface: string = props.dense ? "0.45em" : "";
 
 	return (
 		<span
@@ -86,7 +88,10 @@ const TrackDisc = (props: TrackDiscProps) => {
 				ref={elemRef}
 				style={{ ...annulusTrackColorStyles, ...styles }}
 			>
-				<span className="rli-d-i-b annulus-track-ring"></span>
+				<span
+					className="rli-d-i-b annulus-track-ring"
+					style={{ ...(boldface && { borderWidth: boldface }) }}
+				></span>
 
 				<Text
 					className="OP-annulus-sector-text"
