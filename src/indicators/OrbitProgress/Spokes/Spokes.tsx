@@ -83,19 +83,13 @@ const Spokes = (props: SpokesProps) => {
 					...(animationPeriod && {
 						"--rli-animation-duration": animationPeriod
 					}),
-					...(easingFn && { "--rli-animation-function": easingFn })
+					...(easingFn && { "--rli-animation-function": easingFn }),
+					...spokesColorStyles,
+					...styles
 				} as React.CSSProperties
 			}
 		>
-			<span
-				className="rli-d-i-b OP-spokes-indicator"
-				style={
-					{
-						...spokesColorStyles,
-						...styles
-					} as React.CSSProperties
-				}
-			>
+			<span className="rli-d-i-b OP-spokes-indicator">
 				{Array.from({ length: numOfSpokes }, (_, idx) => (
 					<span
 						key={makeId()}
@@ -104,7 +98,12 @@ const Spokes = (props: SpokesProps) => {
 					></span>
 				))}
 			</span>
-			<Text text={props?.text} textColor={props?.textColor} />
+
+			<Text
+				text={props?.text}
+				textColor={props?.textColor}
+				// className="OP-spokes-indicator-text"
+			/>
 		</span>
 	);
 };
