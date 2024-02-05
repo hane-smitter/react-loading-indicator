@@ -87,7 +87,6 @@ function stylesObjectFromColorProp(
 	resetToDefaultColors: () => void
 ): React.CSSProperties {
 	const stylesObject: any = {};
-	const switchersLength: number = TDBobColorPhases.length;
 
 	if (!colorProp) {
 		resetToDefaultColors();
