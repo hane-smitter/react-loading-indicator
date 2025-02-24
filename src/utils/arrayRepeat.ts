@@ -5,6 +5,10 @@
  * // returns ["cyan", "red", "cyan", "red"]
  */
 function arrayRepeat(array: string[], length: number = 0): Array<string> {
+	if (array.length === 0) {
+		throw new Error("Input array cannot be empty!");
+	}
+
 	const colorArray: Array<string> = [];
 
 	function repeatToLength(array: string[], length: number = 0): Array<string> {
